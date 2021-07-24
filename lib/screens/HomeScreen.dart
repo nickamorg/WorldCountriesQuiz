@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worldcountriesquiz/Logos.dart';
+import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/AdManager.dart';
 import 'package:worldcountriesquiz/screens/ContentScreen.dart';
 
@@ -14,16 +14,14 @@ class HomeScreen extends StatelessWidget {
 }
 
 class HomeState extends State<Home> {
-    bool dropSphere = false;
 
     @override
     void initState() {
         super.initState();
-        LogosList.init().then((value) {
-			LogosList.loadDataStorage();
-		});
 
-        AdManager.initGoogleMobileAds();
+        CountriesList.init().then((value) => CountriesList.loadDataStorage());
+
+        // AdManager.initGoogleMobileAds();
     }
 
 	@override
@@ -45,7 +43,7 @@ class HomeState extends State<Home> {
                         children: [
                             Card(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(15)
                                 ),
                                 child: Container(
                                     width: MediaQuery.of(context).size.width,
@@ -74,7 +72,7 @@ class HomeState extends State<Home> {
                                 children: [
                                     Card(
                                         shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(15),
+                                            borderRadius: BorderRadius.circular(15)
                                         ),
                                         child: Container(
                                             width: (MediaQuery.of(context).size.width - 40) / 2 - 30,
@@ -93,7 +91,7 @@ class HomeState extends State<Home> {
                                     ),
                                     Card(
                                         shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(15),
+                                            borderRadius: BorderRadius.circular(15)
                                         ),
                                         child: Container(
                                             width: (MediaQuery.of(context).size.width - 40) / 2 - 30,
@@ -118,42 +116,6 @@ class HomeState extends State<Home> {
             )
         );
     }
-}
-
-Widget letter(String str) {
-    return RotationTransition(
-        turns: AlwaysStoppedAnimation(-15 / 360),
-        child: Padding(
-            padding: const EdgeInsets.only(left: 5, right:5),
-            child: Container(
-                height: 60,
-                width: 60,
-                child: Center(
-                    child: Text(
-                        str,
-                        style: TextStyle(
-                            fontFamily: 'Segoe UI',
-                            fontSize: 30,
-                            color: const Color(0xffce17ac),
-                            fontWeight: FontWeight.w700
-                        )
-                    )
-                ),
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    boxShadow: [
-                        BoxShadow(
-                            color: const Color(0x29000000),
-                            offset: Offset(10, 10),
-                            blurRadius: 10
-                        )
-                    ]
-                )
-            )
-        )
-    );
 }
 
 class Home extends StatefulWidget {

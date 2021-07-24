@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worldcountriesquiz/Logos.dart';
-import 'package:worldcountriesquiz/AdManager.dart';
+import 'package:worldcountriesquiz/Countries.dart';
 
 class CountriesScreen extends StatelessWidget {
 
@@ -13,17 +12,7 @@ class CountriesScreen extends StatelessWidget {
 }
 
 class CountriesState extends State<Countries> {
-    bool dropSphere = false;
-
-    @override
-    void initState() {
-        super.initState();
-        LogosList.init().then((value) {
-			LogosList.loadDataStorage();
-		});
-
-        AdManager.initGoogleMobileAds();
-    }
+    String expandedCountry = '';
 
 	@override
     Widget build(BuildContext context) {
@@ -38,174 +27,121 @@ class CountriesState extends State<Countries> {
                     )
                 ),
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
-                    child: ListView(
-                        children: [
-                            Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Container(
-                                    height: 100,
-                                    child: Row(
-                                        children: [
-                                            Expanded(
-                                                child: Center(
-                                                    child: Text(
-                                                        'Greece',
-                                                        style: TextStyle(
-                                                            fontSize: 30,
-                                                            color: Color(0xFF0FBEBE)
-                                                        )
-                                                    )
-                                                )
-                                            ),
-                                            Container(
-                                                width: 140,
-                                                child: Center(
-                                                    child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                            Card(
-                                                                shape: RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.circular(15),
-                                                                ),
-                                                                child: Container(
-                                                                    height: 40,
-                                                                    width: 80,
-                                                                    decoration: new BoxDecoration(
-                                                                        color: Colors.white,
-                                                                        shape: BoxShape.rectangle,
-                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                        border: Border.all(
-                                                                            color:Color(0xFF0FBEBE),
-                                                                            width: 1
-                                                                        )
-                                                                    ),
-                                                                    child: TextButton(
-                                                                        style: TextButton.styleFrom(
-                                                                            padding: EdgeInsets.all(0)
-                                                                        ),
-                                                                        onPressed: () => { },
-                                                                        child: Center(
-                                                                            child: Text(
-                                                                                'Easy',
-                                                                                style: TextStyle(
-                                                                                    fontSize: 20,
-                                                                                    color: Color(0xFF0FBEBE)
-                                                                                )
-                                                                            )
-                                                                        )
-                                                                    )
-                                                                )
-                                                            ),
-                                                            Card(
-                                                                shape: RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.circular(15),
-                                                                ),
-                                                                child: Container(
-                                                                    height: 40,
-                                                                    width: 80,
-                                                                    decoration: new BoxDecoration(
-                                                                        color: Colors.white,
-                                                                        shape: BoxShape.rectangle,
-                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                        border: Border.all(
-                                                                            color: Color(0xFF0FBEBE),
-                                                                            width: 1
-                                                                        )
-                                                                    ),
-                                                                    child: TextButton(
-                                                                        style: TextButton.styleFrom(
-                                                                            padding: EdgeInsets.all(0)
-                                                                        ),
-                                                                        onPressed: () => { },
-                                                                        child: Center(
-                                                                            child: Text(
-                                                                                'Hard',
-                                                                                style: TextStyle(
-                                                                                    fontSize: 20,
-                                                                                    color: Color(0xFF0FBEBE)
-                                                                                )
-                                                                            )
-                                                                        )
-                                                                    )
-                                                                )
-                                                            )
-                                                        ]
-                                                    )
-                                                )
-                                            )
-                                        ]
-                                    )
-                                )
-                            ),
-                            Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)
-                                ),
-                                child: Container(
-                                    height: 100,
-                                    child: TextButton(
-                                        style: TextButton.styleFrom(
-                                            padding: EdgeInsets.all(0)
-                                        ),
-                                        onPressed: () => { },
-                                        child: Center(
-                                            child: Text(
-                                                'Greece',
-                                                style: TextStyle(
-                                                    fontSize: 30,
-                                                    color: Color(0xFF0FBEBE)
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        ]
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                    child: ListView.separated(
+                        separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox( height: 20 );
+                        },
+                        itemCount: CountriesList.countries.length,
+                        itemBuilder: (BuildContext context, int index) {
+                            return getCountryCard(CountriesList.countries[index].title, expandedCountry == CountriesList.countries[index].title);
+                        }
                     )
                 ) 
             )
         );
     }
-}
 
-Widget letter(String str) {
-    return RotationTransition(
-        turns: AlwaysStoppedAnimation(-15 / 360),
-        child: Padding(
-            padding: const EdgeInsets.only(left: 5, right:5),
-            child: Container(
-                height: 60,
-                width: 60,
-                child: Center(
-                    child: Text(
-                        str,
-                        style: TextStyle(
-                            fontFamily: 'Segoe UI',
-                            fontSize: 30,
-                            color: const Color(0xffce17ac),
-                            fontWeight: FontWeight.w700
-                        )
-                    )
+    Card getCountryCard(String title, bool expandOptions) {
+        if (expandOptions) {
+            return Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)
                 ),
+                child: Container(
+                    height: 100,
+                    child: Row(
+                        children: [
+                            Expanded(
+                                child: getCardTitle(title)
+                            ),
+                            Container(
+                                width: 140,
+                                child: Center(
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                            getModeCard('Easy'),
+                                            getModeCard('Hard')
+                                        ]
+                                    )
+                                )
+                            )
+                        ]
+                    )
+                )
+            );
+        } else {
+            return Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                child: Container(
+                    height: 100,
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0)
+                        ),
+                        onPressed: ()  { 
+                            setState(() {
+                                expandedCountry = title;
+                            });
+                        },
+                        child: getCardTitle(title)
+                    )
+                )
+            );
+        }
+    }
+
+    Widget getCardTitle(String title) {
+        return Center(
+            child: Text(
+                title,
+                style: TextStyle(
+                    fontSize: 30,
+                    color: Color(0xFF0FBEBE)
+                )
+            )
+        );
+    }
+
+    Card getModeCard(String title) {
+        return Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+            ),
+            child: Container(
+                height: 40,
+                width: 80,
                 decoration: new BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    boxShadow: [
-                        BoxShadow(
-                            color: const Color(0x29000000),
-                            offset: Offset(10, 10),
-                            blurRadius: 10
+                    border: Border.all(
+                        color: Color(0xFF0FBEBE),
+                        width: 1
+                    )
+                ),
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0)
+                    ),
+                    onPressed: () => { },
+                    child: Center(
+                        child: Text(
+                            title,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xFF0FBEBE)
+                            )
                         )
-                    ]
+                    )
                 )
             )
-        )
-    );
+        );
+    }
 }
 
 class Countries extends StatefulWidget {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:worldcountriesquiz/Logos.dart';
-import 'package:worldcountriesquiz/AdManager.dart';
+import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/screens/SolvedCountriesScreen.dart';
 
 class ContinentsScreen extends StatelessWidget {
@@ -15,17 +14,7 @@ class ContinentsScreen extends StatelessWidget {
 }
 
 class ContinentsState extends State<Continents> {
-    bool dropSphere = false;
-
-    @override
-    void initState() {
-        super.initState();
-        LogosList.init().then((value) {
-			LogosList.loadDataStorage();
-		});
-
-        AdManager.initGoogleMobileAds();
-    }
+    Set<String> continents = CountriesList.getContinents();
 
 	@override
     Widget build(BuildContext context) {
@@ -43,200 +32,104 @@ class ContinentsState extends State<Continents> {
                     padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
                     child: ListView.separated(
                         separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox( height: 20 );
+                            return SizedBox(height: 20);
                         },
-                        itemCount: 2,
+                        itemCount: continents.length,
                         itemBuilder: (BuildContext context, int index) {
-                            return [ Stack(
-                                children: [
-                                    Container(
-                                        height: 115,
-                                        color: Colors.transparent,
-                                        alignment: Alignment.topCenter,
-                                        child: Card(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(15)
-                                            ),
-                                            child: TextButton(
-                                                style: TextButton.styleFrom(
-                                                    padding: EdgeInsets.all(0)
-                                                ),
-                                                onPressed: () => {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) => SolvedCountries()
-                                                        )
-                                                    )
-                                                },
-                                                child: Container(
-                                                    height: 100,
-                                                    child: Center(
-                                                        child: Text(
-                                                            'Asia',
-                                                            style: TextStyle(
-                                                                fontSize: 30,
-                                                                color: Color(0xFF0FBEBE)
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    ),
-                                    Positioned.fill(
-                                        child: Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: SvgPicture.asset(
-                                                'assets/star.svg',
-                                                height: 30
-                                            )
-                                        )
-                                    ),
-                                    Positioned(
-                                        right: 10,
-                                        top: 10,
-                                        child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                                Text(
-                                                    '33/43',
-                                                    style: TextStyle(
-                                                        color: Color(0xFF0FBEBE),
-                                                        fontSize: 16
-                                                    )
-                                                ),
-                                                SizedBox(width: 5),
-                                                SvgPicture.asset(
-                                                    'assets/star.svg',
-                                                    height: 30
-                                                )
-                                            ]
-                                        )
-                                    )
-                                ]   
-                            ),
-                            Stack(
-                                children: [
-                                    Container(
-                                        height: 115,
-                                        color: Colors.transparent,
-                                        alignment: Alignment.topCenter,
-                                        child: Card(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(15)
-                                            ),
-                                            child: TextButton(
-                                                style: TextButton.styleFrom(
-                                                    padding: EdgeInsets.all(0)
-                                                ),
-                                                onPressed: () => {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) => SolvedCountries()
-                                                        )
-                                                    )
-                                                },
-                                                child: Container(
-                                                    height: 100,
-                                                    child: Center(
-                                                        child: Text(
-                                                            'Europe',
-                                                            style: TextStyle(
-                                                                fontSize: 30,
-                                                                color: Color(0xFF0FBEBE)
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    ),
-                                    Positioned.fill(
-                                        child: Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                    SvgPicture.asset(
-                                                        'assets/star.svg',
-                                                        height: 30
-                                                    ),
-                                                    SizedBox(width: 10),
-                                                    SvgPicture.asset(
-                                                        'assets/star.svg',
-                                                        height: 30
-                                                    )
-                                                ]
-                                            )
-                                        )
-                                    ),
-                                    Positioned(
-                                        right: 10,
-                                        top: 10,
-                                        child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                                Text(
-                                                    '33/43',
-                                                    style: TextStyle(
-                                                        color: Color(0xFF0FBEBE),
-                                                        fontSize: 16
-                                                    )
-                                                ),
-                                                SizedBox(width: 5),
-                                                SvgPicture.asset(
-                                                    'assets/star.svg',
-                                                    height: 30
-                                                )
-                                            ]
-                                        )
-                                    )
-                                ]   
-                            ) ][index];
+                            return getContinentCard(continents.elementAt(index));
                         }
                     )
                 ) 
             )
         );
     }
-}
 
-Widget letter(String str) {
-    return RotationTransition(
-        turns: AlwaysStoppedAnimation(-15 / 360),
-        child: Padding(
-            padding: const EdgeInsets.only(left: 5, right:5),
-            child: Container(
-                height: 60,
-                width: 60,
-                child: Center(
-                    child: Text(
-                        str,
-                        style: TextStyle(
-                            fontFamily: 'Segoe UI',
-                            fontSize: 30,
-                            color: const Color(0xffce17ac),
-                            fontWeight: FontWeight.w700
+    Stack getContinentCard(String continent) {
+        return Stack(
+            children: [
+                Container(
+                    height: 115,
+                    color: Colors.transparent,
+                    alignment: Alignment.topCenter,
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)
+                        ),
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                                padding: EdgeInsets.all(0)
+                            ),
+                            onPressed: () => {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SolvedCountries(continentTitle: continent)
+                                    )
+                                )
+                            },
+                            child: Container(
+                                height: 100,
+                                child: Center(
+                                    child: Text(
+                                        continent,
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            color: Color(0xFF0FBEBE)
+                                        )
+                                    )
+                                )
+                            )
                         )
                     )
                 ),
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    boxShadow: [
-                        BoxShadow(
-                            color: const Color(0x29000000),
-                            offset: Offset(10, 10),
-                            blurRadius: 10
-                        )
-                    ]
+                Positioned.fill(
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: CountriesList.isContinentHardSolved(continent) ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                                Star(),
+                                SizedBox(width: 10),
+                                Star()
+                            ]
+                        ) : CountriesList.isContinentEasySolved(continent) ? Star() : SizedBox.shrink()
+                    )
+                ),
+                Positioned(
+                    right: 10,
+                    top: 10,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                            Text(
+                                '${CountriesList.getTotalSolvedStarsByContinent(continent)} / ${CountriesList.getTotalStarsByContinent(continent)}',
+                                style: TextStyle(
+                                    color: Color(0xFF0FBEBE),
+                                    fontSize: 16
+                                )
+                            ),
+                            SizedBox(width: 5),
+                            Star(height: 20)
+                        ]
+                    )
                 )
-            )
-        )
-    );
+            ]   
+        );
+    }
+}
+
+class Star extends StatelessWidget {
+    final double height;
+    
+    Star({this.height = 30});
+
+    @override
+    Widget build(BuildContext context) {
+        return SvgPicture.asset(
+            'assets/star.svg',
+            height: height
+        );
+    }
 }
 
 class Continents extends StatefulWidget {

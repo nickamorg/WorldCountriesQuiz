@@ -1,0 +1,23 @@
+{
+    "Countries": {
+        "Greece": {
+            "Continent": "Europe",
+            "Currency": "€",
+            "Capital": "Athens",
+            "ISO": "GR",
+            "Colors": ["White, Blue"],
+            "Population": 11000000,
+            "Dialing Code": "+30"
+        },
+        "Italy": {
+            "Continent": "Europe",
+            "Currency": "€",
+            "Capital": "Rome",
+            "ISO": "IT",
+            "Colors": ["Green, White, Red"],
+            "Population": 60340328,
+            "Dialing Code": "+39"
+        }
+    }
+}
+
