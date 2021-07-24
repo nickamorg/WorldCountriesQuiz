@@ -36,3 +36,22 @@ flutter:
     - assets/world.png
     - assets/Greece.png
     - assets/star.svg
+
+    - assets/countries/Africa/Egypt.png
+
+    - assets/countries/Asia/Pakistan.png
+
+    - assets/countries/Europe/Greece.png
+    - assets/countries/Europe/Italy.png
+
+    - assets/countries/South America/Argentina.png
+
+    
+    - assets/shapes/Africa/Egypt.png
+
+    - assets/shapes/Asia/Pakistan.png
+
+    - assets/shapes/Europe/Greece.png
+    - assets/shapes/Europe/Italy.png
+
+    - assets/shapes/South America/Argentina.png

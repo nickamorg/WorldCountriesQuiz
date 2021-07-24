@@ -5,7 +5,7 @@
             "Currency": "€",
             "Capital": "Athens",
             "ISO": "GR",
-            "Colors": ["White, Blue"],
+            "Colors": ["White", "Blue"],
             "Population": 11000000,
             "Dialing Code": "+30"
         },
@@ -14,9 +14,39 @@
             "Currency": "€",
             "Capital": "Rome",
             "ISO": "IT",
-            "Colors": ["Green, White, Red"],
+            "Colors": ["Green", "White", "Red"],
             "Population": 60340328,
             "Dialing Code": "+39"
+        },
+        
+        "Argentina": {
+            "Continent": "South America",
+            "Currency": "$",
+            "Capital": "Buenos Aires",
+            "ISO": "AR",
+            "Colors": ["Blue", "White", "Yellow"],
+            "Population": 41343201,
+            "Dialing Code": "+54"
+        },
+
+        "Pakistan": {
+            "Continent": "Asia",
+            "Currency": "₨",
+            "Capital": "Islamabad",
+            "ISO": "PK",
+            "Colors": ["Green", "White"],
+            "Population": 184404791,
+            "Dialing Code": "+54"
+        },
+
+        "Egypt": {
+            "Continent": "Africa",
+            "Currency": "E£",
+            "Capital": "Cairo",
+            "ISO": "EG",
+            "Colors": ["Red", "White", "Black", "Yellow"],
+            "Population": 80471869,
+            "Dialing Code": "+20"
         }
     }
 }

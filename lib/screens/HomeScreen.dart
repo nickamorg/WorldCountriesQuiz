@@ -33,7 +33,7 @@ class HomeState extends State<Home> {
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
                         image: AssetImage("assets/world.png"),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.cover
                     )
                 ),
                 child: Padding(

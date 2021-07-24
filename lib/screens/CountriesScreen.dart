@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:worldcountriesquiz/Countries.dart';
+import 'package:worldcountriesquiz/library.dart';
+import 'package:worldcountriesquiz/screens/GameScreen.dart';
 
 class CountriesScreen extends StatelessWidget {
 
+    CountriesScreen({ Key? key}) : super(key: key);
+
 	@override
 	Widget build(BuildContext context) {
-        return MaterialApp(
-			home: Countries()
-		);
+        return Countries();
 	}
 }
 
@@ -23,7 +25,7 @@ class CountriesState extends State<Countries> {
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
                         image: AssetImage("assets/world.png"),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.cover
                     )
                 ),
                 child: Padding(
@@ -62,8 +64,8 @@ class CountriesState extends State<Countries> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                            getModeCard('Easy'),
-                                            getModeCard('Hard')
+                                            getModeCard(GameMode.EASY),
+                                            getModeCard(GameMode.HARD)
                                         ]
                                     )
                                 )
@@ -107,7 +109,7 @@ class CountriesState extends State<Countries> {
         );
     }
 
-    Card getModeCard(String title) {
+    Card getModeCard(GameMode mode) {
         return Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15)
@@ -128,10 +130,17 @@ class CountriesState extends State<Countries> {
                     style: TextButton.styleFrom(
                         padding: EdgeInsets.all(0)
                     ),
-                    onPressed: () => { },
+                    onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: mode)
+                            )
+                        )
+                    },
                     child: Center(
                         child: Text(
-                            title,
+                            enum2String(mode),
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Color(0xFF0FBEBE)
@@ -142,6 +151,13 @@ class CountriesState extends State<Countries> {
             )
         );
     }
+
+    String enum2String(GameMode mode) {
+        String str = mode.toString().split('.').last.toLowerCase();
+        str = str[0].toUpperCase() + str.substring(1);
+
+        return str;
+    } 
 }
 
 class Countries extends StatefulWidget {

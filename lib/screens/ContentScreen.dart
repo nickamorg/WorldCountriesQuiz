@@ -4,11 +4,11 @@ import 'package:worldcountriesquiz/screens/ContinentsScreen.dart';
 
 class ContentScreen extends StatelessWidget {
 
+    ContentScreen({ Key? key}) : super(key: key);
+
 	@override
 	Widget build(BuildContext context) {
-        return MaterialApp(
-			home: Content()
-		);
+        return Content();
 	}
 }
 
@@ -23,7 +23,7 @@ class ContentState extends State<Content> {
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
                         image: AssetImage("assets/world.png"),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.cover
                     )
                 ),
                 child: Padding(

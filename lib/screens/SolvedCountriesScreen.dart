@@ -9,9 +9,7 @@ class SolvedCountriesScreen extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-        return MaterialApp(
-			home: SolvedCountries(continentTitle: continentTitle)
-		);
+        return SolvedCountries(continentTitle: continentTitle);
 	}
 }
 
@@ -36,7 +34,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
                         image: AssetImage("assets/Greece.png"),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.cover
                     )
                 ),
                 child: Padding(
