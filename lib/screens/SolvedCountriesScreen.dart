@@ -33,7 +33,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                     color: Color(0xFF0FBEBE),
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
-                        image: AssetImage("assets/Greece.png"),
+                        image: AssetImage("assets/countries/Europe/Greece.png"),
                         fit: BoxFit.cover
                     )
                 ),

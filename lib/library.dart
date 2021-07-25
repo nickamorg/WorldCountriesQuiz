@@ -1,3 +1,3 @@
 enum GameMode { EASY, HARD }
 
-enum GameQuiz { CAPITAL, CONTINENT, SHAPE }
+enum GameQuiz { CAPITAL, CONTINENT, SHAPE, POPULATION }

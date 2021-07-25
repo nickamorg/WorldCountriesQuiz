@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worldcountriesquiz/AudioPlayer.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/library.dart';
@@ -33,15 +34,22 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     List<String> capitals = [];
     List<String> continents = [];
     List<String> shapes = [];
+    double population = 0;
+    int populationRange = 0;
 
     int currQuizIdx = 0;
-    int totalModes = 3;
+    int totalModes = 4;
     int selectedCapitalIdx = -1;
     int selectedContinentIdx = -1;
     int selectedShapeIdx = -1;
+    int selectedPersonIdx = -1;
+    bool isPopulationSubmited = false;
+    bool isPopulationCorrect = false;
+    double multiplier = 1;
+
     Country? country;
     GameQuiz? currQuiz;
-    Set<GameQuiz> quizList = {GameQuiz.CAPITAL, GameQuiz.CONTINENT, GameQuiz.SHAPE};
+    Set<GameQuiz> quizList = {GameQuiz.POPULATION, GameQuiz.CAPITAL, GameQuiz.CONTINENT, GameQuiz.SHAPE};
 
     @override
 	void initState() {
@@ -64,8 +72,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         country = CountriesList.getCountryByTitle(countryTitle);
         gameMode = widget.gameMode;
         countriesList = CountriesList.countries.where((country) => country.continent == countryTitle).toList();
-    
-        currQuiz = GameQuiz.CAPITAL;
+
+        totalModes = quizList.length;
+        currQuiz = quizList.elementAt(0);
 
         initMode();
     }
@@ -146,7 +155,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     )
                                 ]
                             ),
-                            SizedBox(height: 30),
+                            SizedBox(height: 20),
                             Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)
@@ -173,10 +182,13 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     )
                                 )
                             ),
-                            SizedBox(height: 60),
+                            SizedBox(height: 20),
                             getCurrentModeCard(),
                             Expanded(
-                                child: getCurrentModeAnswers()
+                                child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: getCurrentModeAnswers()
+                                )
                             )
                         ]
                     )
@@ -197,6 +209,10 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             }
             case GameQuiz.SHAPE: {
                 initModeShape();
+                break;
+            }
+            case GameQuiz.POPULATION: {
+                initModePopulation();
                 break;
             }
         }
@@ -253,11 +269,43 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         setState(() { });
     }
 
+    initModePopulation() {
+        int x2 = 2;
+        double multiplierIterate = 500000000; // 500.000.000
+        int divider = 1000000000; // 1.000.000.000
+        int min = 1000000000; // 1.000.000.000
+
+
+        do {
+            if (country!.population > min) { 
+                population = x2 * country!.population / divider;
+                multiplier = multiplierIterate;
+                break;
+            } else {
+                if (x2 == 2) {
+                    x2 = 1;
+                    multiplierIterate /= 5;
+                    divider ~/= 10;
+                    min ~/= 2;
+                } else {
+                    x2 = 2;
+                    multiplierIterate /= 2;
+                    min ~/= 5;
+                }
+            }
+        } while (true); 
+
+        populationRange = population.round() + 1 + Random().nextInt(4);
+
+        setState(() { });
+    }
+
     Card getCurrentModeCard() {
         switch(currQuiz!) {
             case GameQuiz.CAPITAL: return getModeCapitalCard();
             case GameQuiz.CONTINENT: return getModeContinentCard();
             case GameQuiz.SHAPE: return getModeShapeCard();
+            case GameQuiz.POPULATION: return getModePopulationCard();
         }
     }
 
@@ -266,6 +314,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.CAPITAL: return getModeCapitalAnswers();
             case GameQuiz.CONTINENT: return getModeContinentAnswers();
             case GameQuiz.SHAPE: return getModeShapeAnswers();
+            case GameQuiz.POPULATION: return getModePopulationAnswers();
         }
     }
 
@@ -281,6 +330,10 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         return getModeCard( 'Which is $countryTitle?');
     }
 
+    Card getModePopulationCard() {
+        return getModeCard( 'What is the approximate population of $countryTitle?');
+    }
+
     Card getModeCard(String txt) {
         return Card(
             shape: RoundedRectangleBorder(
@@ -293,7 +346,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                         txt,
                         style: TextStyle(
                             fontSize: 20,
-                            color: Color(0xFF0FBEBE),
+                            color: Color(0xFF0FBEBE)
                         )
                     )
                 )
@@ -397,8 +450,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 1,
+                childAspectRatio: 1
             ),
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: shapes.length,
             itemBuilder: (BuildContext context, int index) {
@@ -415,6 +469,143 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                 );
             }
         );
+    }
+
+    Column getModePopulationAnswers() {
+        List<Widget> population = [];
+
+        for (int i = 0; i < populationRange; i++) {
+            population.add(
+                TextButton(
+                    onPressed: isPopulationSubmited ? null : () {
+                        setState(() {
+                            selectedPersonIdx = i;
+                        });
+                    },
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0)
+                    ),
+                    child: SvgPicture.asset(
+                        i <= selectedPersonIdx ? 'assets/person_full.svg' : 'assets/person_empty.svg',
+                        height: 100
+                    )
+                )
+            );
+        }
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                        Container(
+                            height: 50,
+                            width: 50,
+                            child: TextButton(
+                                onPressed: isPopulationSubmited || selectedPersonIdx + 1 <= 0 ? null : () {
+                                    setState(() {
+                                        selectedPersonIdx -= 1;
+                                    });
+                                },
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.all(0)
+                                ),
+                                child: Icon(
+                                    Icons.remove,
+                                    color: Color(0xFF0FBEBE),
+                                    size: 40
+                                )
+                            ),
+                            decoration: BoxDecoration(
+                                color:  Colors.white,
+                                shape: BoxShape.circle
+                            )
+                        ),
+                        Container(
+                            height: 50,
+                            width: 200,
+                            child: TextButton(
+                                onPressed: isPopulationSubmited ? null : verifyPopulation,
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.all(0)
+                                ),
+                                child: Center(
+                                    child: Text(
+                                        '${trim0Trailing((selectedPersonIdx + 1) * multiplier)}',
+                                        style: TextStyle(
+                                            fontFamily: 'Segoe UI',
+                                            fontSize: 20,
+                                            color: isPopulationSubmited ? Colors.white : Color(0xFF0FBEBE),
+                                            fontWeight: FontWeight.w700
+                                        )
+                                    )
+                                )
+                            ),
+                            decoration: BoxDecoration(
+                                color:  isPopulationSubmited ? isPopulationCorrect ? Colors.green : Colors.red : Colors.white,
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.all(Radius.circular(30))
+                            )
+                        ),
+                        Container(
+                            height: 50,
+                            width: 50,
+                            child: TextButton(
+                                onPressed: isPopulationSubmited || selectedPersonIdx + 1 >= populationRange ? null : () {
+                                    setState(() {
+                                        selectedPersonIdx += 1;
+                                    });
+                                },
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.all(0)
+                                ),
+                                child: Icon(
+                                    Icons.add,
+                                    color: Color(0xFF0FBEBE),
+                                    size: 40
+                                )
+                            ),
+                            decoration: BoxDecoration(
+                                color:  Colors.white,
+                                shape: BoxShape.circle
+                            )
+                        )
+                    ]
+                ),
+                Padding(
+                    padding: EdgeInsets.only(top: 30),
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                            children: population
+                        )
+                    )
+                )
+            ]
+        );
+    }
+
+    String trim0Trailing(double num) {
+        String txt = num.toString();
+
+        txt = num.toString().replaceAll(RegExp(r"([.]*0)(?!.*\d)"), "");
+
+        String newTxt = '';
+        txt = txt.split('').reversed.join('');
+
+        if (txt.length > 3) {
+            for ( int i = 0; i < txt.length; i = i + 3) {
+                if (i + 4 > txt.length) {
+                    newTxt += txt.substring(i);
+                    break;
+                }
+                newTxt += txt.substring(i, i + 3) + '.';
+            }
+        } else {
+            newTxt = txt;
+        }
+
+        return newTxt.split('').reversed.join('');
     }
 
     void verifyCapital(int idx) {
@@ -489,6 +680,32 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         setState(() { });
     }
 
+    void verifyPopulation() {
+        isPopulationSubmited = true;
+
+        if(selectedPersonIdx + 1 == population.round()) {
+            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isPopulationCorrect = true;
+            currQuizIdx++;
+
+            if (currQuizIdx < totalModes) {
+                Future.delayed(Duration(milliseconds: 500), () {
+                    currQuiz = quizList.elementAt(currQuizIdx);
+                    initMode();
+                });
+            }
+        } else {
+            AudioPlayer.play(AudioList.WRONG_ANSWER);
+            isPopulationCorrect = false;
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        }
+
+        setState(() { });
+    }
+
 }
 
 class ModesTracking extends StatelessWidget {
@@ -511,15 +728,15 @@ class ModesTracking extends StatelessWidget {
         for (int i = 0; i < totalModes; i++) {
             modesList.add(
                 Padding(
-                  padding: EdgeInsets.only(right: i + 1 < totalModes ? 20 : 0),
-                  child: Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                          color: currQuizIdx > i ? Color(0xFF13A931) : Color(0xFFBEBEBE),
-                          shape: BoxShape.circle
-                      )
-                  ),
+                    padding: EdgeInsets.only(right: i + 1 < totalModes ? 20 : 0),
+                    child: Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                            color: currQuizIdx > i ? Color(0xFF13A931) : Color(0xFFBEBEBE),
+                            shape: BoxShape.circle
+                        )
+                    )
                 )
             );
         }

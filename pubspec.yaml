@@ -36,6 +36,8 @@ flutter:
     - assets/world.png
     - assets/Greece.png
     - assets/star.svg
+    - assets/person_empty.svg
+    - assets/person_full.svg
 
     - assets/countries/Africa/Egypt.png
 
