@@ -39,25 +39,30 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     List<String> flags = [];
     Set<String> colors = {'Black', 'Blue', 'Green', 'Red', 'White', 'Yellow'};
     List<String> flagColors = [];
+    List<String> isoLetters = [];
 
     int currQuizIdx = 0;
-    int totalModes = 6;
+    int totalModes = 7;
     int selectedCapitalIdx = -1;
     int selectedContinentIdx = -1;
     int selectedShapeIdx = -1;
     int selectedPersonIdx = -1;
-    bool isPopulationSubmited = false;
+    bool isPopulationSubmitted = false;
     bool isPopulationCorrect = false;
     double multiplier = 1;
     int selectedFlagIdx = -1;
     Set<String> selectedMarkers = {};
     int minColors = 2;
-    bool areColorsSubmited = false;
+    bool areColorsSubmitted = false;
     bool areColorsCorrect = false;
+    int isoChar1 = 0;
+    int isoChar2 = 0;
+    bool isIsoSubmitted = false;
+    bool isIsoCorrect = true;
 
     Country? country;
     GameQuiz? currQuiz;
-    Set<GameQuiz> quizList = {GameQuiz.COLORS, GameQuiz.FLAG, GameQuiz.POPULATION, GameQuiz.CAPITAL, GameQuiz.CONTINENT, GameQuiz.SHAPE};
+    Set<GameQuiz> quizList = { GameQuiz.ISO, GameQuiz.COLORS, GameQuiz.FLAG, GameQuiz.POPULATION, GameQuiz.CAPITAL, GameQuiz.CONTINENT, GameQuiz.SHAPE };
 
     @override
 	void initState() {
@@ -232,6 +237,10 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                 initModeColors();
                 break;
             }
+            case GameQuiz.ISO: {
+                initModeIso();
+                break;
+            }
         }
     }
 
@@ -344,6 +353,14 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         setState(() { });
     }
 
+    initModeIso() {
+        for (int i = 65; i <= 90; i++) {
+            isoLetters.add(String.fromCharCode(i));
+        }
+
+        setState(() { });
+    }
+
     Card getCurrentModeCard() {
         switch(currQuiz!) {
             case GameQuiz.CAPITAL: return getModeCapitalCard();
@@ -352,6 +369,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.POPULATION: return getModePopulationCard();
             case GameQuiz.FLAG: return getModeFlagCard();
             case GameQuiz.COLORS: return getModeColorsCard();
+            case GameQuiz.ISO: return getModeIsoCard();
         }
     }
 
@@ -363,6 +381,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.POPULATION: return getModePopulationAnswers();
             case GameQuiz.FLAG: return getModeFlagAnswers();
             case GameQuiz.COLORS: return getModeColorsAnswers();
+            case GameQuiz.ISO: return getModeIsoAnswers();
         }
     }
 
@@ -388,6 +407,10 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
     Card getModeColorsCard() {
         return getModeCard('Select $minColors colors of $countryTitle\'s flag.');
+    }
+
+    Card getModeIsoCard() {
+        return getModeCard('What is the ISO code of $countryTitle?');
     }
 
     Card getModeCard(String txt) {
@@ -539,7 +562,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         for (int i = 0; i < populationRange; i++) {
             population.add(
                 TextButton(
-                    onPressed: isPopulationSubmited ? null : () {
+                    onPressed: isPopulationSubmitted ? null : () {
                         setState(() {
                             selectedPersonIdx = i;
                         });
@@ -564,7 +587,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             height: 50,
                             width: 50,
                             child: TextButton(
-                                onPressed: isPopulationSubmited || selectedPersonIdx + 1 <= 0 ? null : () {
+                                onPressed: isPopulationSubmitted || selectedPersonIdx + 1 <= 0 ? null : () {
                                     setState(() {
                                         selectedPersonIdx -= 1;
                                     });
@@ -587,7 +610,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             height: 50,
                             width: 200,
                             child: TextButton(
-                                onPressed: isPopulationSubmited ? null : verifyPopulation,
+                                onPressed: isPopulationSubmitted ? null : verifyPopulation,
                                 style: TextButton.styleFrom(
                                     padding: EdgeInsets.all(0)
                                 ),
@@ -597,14 +620,14 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                         style: TextStyle(
                                             fontFamily: 'Segoe UI',
                                             fontSize: 20,
-                                            color: isPopulationSubmited ? Colors.white : Color(0xFF0FBEBE),
+                                            color: isPopulationSubmitted ? Colors.white : Color(0xFF0FBEBE),
                                             fontWeight: FontWeight.w700
                                         )
                                     )
                                 )
                             ),
                             decoration: BoxDecoration(
-                                color:  isPopulationSubmited ? isPopulationCorrect ? Colors.green : Colors.red : Colors.white,
+                                color:  isPopulationSubmitted ? isPopulationCorrect ? Colors.green : Colors.red : Colors.white,
                                 shape: BoxShape.rectangle,
                                 borderRadius: BorderRadius.all(Radius.circular(30))
                             )
@@ -613,7 +636,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             height: 50,
                             width: 50,
                             child: TextButton(
-                                onPressed: isPopulationSubmited || selectedPersonIdx + 1 >= populationRange ? null : () {
+                                onPressed: isPopulationSubmitted || selectedPersonIdx + 1 >= populationRange ? null : () {
                                     setState(() {
                                         selectedPersonIdx += 1;
                                     });
@@ -687,7 +710,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     duration: Duration(milliseconds: 500),
                     opacity: selectedMarkers.contains(colors.elementAt(i)) ? 1 : 0.5,
                     child: TextButton(
-                        onPressed: isPopulationSubmited ? null : () {
+                        onPressed: isPopulationSubmitted ? null : () {
                             setState(() {
                                 if (selectedMarkers.contains(colors.elementAt(i))) {
                                     selectedMarkers.remove(colors.elementAt(i));
@@ -702,7 +725,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                         },
                         style: TextButton.styleFrom(
                             padding: EdgeInsets.all(0),
-                            backgroundColor: areColorsSubmited && selectedMarkers.contains(colors.elementAt(i)) ? flagColors.contains(colors.elementAt(i)) ? Colors.green : Colors.red : Colors.transparent 
+                            backgroundColor: areColorsSubmitted && selectedMarkers.contains(colors.elementAt(i)) ? flagColors.contains(colors.elementAt(i)) ? Colors.green : Colors.red : Colors.transparent 
                         ),
                         child: SvgPicture.asset(
                             'assets/markers/${colors.elementAt(i)}.svg',
@@ -719,7 +742,14 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                 Stack(
                     children: [
                         Image(image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png')),
-                        areColorsSubmited ? SizedBox.shrink() : Opacity(opacity: 0.92, child: Image(image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png'), color: Colors.black))
+                        AnimatedOpacity(
+                            duration: Duration(milliseconds: 500),
+                            opacity: areColorsSubmitted ? 0 : 0.92,
+                            child: Image(
+                                image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png'),
+                                color: Colors.black
+                            )
+                        )
                     ]
                 ),
                 SingleChildScrollView(
@@ -727,6 +757,90 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     child: Row(
                         children: colorMarkers
                     )
+                )
+            ]
+        );
+    }
+
+    Column getModeIsoAnswers() {
+        List<Widget> answers = [];
+
+        for (int i = 0; i < isoLetters.length; i++) {
+            answers.add(
+                Text(
+                    isoLetters[i],
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: isIsoSubmitted ? Colors.white : Color(0xFF0FBEBE)
+                    )
+                )
+            );
+        }
+
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+                Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle
+                        ),
+                        child: TextButton(
+                            onPressed: isIsoSubmitted ? null : verifyIso,
+                            child: Icon(
+                                Icons.check,
+                                color: Color(0xFF0FBEBE),
+                                size: 40
+                            )
+                        )
+                    )
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)
+                            ),
+                            color: isIsoSubmitted ? isoLetters[isoChar1] == country!.iso[0] ? Colors.green : Colors.red : Colors.white,
+                            child: Container(
+                                height: 100,
+                                width: 50,
+                                child: ListWheelScrollView.useDelegate(
+                                    physics: isIsoSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
+                                    perspective: 0.01,
+                                    itemExtent: 50,
+                                    childDelegate: ListWheelChildLoopingListDelegate(
+                                        children: answers
+                                    ),
+                                    onSelectedItemChanged: (index) => isoChar1 = index
+                                )
+                            )
+                        ),
+                        Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)
+                            ),
+                            color: isIsoSubmitted ? isoLetters[isoChar2] == country!.iso[1] ? Colors.green : Colors.red : Colors.white,
+                            child: Container(
+                                height: 100,
+                                width: 50,
+                                child: ListWheelScrollView.useDelegate(
+                                    physics: isIsoSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
+                                    perspective: 0.01,
+                                    itemExtent: 50,
+                                    childDelegate: ListWheelChildLoopingListDelegate(
+                                        children: answers
+                                    ),
+                                    onSelectedItemChanged: (index) => isoChar2 = index
+                                )
+                            )
+                        )
+                    ]
                 )
             ]
         );
@@ -758,7 +872,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     void verifyCapital(int idx) {
         selectedCapitalIdx = idx;
 
-        if(country!.capital == capitals[idx]) {
+        if (country!.capital == capitals[idx]) {
             AudioPlayer.play(AudioList.CORRECT_ANSWER);
             currQuizIdx++;
 
@@ -782,7 +896,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     void verifyContinent(int idx) {
         selectedContinentIdx = idx;
 
-        if(country!.continent == continents[idx]) {
+        if (country!.continent == continents[idx]) {
             AudioPlayer.play(AudioList.CORRECT_ANSWER);
             currQuizIdx++;
 
@@ -806,7 +920,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     void verifyShape(int idx) {
         selectedShapeIdx = idx;
 
-        if(shapes[idx].contains(country!.title)) {
+        if (shapes[idx].contains(country!.title)) {
             AudioPlayer.play(AudioList.CORRECT_ANSWER);
             currQuizIdx++;
 
@@ -828,9 +942,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     void verifyPopulation() {
-        isPopulationSubmited = true;
+        isPopulationSubmitted = true;
 
-        if(selectedPersonIdx + 1 == population.round()) {
+        if (selectedPersonIdx + 1 == population.round()) {
             AudioPlayer.play(AudioList.CORRECT_ANSWER);
             isPopulationCorrect = true;
             currQuizIdx++;
@@ -856,7 +970,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     void verifyFlag(int idx) {
         selectedFlagIdx = idx;
 
-        if(flags[idx].contains(country!.title)) {
+        if (flags[idx].contains(country!.title)) {
             AudioPlayer.play(AudioList.CORRECT_ANSWER);
             currQuizIdx++;
 
@@ -878,9 +992,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     void verifyColors() {
-        areColorsSubmited = true;
+        areColorsSubmitted = true;
 
-        if(selectedMarkers.every((marker) => flagColors.contains(marker))) {
+        if (selectedMarkers.every((marker) => flagColors.contains(marker))) {
             AudioPlayer.play(AudioList.CORRECT_ANSWER);
             areColorsCorrect = true;
             currQuizIdx++;
@@ -894,6 +1008,32 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         } else {
             AudioPlayer.play(AudioList.WRONG_ANSWER);
             areColorsCorrect = false;
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        }
+
+        setState(() { });
+    }
+
+    void verifyIso() {
+        isIsoSubmitted = true;
+
+        if (isoLetters[isoChar1] + isoLetters[isoChar2] == country!.iso) {
+            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isIsoCorrect = true;
+            currQuizIdx++;
+
+            if (currQuizIdx < totalModes) {
+                Future.delayed(Duration(milliseconds: 1000), () {
+                    currQuiz = quizList.elementAt(currQuizIdx);
+                    initMode();
+                });
+            }
+        } else {
+            AudioPlayer.play(AudioList.WRONG_ANSWER);
+            isIsoCorrect = false;
 
             Future.delayed(Duration(milliseconds: 1000), () {
                 Navigator.of(context).pop(true);
