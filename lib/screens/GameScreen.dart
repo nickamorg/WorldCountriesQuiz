@@ -42,7 +42,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     List<String> isoLetters = [];
 
     int currQuizIdx = 0;
-    int totalModes = 7;
+    int totalModes = 0;
     int selectedCapitalIdx = -1;
     int selectedContinentIdx = -1;
     int selectedShapeIdx = -1;
@@ -59,10 +59,13 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     int isoChar2 = 0;
     bool isIsoSubmitted = false;
     bool isIsoCorrect = true;
+    String isLandlockedOrCoastal = '';
 
     Country? country;
     GameQuiz? currQuiz;
-    Set<GameQuiz> quizList = { GameQuiz.ISO, GameQuiz.COLORS, GameQuiz.FLAG, GameQuiz.POPULATION, GameQuiz.CAPITAL, GameQuiz.CONTINENT, GameQuiz.SHAPE };
+    List<GameQuiz> quizList = [ ];
+    List<GameQuiz> easyQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.FLAG, GameQuiz.ISO, GameQuiz.CAPITAL ];
+    List<GameQuiz> hardQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.FLAG, GameQuiz.ISO, GameQuiz.CAPITAL, GameQuiz.COLORS, GameQuiz.POPULATION ];
 
     @override
 	void initState() {
@@ -84,10 +87,11 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         countryTitle = widget.countryTitle;
         country = CountriesList.getCountryByTitle(countryTitle);
         gameMode = widget.gameMode;
+        quizList = gameMode == GameMode.EASY ? easyQuiz : hardQuiz;
         countriesList = CountriesList.countries.where((country) => country.continent == countryTitle).toList();
 
         totalModes = quizList.length;
-        currQuiz = quizList.elementAt(0);
+        currQuiz = quizList[0];
 
         initMode();
     }
@@ -98,7 +102,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             body: Container(
                 decoration: BoxDecoration(
                     color: Color(0xFF0FBEBE),
-                    image: DecorationImage(
+                    image: currQuizIdx == 0 ? null : DecorationImage(
                         image: AssetImage('assets/countries/' + country!.continent + '/' + country!.title + '.png'),
                         colorFilter: ColorFilter.linearToSrgbGamma(),
                         fit: BoxFit.cover
@@ -175,7 +179,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(15)
                                 ),
                                 child: Container(
-                                    height: 100,
+                                    height: 130,
                                     child: Column(
                                         children: [
                                             Container(
@@ -191,13 +195,20 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                                     )
                                                 )
                                             ),
-                                            ModesTracking(currQuizIdx: currQuizIdx, totalModes: totalModes)
+                                            ModesTracking(currQuizIdx: currQuizIdx, totalModes: totalModes),
+                                            SizedBox(height: 10),
+                                            Text(
+                                                getCurrentModeDescription(),
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Color(0xFF0FBEBE),
+                                                    fontWeight: FontWeight.bold
+                                                )
+                                            )
                                         ]
                                     )
                                 )
                             ),
-                            SizedBox(height: 20),
-                            getCurrentModeCard(),
                             Expanded(
                                 child: Align(
                                     alignment: Alignment.bottomCenter,
@@ -212,7 +223,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     initMode() {
-        switch(quizList.elementAt(currQuizIdx)) {
+        switch(quizList[currQuizIdx]) {
             case GameQuiz.CAPITAL: {
                 initModeCapital();
                 break;
@@ -241,6 +252,10 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                 initModeIso();
                 break;
             }
+            case GameQuiz.LANDLOCKED: {
+                initModeLandlocked();
+                break;
+            }
         }
     }
 
@@ -262,17 +277,12 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     initModeContinent() {
-        Set<String> continentsSet = {};
-
-        continentsSet.add(country!.continent);
-
-        do {
-            int countryIdx = Random().nextInt(CountriesList.countries.length);
-
-            continentsSet.add(CountriesList.countries[countryIdx].continent);
-        } while (continentsSet.length < 4);
-
-        continents = continentsSet.toList();
+        List<String> allContinents = ['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'];
+        allContinents.remove(country!.continent);
+        allContinents.shuffle();
+        
+        continents = allContinents.sublist(0, 3);
+        continents.add(country!.continent);
         continents.shuffle();
 
         setState(() { });
@@ -361,15 +371,20 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         setState(() { });
     }
 
-    Card getCurrentModeCard() {
+    initModeLandlocked() {
+        setState(() { });
+    }
+
+    String getCurrentModeDescription() {
         switch(currQuiz!) {
-            case GameQuiz.CAPITAL: return getModeCapitalCard();
-            case GameQuiz.CONTINENT: return getModeContinentCard();
-            case GameQuiz.SHAPE: return getModeShapeCard();
-            case GameQuiz.POPULATION: return getModePopulationCard();
-            case GameQuiz.FLAG: return getModeFlagCard();
-            case GameQuiz.COLORS: return getModeColorsCard();
-            case GameQuiz.ISO: return getModeIsoCard();
+            case GameQuiz.CAPITAL: return 'Capital';
+            case GameQuiz.CONTINENT: return 'Continent';
+            case GameQuiz.SHAPE: return 'Shape';
+            case GameQuiz.POPULATION: return 'Approximate Population';
+            case GameQuiz.FLAG: return 'Flag';
+            case GameQuiz.COLORS: return '$minColors Colors';
+            case GameQuiz.ISO: return 'ISO Code';
+            case GameQuiz.LANDLOCKED: return 'Landlocked or Coastal';
         }
     }
 
@@ -382,55 +397,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.FLAG: return getModeFlagAnswers();
             case GameQuiz.COLORS: return getModeColorsAnswers();
             case GameQuiz.ISO: return getModeIsoAnswers();
+            case GameQuiz.LANDLOCKED: return getModeLandlockedAnswers();
         }
-    }
-
-    Card getModeCapitalCard() {
-        return getModeCard('What is the Capital of $countryTitle?');
-    }
-
-    Card getModeContinentCard() {
-        return getModeCard('What Continent is $countryTitle In?');
-    }
-
-    Card getModeShapeCard() {
-        return getModeCard('Which is $countryTitle?');
-    }
-
-    Card getModePopulationCard() {
-        return getModeCard('What is the approximate population of $countryTitle?');
-    }
-
-    Card getModeFlagCard() {
-        return getModeCard('What is the flag of $countryTitle?');
-    }
-
-    Card getModeColorsCard() {
-        return getModeCard('Select $minColors colors of $countryTitle\'s flag.');
-    }
-
-    Card getModeIsoCard() {
-        return getModeCard('What is the ISO code of $countryTitle?');
-    }
-
-    Card getModeCard(String txt) {
-        return Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-            ),
-            child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Center(
-                    child: Text(
-                        txt,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color(0xFF0FBEBE)
-                        )
-                    )
-                )
-            )
-        );
     }
 
     Column getModeCapitalAnswers() {
@@ -479,49 +447,34 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         );
     }
 
-    Column getModeContinentAnswers() {
-        List<Widget> answers = [];
-
-        for (int i = 0; i < continents.length; i++) {
-            answers.add(
-                Padding(
-                    padding: EdgeInsets.only(bottom: i + 1 < continents.length ? 20 : 0),
-                    child: Container(
-                        height: 50,
-                        alignment: Alignment.center,
-                        child: TextButton(
-                            onPressed: selectedContinentIdx != -1 ? null : () { 
-                                verifyContinent(i);
-                            },
-                            style: TextButton.styleFrom(
-                                padding: EdgeInsets.all(0)
-                            ),
-                            child: Center(
-                                child: Text(
-                                    continents.elementAt(i),
-                                    style: TextStyle(
-                                        fontFamily: 'Segoe UI',
-                                        fontSize: 20,
-                                        color: selectedContinentIdx == - 1 || selectedContinentIdx != i ? Color(0xFF0FBEBE) : Colors.white,
-                                        fontWeight: FontWeight.w700
-                                    )
-                                )
+    GridView getModeContinentAnswers() {
+        return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1
+            ),
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: continents.length,
+            itemBuilder: (BuildContext context, int index) {
+                return TextButton(
+                    onPressed: selectedContinentIdx != -1 ? null : () { 
+                        verifyContinent(index);
+                    },
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0),
+                        backgroundColor: selectedContinentIdx != - 1 && selectedContinentIdx == index ? continents[selectedContinentIdx].contains(country!.continent) ? Colors.green : Colors.red : Colors.transparent
+                    ),
+                    child: SizedBox(
+                        child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Image(
+                                image: AssetImage('assets/continents/' + continents[index] + '.png')
                             )
-                        ),
-                        decoration: BoxDecoration(
-                            color: selectedContinentIdx == - 1 || selectedContinentIdx != i ? Colors.white : continents[selectedContinentIdx] == country!.continent ? Colors.green : Colors.red,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(30))
                         )
                     )
-                )
-            );
-        }
-
-        return Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: answers
+                );
+            }
         );
     }
 
@@ -729,7 +682,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                         ),
                         child: SvgPicture.asset(
                             'assets/markers/${colors.elementAt(i)}.svg',
-                            height: selectedMarkers.contains(colors.elementAt(i)) ? 120 : 100
+                            height: 100
                         )
                     )
                 )
@@ -763,20 +716,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     Column getModeIsoAnswers() {
-        List<Widget> answers = [];
-
-        for (int i = 0; i < isoLetters.length; i++) {
-            answers.add(
-                Text(
-                    isoLetters[i],
-                    style: TextStyle(
-                        fontSize: 30,
-                        color: isIsoSubmitted ? Colors.white : Color(0xFF0FBEBE)
-                    )
-                )
-            );
-        }
-
         return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -815,9 +754,13 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     perspective: 0.01,
                                     itemExtent: 50,
                                     childDelegate: ListWheelChildLoopingListDelegate(
-                                        children: answers
+                                        children: getIsoLetters(isoChar1)
                                     ),
-                                    onSelectedItemChanged: (index) => isoChar1 = index
+                                    onSelectedItemChanged: (index) {
+                                        setState(() {
+                                            isoChar1 = index;
+                                        });
+                                    }
                                 )
                             )
                         ),
@@ -834,13 +777,101 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     perspective: 0.01,
                                     itemExtent: 50,
                                     childDelegate: ListWheelChildLoopingListDelegate(
-                                        children: answers
+                                        children: getIsoLetters(isoChar2)
                                     ),
-                                    onSelectedItemChanged: (index) => isoChar2 = index
+                                    onSelectedItemChanged: (index) {
+                                        setState(() {
+                                            isoChar2 = index;
+                                        });
+                                    }
                                 )
                             )
                         )
                     ]
+                )
+            ]
+        );
+    }
+
+    List<Widget> getIsoLetters(int currIsoChar) {
+        List<Widget> answers = [];
+
+        for (int i = 0; i < isoLetters.length; i++) {
+            answers.add(
+                Text(
+                    isoLetters[i],
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: isIsoSubmitted ? Colors.white : currIsoChar == i ? Color(0xFF0FBEBE) : Colors.black
+                    )
+                )
+            );
+        }
+
+        return answers;
+    }
+
+    Row getModeLandlockedAnswers() {
+        return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+                Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)
+                    ),
+                    color: isLandlockedOrCoastal == 'Landlocked' ? country!.isLandlocked ? Colors.green : Colors.red : Colors.white,
+                    child: TextButton(
+                        onPressed: () => {
+                            verifyLandlocked('Landlocked')
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0)
+                        ),
+                        child: Container(
+                            width: 150,
+                            height: 150,
+                            child: Center(
+                                child: Text(
+                                    'Landlocked',
+                                    style: TextStyle(
+                                        fontFamily: 'Segoe UI',
+                                        fontSize: 20,
+                                        color: isLandlockedOrCoastal == 'Landlocked' ? Colors.white : Color(0xFF0FBEBE),
+                                        fontWeight: FontWeight.w700
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)
+                    ),
+                    color: isLandlockedOrCoastal == 'Coastal' ? !country!.isLandlocked ? Colors.green : Colors.red : Colors.white,
+                    child: TextButton(
+                        onPressed: () => {
+                            verifyLandlocked('Coastal')
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0)
+                        ),
+                        child: Container(
+                            width: 150,
+                            height: 150,
+                            child: Center(
+                                child: Text(
+                                    'Coastal',
+                                    style: TextStyle(
+                                        fontFamily: 'Segoe UI',
+                                        fontSize: 20,
+                                        color: isLandlockedOrCoastal == 'Coastal' ? Colors.white : Color(0xFF0FBEBE),
+                                        fontWeight: FontWeight.w700
+                                    )
+                                )
+                            )
+                        )
+                    )
                 )
             ]
         );
@@ -878,7 +909,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
-                    currQuiz = quizList.elementAt(currQuizIdx);
+                    currQuiz = quizList[currQuizIdx];
                     initMode();
                 });
             }
@@ -902,7 +933,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
-                    currQuiz = quizList.elementAt(currQuizIdx);
+                    currQuiz = quizList[currQuizIdx];
                     initMode();
                 });
             }
@@ -926,7 +957,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
-                    currQuiz = quizList.elementAt(currQuizIdx);
+                    currQuiz = quizList[currQuizIdx];
                     initMode();
                 });
             }
@@ -951,7 +982,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
-                    currQuiz = quizList.elementAt(currQuizIdx);
+                    currQuiz = quizList[currQuizIdx];
                     initMode();
                 });
             }
@@ -976,7 +1007,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
-                    currQuiz = quizList.elementAt(currQuizIdx);
+                    currQuiz = quizList[currQuizIdx];
                     initMode();
                 });
             }
@@ -1001,7 +1032,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 1000), () {
-                    currQuiz = quizList.elementAt(currQuizIdx);
+                    currQuiz = quizList[currQuizIdx];
                     initMode();
                 });
             }
@@ -1027,7 +1058,35 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 1000), () {
-                    currQuiz = quizList.elementAt(currQuizIdx);
+                    currQuiz = quizList[currQuizIdx];
+                    initMode();
+                });
+            }
+        } else {
+            AudioPlayer.play(AudioList.WRONG_ANSWER);
+            isIsoCorrect = false;
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        }
+
+        setState(() { });
+    }
+
+    void verifyLandlocked(String response) {
+        isLandlockedOrCoastal = response;
+
+        if (response == 'Landlocked' && country!.isLandlocked || 
+            response == 'Coastal' && !country!.isLandlocked) {
+
+            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isIsoCorrect = true;
+            currQuizIdx++;
+
+            if (currQuizIdx < totalModes) {
+                Future.delayed(Duration(milliseconds: 1000), () {
+                    currQuiz = quizList[currQuizIdx];
                     initMode();
                 });
             }

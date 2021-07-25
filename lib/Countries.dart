@@ -13,11 +13,13 @@ class Country {
     List<String> colors;
     int population;
     String dialingCode;
+    bool isLandlocked;
     bool isEasySolved = false;
     bool isHardSolved = false;
 
     Country({required this.title, required this.continent, required this.currency, required this.capital, 
-             required this.iso, required this.colors, required this.population, required this.dialingCode}) {
+             required this.iso, required this.colors, required this.population, required this.dialingCode,
+             required this.isLandlocked}) {
         this.title = title;
         this.continent = continent;
         this.currency = this.currency;
@@ -26,6 +28,7 @@ class Country {
         this.colors = colors;
         this.population = population;
         this.dialingCode = dialingCode;
+        this.isLandlocked = isLandlocked;
     }
 }
 
@@ -42,12 +45,12 @@ class CountriesList {
 			await loadAsset().then((val) {
                 Map<String, dynamic> countriesList = jsonDecode(val);
 
-                countriesList["Countries"].forEach((title, value) {
+                countriesList['Countries'].forEach((title, value) {
                     Map<String, dynamic> properties = Map.from(value);
-                    countries.add(Country(title: title, continent: properties["Continent"], currency: properties["Currency"],
-                                          capital: properties["Capital"], colors: List<String>.from(properties["Colors"]),
-                                          dialingCode: properties["Dialing Code"], iso: properties["ISO"],
-                                          population: properties["Population"]));
+                    countries.add(Country(title: title, continent: properties['Continent'], currency: properties['Currency'],
+                                          capital: properties['Capital'], colors: List<String>.from(properties['Colors']),
+                                          dialingCode: properties['Dialing Code'], iso: properties['ISO'],
+                                          population: properties['Population'], isLandlocked: properties['Landlocked']));
                 });
             });
             
@@ -95,21 +98,21 @@ class CountriesList {
     }
 
     static void storeData() {
-		// String str = '{"categories":{';
+		// String str = '{'categories':{';
 
         // int catIdx = categories.length;
         // categories.forEach((cat) {
-        //     str += '"${cat.title}":{"highScore":${cat.highScore}, "Countries": [';
+        //     str += ''${cat.title}':{'highScore':${cat.highScore}, 'Countries': [';
 
         //     int countryIdx = cat.Countries.length;
         //     cat.Countries.forEach((country) {
-        //         str += '{"${country.title}":${country.isSolved}}${(--countryIdx > 0 ? ',' : '')}';
+        //         str += '{'${country.title}':${country.isSolved}}${(--countryIdx > 0 ? ',' : '')}';
         //     });
 
         //     str += ']}${(--catIdx > 0 ? ',' : '')}';
         // });
 
-        // str += '},"hints":$hints}';
+        // str += '},'hints':$hints}';
 
 		// DataStorage.writeData(str);
     }

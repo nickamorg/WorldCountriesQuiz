@@ -79,3 +79,11 @@ flutter:
     - assets/markers/Red.svg
     - assets/markers/White.svg
     - assets/markers/Yellow.svg
+
+    # Continents
+    - assets/continents/Africa.png
+    - assets/continents/Asia.png
+    - assets/continents/Europe.png
+    - assets/continents/North America.png
+    - assets/continents/Oceania.png
+    - assets/continents/South America.png

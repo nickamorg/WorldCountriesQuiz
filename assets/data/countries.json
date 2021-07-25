@@ -7,7 +7,8 @@
             "ISO": "GR",
             "Colors": ["White", "Blue"],
             "Population": 11000000,
-            "Dialing Code": "+30"
+            "Dialing Code": "+30",
+            "Landlocked": false
         },
         "Italy": {
             "Continent": "Europe",
@@ -16,7 +17,8 @@
             "ISO": "IT",
             "Colors": ["Green", "White", "Red"],
             "Population": 60340328,
-            "Dialing Code": "+39"
+            "Dialing Code": "+39",
+            "Landlocked": false
         },
         
         "Argentina": {
@@ -26,7 +28,8 @@
             "ISO": "AR",
             "Colors": ["Blue", "White", "Yellow"],
             "Population": 41343201,
-            "Dialing Code": "+54"
+            "Dialing Code": "+54",
+            "Landlocked": false
         },
 
         "Pakistan": {
@@ -36,7 +39,8 @@
             "ISO": "PK",
             "Colors": ["Green", "White"],
             "Population": 184404791,
-            "Dialing Code": "+54"
+            "Dialing Code": "+54",
+            "Landlocked": false
         },
 
         "Egypt": {
@@ -46,7 +50,8 @@
             "ISO": "EG",
             "Colors": ["Red", "White", "Black", "Yellow"],
             "Population": 80471869,
-            "Dialing Code": "+20"
+            "Dialing Code": "+20",
+            "Landlocked": false
         }
     }
 }
