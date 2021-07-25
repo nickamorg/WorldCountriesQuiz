@@ -39,6 +39,8 @@ flutter:
     - assets/person_empty.svg
     - assets/person_full.svg
 
+
+    # Countries
     - assets/countries/Africa/Egypt.png
 
     - assets/countries/Asia/Pakistan.png
@@ -48,7 +50,8 @@ flutter:
 
     - assets/countries/South America/Argentina.png
 
-    
+
+    # Shapes  
     - assets/shapes/Africa/Egypt.png
 
     - assets/shapes/Asia/Pakistan.png
@@ -57,3 +60,22 @@ flutter:
     - assets/shapes/Europe/Italy.png
 
     - assets/shapes/South America/Argentina.png
+
+
+    # Flags
+    - assets/flags/Africa/Egypt.png
+
+    - assets/flags/Asia/Pakistan.png
+
+    - assets/flags/Europe/Greece.png
+    - assets/flags/Europe/Italy.png
+
+    - assets/flags/South America/Argentina.png
+
+    # Markers
+    - assets/markers/Black.svg
+    - assets/markers/Blue.svg
+    - assets/markers/Green.svg
+    - assets/markers/Red.svg
+    - assets/markers/White.svg
+    - assets/markers/Yellow.svg

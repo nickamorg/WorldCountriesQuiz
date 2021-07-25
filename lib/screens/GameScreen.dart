@@ -36,9 +36,12 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     List<String> shapes = [];
     double population = 0;
     int populationRange = 0;
+    List<String> flags = [];
+    Set<String> colors = {'Black', 'Blue', 'Green', 'Red', 'White', 'Yellow'};
+    List<String> flagColors = [];
 
     int currQuizIdx = 0;
-    int totalModes = 4;
+    int totalModes = 6;
     int selectedCapitalIdx = -1;
     int selectedContinentIdx = -1;
     int selectedShapeIdx = -1;
@@ -46,10 +49,15 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     bool isPopulationSubmited = false;
     bool isPopulationCorrect = false;
     double multiplier = 1;
+    int selectedFlagIdx = -1;
+    Set<String> selectedMarkers = {};
+    int minColors = 2;
+    bool areColorsSubmited = false;
+    bool areColorsCorrect = false;
 
     Country? country;
     GameQuiz? currQuiz;
-    Set<GameQuiz> quizList = {GameQuiz.POPULATION, GameQuiz.CAPITAL, GameQuiz.CONTINENT, GameQuiz.SHAPE};
+    Set<GameQuiz> quizList = {GameQuiz.COLORS, GameQuiz.FLAG, GameQuiz.POPULATION, GameQuiz.CAPITAL, GameQuiz.CONTINENT, GameQuiz.SHAPE};
 
     @override
 	void initState() {
@@ -126,7 +134,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                             children: [
                                                 SizedBox(
                                                     width: 20,
-                                                    child: Image(image: AssetImage('assets/hint.png'), fit: BoxFit.contain)
+                                                    child: Image(
+                                                        image: AssetImage('assets/hint.png'), fit: BoxFit.contain)
                                                 ),
                                                 SizedBox(
                                                     width: 10
@@ -215,6 +224,14 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                 initModePopulation();
                 break;
             }
+            case GameQuiz.FLAG: {
+                initModeFlag();
+                break;
+            }
+            case GameQuiz.COLORS: {
+                initModeColors();
+                break;
+            }
         }
     }
 
@@ -275,7 +292,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         int divider = 1000000000; // 1.000.000.000
         int min = 1000000000; // 1.000.000.000
 
-
         do {
             if (country!.population > min) { 
                 population = x2 * country!.population / divider;
@@ -300,12 +316,42 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         setState(() { });
     }
 
+    initModeFlag() {
+        Set<String> flagsSet = {};
+
+        flagsSet.add(country!.continent + '/' + country!.title);
+
+        do {
+            int countryIdx = Random().nextInt(CountriesList.countries.length);
+
+            flagsSet.add(CountriesList.countries[countryIdx].continent + '/' + CountriesList.countries[countryIdx].title);
+        } while (flagsSet.length < 4);
+
+        flags = flagsSet.toList();
+        flags.shuffle();
+
+        setState(() { });
+    }
+    
+    initModeColors() {
+        flagColors = country!.colors;
+        
+        if (flagColors.length <= 2) {
+            minColors = flagColors.length;
+        } else {
+            minColors = 2 + Random().nextInt(flagColors.length - 1);
+        }
+        setState(() { });
+    }
+
     Card getCurrentModeCard() {
         switch(currQuiz!) {
             case GameQuiz.CAPITAL: return getModeCapitalCard();
             case GameQuiz.CONTINENT: return getModeContinentCard();
             case GameQuiz.SHAPE: return getModeShapeCard();
             case GameQuiz.POPULATION: return getModePopulationCard();
+            case GameQuiz.FLAG: return getModeFlagCard();
+            case GameQuiz.COLORS: return getModeColorsCard();
         }
     }
 
@@ -315,23 +361,33 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.CONTINENT: return getModeContinentAnswers();
             case GameQuiz.SHAPE: return getModeShapeAnswers();
             case GameQuiz.POPULATION: return getModePopulationAnswers();
+            case GameQuiz.FLAG: return getModeFlagAnswers();
+            case GameQuiz.COLORS: return getModeColorsAnswers();
         }
     }
 
     Card getModeCapitalCard() {
-        return getModeCard( 'What is the Capital of $countryTitle?');
+        return getModeCard('What is the Capital of $countryTitle?');
     }
 
     Card getModeContinentCard() {
-        return getModeCard( 'What Continent is $countryTitle In?');
+        return getModeCard('What Continent is $countryTitle In?');
     }
 
     Card getModeShapeCard() {
-        return getModeCard( 'Which is $countryTitle?');
+        return getModeCard('Which is $countryTitle?');
     }
 
     Card getModePopulationCard() {
-        return getModeCard( 'What is the approximate population of $countryTitle?');
+        return getModeCard('What is the approximate population of $countryTitle?');
+    }
+
+    Card getModeFlagCard() {
+        return getModeCard('What is the flag of $countryTitle?');
+    }
+
+    Card getModeColorsCard() {
+        return getModeCard('Select $minColors colors of $countryTitle\'s flag.');
     }
 
     Card getModeCard(String txt) {
@@ -460,10 +516,16 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     onPressed: selectedShapeIdx != -1 ? null : () { 
                         verifyShape(index);
                     },
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0),
+                        backgroundColor: selectedShapeIdx != - 1 && selectedShapeIdx == index ? shapes[selectedShapeIdx].contains(country!.title) ? Colors.green : Colors.red : Colors.transparent
+                    ),
                     child: SizedBox(
                         child: Padding(
                             padding: const EdgeInsets.all(15),
-                            child: Image(image: AssetImage('assets/shapes/' + shapes[index] + '.png'))
+                            child: Image(
+                                image: AssetImage('assets/shapes/' + shapes[index] + '.png')
+                            )
                         )
                     )
                 );
@@ -585,6 +647,91 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         );
     }
 
+    GridView getModeFlagAnswers() {
+        return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1
+            ),
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: flags.length,
+            itemBuilder: (BuildContext context, int index) {
+                return TextButton(
+                    onPressed: selectedFlagIdx != -1 ? null : () { 
+                        verifyFlag(index);
+                    },
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0),
+                        backgroundColor: selectedFlagIdx != - 1 && selectedFlagIdx == index ? flags[selectedFlagIdx].contains(country!.title) ? Colors.green : Colors.red : Colors.transparent
+                    ),
+                    child: SizedBox(
+                        child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Image(
+                                image: AssetImage('assets/flags/' + flags[index] + '.png')
+                            )
+                        )
+                    )
+                );
+            }
+        );
+    }
+
+    Column getModeColorsAnswers() {
+        List<Widget> colorMarkers = [];
+
+        for (int i = 0; i < colors.length; i++) {
+            colorMarkers.add(
+                AnimatedOpacity(
+                    duration: Duration(milliseconds: 500),
+                    opacity: selectedMarkers.contains(colors.elementAt(i)) ? 1 : 0.5,
+                    child: TextButton(
+                        onPressed: isPopulationSubmited ? null : () {
+                            setState(() {
+                                if (selectedMarkers.contains(colors.elementAt(i))) {
+                                    selectedMarkers.remove(colors.elementAt(i));
+                                } else {
+                                    selectedMarkers.add(colors.elementAt(i));
+
+                                    if (selectedMarkers.length == minColors) {
+                                        verifyColors();
+                                    }
+                                }
+                            });
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                            backgroundColor: areColorsSubmited && selectedMarkers.contains(colors.elementAt(i)) ? flagColors.contains(colors.elementAt(i)) ? Colors.green : Colors.red : Colors.transparent 
+                        ),
+                        child: SvgPicture.asset(
+                            'assets/markers/${colors.elementAt(i)}.svg',
+                            height: selectedMarkers.contains(colors.elementAt(i)) ? 120 : 100
+                        )
+                    )
+                )
+            );
+        }
+
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+                Stack(
+                    children: [
+                        Image(image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png')),
+                        areColorsSubmited ? SizedBox.shrink() : Opacity(opacity: 0.92, child: Image(image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png'), color: Colors.black))
+                    ]
+                ),
+                SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        children: colorMarkers
+                    )
+                )
+            ]
+        );
+    }
+
     String trim0Trailing(double num) {
         String txt = num.toString();
 
@@ -697,6 +844,56 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         } else {
             AudioPlayer.play(AudioList.WRONG_ANSWER);
             isPopulationCorrect = false;
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        }
+
+        setState(() { });
+    }
+
+    void verifyFlag(int idx) {
+        selectedFlagIdx = idx;
+
+        if(flags[idx].contains(country!.title)) {
+            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            currQuizIdx++;
+
+            if (currQuizIdx < totalModes) {
+                Future.delayed(Duration(milliseconds: 500), () {
+                    currQuiz = quizList.elementAt(currQuizIdx);
+                    initMode();
+                });
+            }
+        } else {
+            AudioPlayer.play(AudioList.WRONG_ANSWER);
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        }
+
+        setState(() { });
+    }
+
+    void verifyColors() {
+        areColorsSubmited = true;
+
+        if(selectedMarkers.every((marker) => flagColors.contains(marker))) {
+            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            areColorsCorrect = true;
+            currQuizIdx++;
+
+            if (currQuizIdx < totalModes) {
+                Future.delayed(Duration(milliseconds: 1000), () {
+                    currQuiz = quizList.elementAt(currQuizIdx);
+                    initMode();
+                });
+            }
+        } else {
+            AudioPlayer.play(AudioList.WRONG_ANSWER);
+            areColorsCorrect = false;
 
             Future.delayed(Duration(milliseconds: 1000), () {
                 Navigator.of(context).pop(true);
