@@ -42,14 +42,17 @@ class SolvedCountriesState extends State<SolvedCountries> {
                 ),
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
-                    child: ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox( height: 20 );
-                        },
-                        itemCount: countriesList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                            return getCountryCard(countriesList[index].title);
-                        }
+                    child: Center(
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            separatorBuilder: (BuildContext context, int index) {
+                                return SizedBox( height: 20 );
+                            },
+                            itemCount: countriesList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                                return getCountryCard(countriesList[index].title);
+                            }
+                        )
                     )
                 ) 
             )
@@ -68,7 +71,16 @@ class SolvedCountriesState extends State<SolvedCountries> {
                 Positioned.fill(
                     child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: CountriesList.getCountryByTitle(country).isHardSolved ? Row(
+                        child: CountriesList.getCountryByTitle(country).isUltimateSolved ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                                Star(),
+                                SizedBox(width: 10),
+                                Star(),
+                                SizedBox(width: 10),
+                                Star()
+                            ]
+                        ) : CountriesList.getCountryByTitle(country).isHardSolved ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 Star(),
@@ -98,12 +110,17 @@ class SolvedCountriesState extends State<SolvedCountries> {
                             Container(
                                 width: 140,
                                 child: Center(
-                                    child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                    child: Row(
                                         children: [
-                                            getModeCard(GameMode.EASY),
-                                            getModeCard(GameMode.HARD)
+                                            Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    getModeCard(GameMode.EASY),
+                                                    getModeCard(GameMode.HARD)
+                                                ]
+                                            ),
+                                            getUltimateModeCard()
                                         ]
                                     )
                                 )
@@ -185,6 +202,48 @@ class SolvedCountriesState extends State<SolvedCountries> {
                                 fontSize: 20,
                                 color: Color(0xFF0FBEBE)
                             )
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+    Card getUltimateModeCard() {
+        return Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+            ),
+            child: Container(
+                height: 85,
+                width: 40,
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    border: Border.all(
+                        color: Color(0xFF0FBEBE),
+                        width: 1
+                    )
+                ),
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0)
+                    ),
+                    onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: GameMode.ULTIMATE)
+                            )
+                        ).then((value) {
+                            setState(() { });
+                        })
+                    },
+                    child: Center(
+                        child: SvgPicture.asset(
+                            'assets/devil.svg',
+                            height: 25
                         )
                     )
                 )

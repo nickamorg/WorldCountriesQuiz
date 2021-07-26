@@ -64,8 +64,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     Country? country;
     GameQuiz? currQuiz;
     List<GameQuiz> quizList = [ ];
-    List<GameQuiz> easyQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.FLAG, GameQuiz.ISO, GameQuiz.CAPITAL ];
-    List<GameQuiz> hardQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.FLAG, GameQuiz.ISO, GameQuiz.CAPITAL, GameQuiz.COLORS, GameQuiz.POPULATION ];
 
     @override
 	void initState() {
@@ -87,9 +85,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         countryTitle = widget.countryTitle;
         country = CountriesList.getCountryByTitle(countryTitle);
         gameMode = widget.gameMode;
-        quizList = gameMode == GameMode.EASY ? easyQuiz : hardQuiz;
         countriesList = CountriesList.countries.where((country) => country.continent == countryTitle).toList();
 
+        quizList = initQuizDifficulty();
         totalModes = quizList.length;
         currQuiz = quizList[0];
 
@@ -222,8 +220,20 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         );
     }
 
+    List<GameQuiz> initQuizDifficulty() {
+        List<GameQuiz> easyQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.CAPITAL ];
+        List<GameQuiz> hardQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.CAPITAL, GameQuiz.FLAG, GameQuiz.ISO, GameQuiz.COLORS, GameQuiz.POPULATION ];
+        List<GameQuiz> ultimateQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.CAPITAL, GameQuiz.FLAG, GameQuiz.ISO, GameQuiz.COLORS, GameQuiz.POPULATION ];
+
+        switch (gameMode) {
+            case GameMode.EASY: return easyQuiz;
+            case GameMode.HARD: return hardQuiz;
+            case GameMode.ULTIMATE: return ultimateQuiz;
+        }
+    }
+
     initMode() {
-        switch(quizList[currQuizIdx]) {
+        switch (quizList[currQuizIdx]) {
             case GameQuiz.CAPITAL: {
                 initModeCapital();
                 break;
@@ -376,7 +386,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     String getCurrentModeDescription() {
-        switch(currQuiz!) {
+        switch (currQuiz!) {
             case GameQuiz.CAPITAL: return 'Capital';
             case GameQuiz.CONTINENT: return 'Continent';
             case GameQuiz.SHAPE: return 'Shape';
@@ -389,7 +399,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     Widget getCurrentModeAnswers() {
-        switch(currQuiz!) {
+        switch (currQuiz!) {
             case GameQuiz.CAPITAL: return getModeCapitalAnswers();
             case GameQuiz.CONTINENT: return getModeContinentAnswers();
             case GameQuiz.SHAPE: return getModeShapeAnswers();
@@ -980,7 +990,13 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             AudioPlayer.play(AudioList.WIN);
 
             country!.isEasySolved = true;
-            if (gameMode == GameMode.HARD) country!.isHardSolved = true;
+
+            if (gameMode == GameMode.ULTIMATE) {
+                country!.isUltimateSolved = true;
+                country!.isHardSolved = true;
+            } else if (gameMode == GameMode.HARD) {
+                country!.isHardSolved = true;
+            }
 
             CountriesList.storeData();
 

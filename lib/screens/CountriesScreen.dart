@@ -21,6 +21,8 @@ class CountriesState extends State<Countries> {
 
 	@override
     Widget build(BuildContext context) {
+        List<Country> availableCountries = CountriesList.countries.where((country) => !country.isEasySolved).toList();
+
         return Scaffold(
             body: Container(
                 decoration: BoxDecoration(
@@ -35,18 +37,21 @@ class CountriesState extends State<Countries> {
                     padding: EdgeInsets.all(20),
                     child: Column(
                         children: [
-                            Expanded(
-                                child: ListView.separated(
-                                    separatorBuilder: (BuildContext context, int index) {
-                                        return SizedBox( height: 20 );
-                                    },
-                                    itemCount: CountriesList.countries.where((country) => !country.isEasySolved).length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                        return getCountryCard(CountriesList.countries.where((country) => !country.isEasySolved).toList()[index].title, expandedCountry == CountriesList.countries.where((country) => !country.isEasySolved).toList()[index].title);
-                                    }
+                            availableCountries.length == 0 ? SizedBox.shrink() : Expanded(
+                                child: Center(
+                                    child: ListView.separated(
+                                        shrinkWrap: true,
+                                        separatorBuilder: (BuildContext context, int index) {
+                                            return SizedBox( height: 20 );
+                                        },
+                                        itemCount: availableCountries.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                            return getCountryCard(availableCountries[index].title, expandedCountry == availableCountries[index].title);
+                                        }
+                                    )
                                 )
                             ),
-                            Container(
+                            availableCountries.length == 0 ? SizedBox.shrink() : Container(
                                 height: 60,
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -54,14 +59,17 @@ class CountriesState extends State<Countries> {
                                 )
                             ),
                             Expanded(
-                                child: ListView.separated(
-                                    separatorBuilder: (BuildContext context, int index) {
-                                        return SizedBox(height: 20);
-                                    },
-                                    itemCount: continents.length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                        return getContinentCard(continents.elementAt(index));
-                                    }
+                                child: Center(
+                                    child: ListView.separated(
+                                        shrinkWrap: true,
+                                        separatorBuilder: (BuildContext context, int index) {
+                                            return SizedBox(height: 20);
+                                        },
+                                        itemCount: continents.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                            return getContinentCard(continents.elementAt(index));
+                                        }
+                                    )
                                 )
                             )
                         ]
@@ -87,12 +95,17 @@ class CountriesState extends State<Countries> {
                             Container(
                                 width: 140,
                                 child: Center(
-                                    child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                    child: Row(
                                         children: [
-                                            getModeCard(GameMode.EASY),
-                                            getModeCard(GameMode.HARD)
+                                            Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                    getModeCard(GameMode.EASY),
+                                                    getModeCard(GameMode.HARD)
+                                                ]
+                                            ),
+                                            getUltimateModeCard()
                                         ]
                                     )
                                 )
@@ -181,6 +194,48 @@ class CountriesState extends State<Countries> {
         );
     }
 
+    Card getUltimateModeCard() {
+        return Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+            ),
+            child: Container(
+                height: 85,
+                width: 40,
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    border: Border.all(
+                        color: Color(0xFF0FBEBE),
+                        width: 1
+                    )
+                ),
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0)
+                    ),
+                    onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: GameMode.ULTIMATE)
+                            )
+                        ).then((value) {
+                            setState(() { });
+                        })
+                    },
+                    child: Center(
+                        child: SvgPicture.asset(
+                            'assets/devil.svg',
+                            height: 25
+                        )
+                    )
+                )
+            )
+        );
+    }
+
     String enum2String(GameMode mode) {
         String str = mode.toString().split('.').last.toLowerCase();
         str = str[0].toUpperCase() + str.substring(1);
@@ -235,7 +290,16 @@ class CountriesState extends State<Countries> {
                 Positioned.fill(
                     child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: CountriesList.isContinentHardSolved(continent) ? Row(
+                        child: CountriesList.isContinentUltimateSolved(continent) ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                                Star(),
+                                SizedBox(width: 10),
+                                Star(),
+                                SizedBox(width: 10),
+                                Star()
+                            ]
+                        ) : CountriesList.isContinentHardSolved(continent) ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 Star(),

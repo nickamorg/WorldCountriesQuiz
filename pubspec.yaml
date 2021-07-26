@@ -48,6 +48,7 @@ flutter:
     - assets/star.svg
     - assets/person_empty.svg
     - assets/person_full.svg
+    - assets/devil.svg
 
 
     # Countries

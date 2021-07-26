@@ -1,3 +1,3 @@
-enum GameMode { EASY, HARD }
+enum GameMode { EASY, HARD, ULTIMATE }
 
 enum GameQuiz { CAPITAL, CONTINENT, SHAPE, POPULATION, FLAG, COLORS, ISO, LANDLOCKED }

@@ -16,6 +16,7 @@ class Country {
     bool isLandlocked;
     bool isEasySolved = false;
     bool isHardSolved = false;
+    bool isUltimateSolved = false;
 
     Country({required this.title, required this.continent, required this.currency, required this.capital, 
              required this.iso, required this.colors, required this.population, required this.dialingCode,
@@ -72,8 +73,12 @@ class CountriesList {
         return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isHardSolved).length;
     }
 
+    static bool isContinentUltimateSolved(String continent) {
+        return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isUltimateSolved).length;
+    }
+
     static int getTotalStarsByContinent(String continent) {
-        return 2 * countries.where((country) => country.continent == continent).length;
+        return 3 * countries.where((country) => country.continent == continent).length;
     }
 
     static int getTotalSolvedStarsByContinent(String continent) {
@@ -81,6 +86,7 @@ class CountriesList {
 
         count += countries.where((country) => country.continent == continent && country.isEasySolved).length;
         count += countries.where((country) => country.continent == continent && country.isHardSolved).length;
+        count += countries.where((country) => country.continent == continent && country.isUltimateSolved).length;
 
         return count;
     }
@@ -102,7 +108,7 @@ class CountriesList {
 
         int countryIdx = countries.length;
         countries.forEach((country) {
-            str += '"${country.title}":{"isEasySolved":${country.isEasySolved},"isHardSolved":${country.isHardSolved}}';
+            str += '"${country.title}":{"isEasySolved":${country.isEasySolved},"isHardSolved":${country.isHardSolved}, "isUltimateSolved":${country.isUltimateSolved}}';
 
             str += '${(--countryIdx > 0 ? ',' : '')}';
         });
@@ -124,6 +130,7 @@ class CountriesList {
 
                             country.isEasySolved = countryData['isEasySolved'];
                             country.isHardSolved = countryData['isHardSolved'];
+                            country.isUltimateSolved = countryData['isUltimateSolved'];
                         });
 
                         hints = countriesList['hints'];
