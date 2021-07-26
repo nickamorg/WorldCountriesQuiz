@@ -102,7 +102,7 @@ class CountriesState extends State<Countries> {
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
                                                     getModeCard(GameMode.EASY),
-                                                    getModeCard(GameMode.HARD)
+                                                    getModeCard(GameMode.NORMAL)
                                                 ]
                                             ),
                                             getUltimateModeCard()
@@ -200,7 +200,7 @@ class CountriesState extends State<Countries> {
                 borderRadius: BorderRadius.circular(15)
             ),
             child: Container(
-                height: 85,
+                height: 88,
                 width: 40,
                 decoration: new BoxDecoration(
                     color: Colors.white,
@@ -219,7 +219,7 @@ class CountriesState extends State<Countries> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: GameMode.ULTIMATE)
+                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: GameMode.HARD)
                             )
                         ).then((value) {
                             setState(() { });
@@ -290,7 +290,7 @@ class CountriesState extends State<Countries> {
                 Positioned.fill(
                     child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: CountriesList.isContinentUltimateSolved(continent) ? Row(
+                        child: CountriesList.isContinentHardSolved(continent) ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 Star(),
@@ -299,7 +299,7 @@ class CountriesState extends State<Countries> {
                                 SizedBox(width: 10),
                                 Star()
                             ]
-                        ) : CountriesList.isContinentHardSolved(continent) ? Row(
+                        ) : CountriesList.isContinentNormalSolved(continent) ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 Star(),

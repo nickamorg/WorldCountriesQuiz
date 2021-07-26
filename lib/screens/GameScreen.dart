@@ -38,8 +38,13 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     int populationRange = 0;
     List<String> flags = [];
     Set<String> colors = {'Black', 'Blue', 'Green', 'Red', 'White', 'Yellow'};
+    List<String> religions = ['Christianity', 'Islam', 'Judaism', 'Buddhism', 'Hinduism'];
     List<String> flagColors = [];
     List<String> isoLetters = [];
+    List<String> languages = [];
+    List<String> neighbors = [];
+    List<String> countryNeighbors = [];
+
 
     int currQuizIdx = 0;
     int totalModes = 0;
@@ -60,6 +65,13 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     bool isIsoSubmitted = false;
     bool isIsoCorrect = true;
     String isLandlockedOrCoastal = '';
+    bool isReligionSubmitted = false;
+    int selectedReligionIdx = 0;
+    int selectedLanguageIdx = -1;
+    int minNeighbors = 2;
+    Set<String> selectedNeighbors = {};
+    bool areNeighborsSubmitted = false;
+    bool areNeighborsCorrect = false;
 
     Country? country;
     GameQuiz? currQuiz;
@@ -221,14 +233,14 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     List<GameQuiz> initQuizDifficulty() {
-        List<GameQuiz> easyQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.CAPITAL ];
-        List<GameQuiz> hardQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.CAPITAL, GameQuiz.FLAG, GameQuiz.ISO, GameQuiz.COLORS, GameQuiz.POPULATION ];
-        List<GameQuiz> ultimateQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.CAPITAL, GameQuiz.FLAG, GameQuiz.ISO, GameQuiz.COLORS, GameQuiz.POPULATION ];
+        List<GameQuiz> easyQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.RELIGION ];
+        List<GameQuiz> normalQuiz = List.from(easyQuiz)..addAll([ GameQuiz.CAPITAL, GameQuiz.LANGUAGE, GameQuiz.FLAG, GameQuiz.ISO ]);
+        List<GameQuiz> hardQuiz = List.from(normalQuiz)..addAll([ GameQuiz.COLORS, GameQuiz.NEIGHBORS, GameQuiz.POPULATION ]);
 
         switch (gameMode) {
             case GameMode.EASY: return easyQuiz;
+            case GameMode.NORMAL: return normalQuiz;
             case GameMode.HARD: return hardQuiz;
-            case GameMode.ULTIMATE: return ultimateQuiz;
         }
     }
 
@@ -264,6 +276,18 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             }
             case GameQuiz.LANDLOCKED: {
                 initModeLandlocked();
+                break;
+            }
+            case GameQuiz.RELIGION: {
+                initModeReligion();
+                break;
+            }
+            case GameQuiz.LANGUAGE: {
+                initModeLanguage();
+                break;
+            }
+            case GameQuiz.NEIGHBORS: {
+                initModeNeighbors();
                 break;
             }
         }
@@ -385,6 +409,64 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         setState(() { });
     }
 
+    initModeReligion() {
+        for (int i = 65; i <= 90; i++) {
+            isoLetters.add(String.fromCharCode(i));
+        }
+
+        setState(() { });
+    }
+
+    initModeLanguage() {
+        Set<String> languagesSet = {};
+
+        languagesSet.add(country!.language);
+
+        do {
+            int countryIdx = Random().nextInt(CountriesList.countries.length);
+
+            languagesSet.add(CountriesList.countries[countryIdx].language);
+        } while (languagesSet.length < 4);
+
+        languages = languagesSet.toList();
+        languages.shuffle();
+
+        setState(() { });
+    }
+
+    initModeNeighbors() {
+        countryNeighbors = country!.neighbors;
+        Set<String> neighborsSet = {};
+
+        neighborsSet = countryNeighbors.map((neighbor) => CountriesList.getCountryByTitle(neighbor).continent + '/' + neighbor).toSet();
+
+        if (countryNeighbors.length <= 2) {
+            minNeighbors = countryNeighbors.length;
+        } else {
+            minNeighbors = 2 + Random().nextInt(countryNeighbors.length - 1);
+        }
+
+        int totalOptions = neighborsSet.length + 1 + Random().nextInt(2);
+        do {
+            int countryIdx = Random().nextInt(CountriesList.countries.length);
+
+            if (country!.title == CountriesList.countries[countryIdx].title) continue;
+
+            neighborsSet.add(CountriesList.countries[countryIdx].continent + '/' + CountriesList.countries[countryIdx].title);
+        } while (neighborsSet.length < totalOptions);
+
+        neighbors = neighborsSet.toList();
+        neighbors.shuffle();
+
+        if (countryNeighbors.length == 0) {
+            currQuizIdx++;
+            currQuiz = quizList[currQuizIdx];
+            initMode();
+        }
+
+        setState(() { });
+    }
+
     String getCurrentModeDescription() {
         switch (currQuiz!) {
             case GameQuiz.CAPITAL: return 'Capital';
@@ -395,6 +477,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.COLORS: return '$minColors Colors';
             case GameQuiz.ISO: return 'ISO Code';
             case GameQuiz.LANDLOCKED: return 'Landlocked or Coastal';
+            case GameQuiz.RELIGION: return 'Religion';
+            case GameQuiz.LANGUAGE: return 'Language';
+            case GameQuiz.NEIGHBORS: return '$minNeighbors Neighbors';
         }
     }
 
@@ -408,6 +493,10 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.COLORS: return getModeColorsAnswers();
             case GameQuiz.ISO: return getModeIsoAnswers();
             case GameQuiz.LANDLOCKED: return getModeLandlockedAnswers();
+            case GameQuiz.RELIGION: return getModeReligionAnswers();
+            case GameQuiz.LANGUAGE: return getModeLanguageAnswers();
+            case GameQuiz.NEIGHBORS: return getModeNeighborsAnswers();
+
         }
     }
 
@@ -673,7 +762,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     duration: Duration(milliseconds: 500),
                     opacity: selectedMarkers.contains(colors.elementAt(i)) ? 1 : 0.5,
                     child: TextButton(
-                        onPressed: isPopulationSubmitted ? null : () {
+                        onPressed: areColorsSubmitted ? null : () {
                             setState(() {
                                 if (selectedMarkers.contains(colors.elementAt(i))) {
                                     selectedMarkers.remove(colors.elementAt(i));
@@ -887,6 +976,182 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         );
     }
 
+    Column getModeReligionAnswers() {
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+                Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle
+                        ),
+                        child: TextButton(
+                            onPressed: isReligionSubmitted ? null : verifyReligion,
+                            child: Icon(
+                                Icons.check,
+                                color: Color(0xFF0FBEBE),
+                                size: 40
+                            )
+                        )
+                    )
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)
+                            ),
+                            color: isReligionSubmitted ? religions[selectedReligionIdx] == country!.religion ? Colors.green : Colors.red : Colors.white,
+                            child: RotatedBox(
+                                quarterTurns: 3,
+                                child: Container(
+                                    height: 200,
+                                    width: 100,
+                                    child: ListWheelScrollView.useDelegate(
+                                        physics: isIsoSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
+                                        perspective: 0.01,
+                                        itemExtent: 100,
+                                        childDelegate: ListWheelChildLoopingListDelegate(
+                                            children: getReligions()
+                                        ),
+                                        onSelectedItemChanged: (index) {
+                                            setState(() {
+                                                selectedReligionIdx = index;
+                                            });
+                                        }
+                                    )
+                                )
+                            )
+                        )
+                    ]
+                )
+            ]
+        );
+    }
+
+    List<Widget> getReligions() {
+        List<Widget> answers = [];
+
+        for (int i = 0; i < religions.length; i++) {
+            answers.add(
+                RotatedBox(
+                    quarterTurns: 1,
+                    child: SvgPicture.asset(
+                        'assets/religions/${religions[i]}.svg',
+                        height: 50
+                    )
+                )
+            );
+        }
+
+        return answers;
+    }
+
+    Column getModeLanguageAnswers() {
+        List<Widget> answers = [];
+
+        for (int i = 0; i < languages.length; i++) {
+            answers.add(
+                Padding(
+                    padding: EdgeInsets.only(bottom: i + 1 < languages.length ? 20 : 0),
+                    child: Container(
+                        height: 50,
+                        alignment: Alignment.center,
+                        child: TextButton(
+                            onPressed: selectedLanguageIdx != -1 ? null : () { 
+                                verifyLanguage(i);
+                            },
+                            style: TextButton.styleFrom(
+                                padding: EdgeInsets.all(0)
+                            ),
+                            child: Center(
+                                child: Text(
+                                    languages.elementAt(i),
+                                    style: TextStyle(
+                                        fontFamily: 'Segoe UI',
+                                        fontSize: 20,
+                                        color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? Color(0xFF0FBEBE) : Colors.white,
+                                        fontWeight: FontWeight.w700
+                                    )
+                                )
+                            )
+                        ),
+                        decoration: BoxDecoration(
+                            color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? Colors.white : languages[selectedLanguageIdx] == country!.language ? Colors.green : Colors.red,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(Radius.circular(30))
+                        )
+                    )
+                )
+            );
+        }
+
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: answers
+        );
+    }
+
+    Center getModeNeighborsAnswers() {
+        List<Widget> neighborsList = [];
+
+        for (int i = 0; i < neighbors.length; i++) {
+            neighborsList.add(
+                AnimatedOpacity(
+                    duration: Duration(milliseconds: 500),
+                    opacity: selectedNeighbors.contains(neighbors[i]) ? 1 : 0.5,
+                    child: TextButton(
+                        onPressed: areNeighborsSubmitted ? null : () {
+                            setState(() {
+                                if (selectedNeighbors.contains(neighbors[i])) {
+                                    selectedNeighbors.remove(neighbors[i]);
+                                } else {
+                                    selectedNeighbors.add(neighbors[i]);
+
+                                    if (selectedNeighbors.length == minNeighbors) {
+                                        verifyNeighbors();
+                                    }
+                                }
+                            });
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                            backgroundColor: areNeighborsSubmitted && selectedNeighbors.contains(neighbors[i]) ? countryNeighbors.contains(neighbors[i].split('/')[1]) ? Colors.green : Colors.red : Colors.transparent 
+                        ),
+                        child: Image(
+                            image: AssetImage(
+                                'assets/shapes/${neighbors[i]}.png'
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        return Center(
+            child: Container(
+                height: 200,
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox( width: 60 );
+                    },
+                    itemCount: neighborsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                        return neighborsList[index];
+                    }
+                )
+            )
+        );
+    }
+
     String trim0Trailing(double num) {
         String txt = num.toString();
 
@@ -991,11 +1256,11 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             country!.isEasySolved = true;
 
-            if (gameMode == GameMode.ULTIMATE) {
-                country!.isUltimateSolved = true;
+            if (gameMode == GameMode.HARD) {
                 country!.isHardSolved = true;
-            } else if (gameMode == GameMode.HARD) {
-                country!.isHardSolved = true;
+                country!.isNormalSolved = true;
+            } else if (gameMode == GameMode.NORMAL) {
+                country!.isNormalSolved = true;
             }
 
             CountriesList.storeData();
@@ -1143,6 +1408,84 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         setState(() { });
     }
 
+     void verifyReligion() {
+        isReligionSubmitted = true;
+
+        if (religions[selectedReligionIdx] == country!.religion) {
+            isGameFinished();
+
+            isIsoCorrect = true;
+            currQuizIdx++;
+
+            if (currQuizIdx < totalModes) {
+                Future.delayed(Duration(milliseconds: 1000), () {
+                    currQuiz = quizList[currQuizIdx];
+                    initMode();
+                });
+            }
+        } else {
+            AudioPlayer.play(AudioList.WRONG_ANSWER);
+            isIsoCorrect = false;
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        }
+
+        setState(() { });
+    }
+
+    void verifyLanguage(int idx) {
+        selectedLanguageIdx = idx;
+
+        if (country!.language == languages[idx]) {
+            isGameFinished();
+
+            currQuizIdx++;
+
+            if (currQuizIdx < totalModes) {
+                Future.delayed(Duration(milliseconds: 500), () {
+                    currQuiz = quizList[currQuizIdx];
+                    initMode();
+                });
+            }
+        } else {
+            AudioPlayer.play(AudioList.WRONG_ANSWER);
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        }
+
+        setState(() { });
+    }
+
+    void verifyNeighbors() {
+        areNeighborsSubmitted = true;
+
+        if (selectedNeighbors.every((neighbor) => countryNeighbors.contains(neighbor.split('/')[1]))) {
+            isGameFinished();
+
+            areNeighborsCorrect = true;
+            currQuizIdx++;
+
+            if (currQuizIdx < totalModes) {
+                Future.delayed(Duration(milliseconds: 1000), () {
+                    currQuiz = quizList[currQuizIdx];
+                    initMode();
+                });
+            }
+        } else {
+            AudioPlayer.play(AudioList.WRONG_ANSWER);
+            areColorsCorrect = false;
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        }
+
+        setState(() { });
+    }
 }
 
 class ModesTracking extends StatelessWidget {
@@ -1165,10 +1508,10 @@ class ModesTracking extends StatelessWidget {
         for (int i = 0; i < totalModes; i++) {
             modesList.add(
                 Padding(
-                    padding: EdgeInsets.only(right: i + 1 < totalModes ? 20 : 0),
+                    padding: EdgeInsets.only(right: i + 1 < totalModes ? totalModes == 4 ? 20 : 10 : 0),
                     child: Container(
-                        height: 20,
-                        width: 20,
+                        height: totalModes <= 8 ? 20 : 15,
+                        width: totalModes <= 8 ? 20 : 15,
                         decoration: BoxDecoration(
                             color: currQuizIdx > i ? Color(0xFF13A931) : Color(0xFFBEBEBE),
                             shape: BoxShape.circle

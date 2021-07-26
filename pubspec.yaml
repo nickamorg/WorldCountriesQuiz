@@ -98,3 +98,10 @@ flutter:
     - assets/continents/North America.png
     - assets/continents/Oceania.png
     - assets/continents/South America.png
+
+    # Religions
+    - assets/religions/Christianity.svg 
+    - assets/religions/Islam.svg
+    - assets/religions/Judaism.svg
+    - assets/religions/Buddhism.svg
+    - assets/religions/Hinduism.svg

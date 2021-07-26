@@ -12,15 +12,17 @@ class Country {
     String iso;
     List<String> colors;
     int population;
-    String dialingCode;
     bool isLandlocked;
+    String religion;
+    String language;
+    List<String> neighbors;
     bool isEasySolved = false;
+    bool isNormalSolved = false;
     bool isHardSolved = false;
-    bool isUltimateSolved = false;
 
     Country({required this.title, required this.continent, required this.currency, required this.capital, 
-             required this.iso, required this.colors, required this.population, required this.dialingCode,
-             required this.isLandlocked}) {
+             required this.iso, required this.colors, required this.population, required this.isLandlocked,
+             required this.religion, required this.language, required this.neighbors}) {
         this.title = title;
         this.continent = continent;
         this.currency = this.currency;
@@ -28,8 +30,10 @@ class Country {
         this.iso = iso;
         this.colors = colors;
         this.population = population;
-        this.dialingCode = dialingCode;
         this.isLandlocked = isLandlocked;
+        this.religion = religion;
+        this.language = language;
+        this.neighbors = neighbors;
     }
 }
 
@@ -50,8 +54,9 @@ class CountriesList {
                     Map<String, dynamic> properties = Map.from(value);
                     countries.add(Country(title: title, continent: properties['Continent'], currency: properties['Currency'],
                                           capital: properties['Capital'], colors: List<String>.from(properties['Colors']),
-                                          dialingCode: properties['Dialing Code'], iso: properties['ISO'],
-                                          population: properties['Population'], isLandlocked: properties['Landlocked']));
+                                          iso: properties['ISO'], population: properties['Population'], isLandlocked: properties['Landlocked'],
+                                          religion: properties['Religion'], language: properties['Language'],
+                                          neighbors: List<String>.from(properties['Neighbors'])));
                 });
             });
             
@@ -69,12 +74,12 @@ class CountriesList {
         return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isEasySolved).length;
     }
 
-    static bool isContinentHardSolved(String continent) {
-        return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isHardSolved).length;
+    static bool isContinentNormalSolved(String continent) {
+        return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isNormalSolved).length;
     }
 
-    static bool isContinentUltimateSolved(String continent) {
-        return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isUltimateSolved).length;
+    static bool isContinentHardSolved(String continent) {
+        return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isHardSolved).length;
     }
 
     static int getTotalStarsByContinent(String continent) {
@@ -85,8 +90,8 @@ class CountriesList {
         int count = 0;
 
         count += countries.where((country) => country.continent == continent && country.isEasySolved).length;
+        count += countries.where((country) => country.continent == continent && country.isNormalSolved).length;
         count += countries.where((country) => country.continent == continent && country.isHardSolved).length;
-        count += countries.where((country) => country.continent == continent && country.isUltimateSolved).length;
 
         return count;
     }
@@ -108,7 +113,7 @@ class CountriesList {
 
         int countryIdx = countries.length;
         countries.forEach((country) {
-            str += '"${country.title}":{"isEasySolved":${country.isEasySolved},"isHardSolved":${country.isHardSolved}, "isUltimateSolved":${country.isUltimateSolved}}';
+            str += '"${country.title}":{"isEasySolved":${country.isEasySolved},"isNormalSolved":${country.isNormalSolved}, "isHardSolved":${country.isHardSolved}}';
 
             str += '${(--countryIdx > 0 ? ',' : '')}';
         });
@@ -129,8 +134,8 @@ class CountriesList {
                             Country? country = getCountryByTitle(countryTitle);
 
                             country.isEasySolved = countryData['isEasySolved'];
+                            country.isNormalSolved = countryData['isNormalSolved'];
                             country.isHardSolved = countryData['isHardSolved'];
-                            country.isUltimateSolved = countryData['isUltimateSolved'];
                         });
 
                         hints = countriesList['hints'];

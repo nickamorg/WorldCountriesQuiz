@@ -7,8 +7,10 @@
             "ISO": "GR",
             "Colors": ["White", "Blue"],
             "Population": 11000000,
-            "Dialing Code": "+30",
-            "Landlocked": false
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Language": "Greek",
+            "Neighbors": ["Italy", "Argentina"]
         },
         "Italy": {
             "Continent": "Europe",
@@ -17,8 +19,10 @@
             "ISO": "IT",
             "Colors": ["Green", "White", "Red"],
             "Population": 60340328,
-            "Dialing Code": "+39",
-            "Landlocked": false
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Language": "Italian",
+            "Neighbors": ["Egypt", "Argentina"]
         },
         
         "Argentina": {
@@ -28,8 +32,10 @@
             "ISO": "AR",
             "Colors": ["Blue", "White", "Yellow"],
             "Population": 41343201,
-            "Dialing Code": "+54",
-            "Landlocked": false
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Language": "Spanish",
+            "Neighbors": ["Egypt"]
         },
 
         "Pakistan": {
@@ -39,8 +45,10 @@
             "ISO": "PK",
             "Colors": ["Green", "White"],
             "Population": 184404791,
-            "Dialing Code": "+54",
-            "Landlocked": false
+            "Landlocked": false,
+            "Religion": "Islam",
+            "Language": "Punjabi",
+            "Neighbors": ["Egypt", "Greece"]
         },
 
         "Egypt": {
@@ -50,8 +58,10 @@
             "ISO": "EG",
             "Colors": ["Red", "White", "Black", "Yellow"],
             "Population": 80471869,
-            "Dialing Code": "+20",
-            "Landlocked": false
+            "Landlocked": false,
+            "Religion": "Islam",
+            "Language": "Arabic",
+            "Neighbors": []
         }
     }
 }

@@ -71,7 +71,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                 Positioned.fill(
                     child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: CountriesList.getCountryByTitle(country).isUltimateSolved ? Row(
+                        child: CountriesList.getCountryByTitle(country).isHardSolved ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 Star(),
@@ -80,7 +80,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                                 SizedBox(width: 10),
                                 Star()
                             ]
-                        ) : CountriesList.getCountryByTitle(country).isHardSolved ? Row(
+                        ) : CountriesList.getCountryByTitle(country).isNormalSolved ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 Star(),
@@ -117,7 +117,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
                                                     getModeCard(GameMode.EASY),
-                                                    getModeCard(GameMode.HARD)
+                                                    getModeCard(GameMode.NORMAL)
                                                 ]
                                             ),
                                             getUltimateModeCard()
@@ -234,7 +234,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: GameMode.ULTIMATE)
+                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: GameMode.HARD)
                             )
                         ).then((value) {
                             setState(() { });
