@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/library.dart';
 import 'package:worldcountriesquiz/screens/GameScreen.dart';
+import 'package:worldcountriesquiz/screens/SolvedCountriesScreen.dart';
 
 class CountriesScreen extends StatelessWidget {
 
@@ -14,6 +16,7 @@ class CountriesScreen extends StatelessWidget {
 }
 
 class CountriesState extends State<Countries> {
+    Set<String> continents = CountriesList.getContinents();
     String expandedCountry = '';
 
 	@override
@@ -29,15 +32,39 @@ class CountriesState extends State<Countries> {
                     )
                 ),
                 child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-                    child: ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox( height: 20 );
-                        },
-                        itemCount: CountriesList.countries.length,
-                        itemBuilder: (BuildContext context, int index) {
-                            return getCountryCard(CountriesList.countries[index].title, expandedCountry == CountriesList.countries[index].title);
-                        }
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                        children: [
+                            Expanded(
+                                child: ListView.separated(
+                                    separatorBuilder: (BuildContext context, int index) {
+                                        return SizedBox( height: 20 );
+                                    },
+                                    itemCount: CountriesList.countries.where((country) => !country.isEasySolved).length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                        return getCountryCard(CountriesList.countries.where((country) => !country.isEasySolved).toList()[index].title, expandedCountry == CountriesList.countries.where((country) => !country.isEasySolved).toList()[index].title);
+                                    }
+                                )
+                            ),
+                            Container(
+                                height: 60,
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [ Dot(), Dot(), Dot() ]
+                                )
+                            ),
+                            Expanded(
+                                child: ListView.separated(
+                                    separatorBuilder: (BuildContext context, int index) {
+                                        return SizedBox(height: 20);
+                                    },
+                                    itemCount: continents.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                        return getContinentCard(continents.elementAt(index));
+                                    }
+                                )
+                            )
+                        ]
                     )
                 ) 
             )
@@ -136,7 +163,9 @@ class CountriesState extends State<Countries> {
                             MaterialPageRoute(
                                 builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: mode)
                             )
-                        )
+                        ).then((value) {
+                            setState(() { });
+                        })
                     },
                     child: Center(
                         child: Text(
@@ -157,7 +186,115 @@ class CountriesState extends State<Countries> {
         str = str[0].toUpperCase() + str.substring(1);
 
         return str;
-    } 
+    }
+
+    Stack getContinentCard(String continent) {
+        return Stack(
+            children: [
+                Container(
+                    height: 115,
+                    color: Colors.transparent,
+                    alignment: Alignment.topCenter,
+                    child: AnimatedOpacity(
+                        duration: Duration(milliseconds: 500),
+                        opacity: CountriesList.getTotalSolvedStarsByContinent(continent) == 0 ? 0.6 : 1,
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)
+                            ),
+                            child: TextButton(
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.all(0)
+                                ),
+                                onPressed: CountriesList.getTotalSolvedStarsByContinent(continent) == 0 ? null : () => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => SolvedCountries(continentTitle: continent)
+                                        )
+                                    ).then((value) {
+                                        setState(() { });
+                                    })
+                                },
+                                child: Container(
+                                    height: 100,
+                                    child: Center(
+                                        child: Text(
+                                            continent,
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                color: Color(0xFF0FBEBE)
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                Positioned.fill(
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: CountriesList.isContinentHardSolved(continent) ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                                Star(),
+                                SizedBox(width: 10),
+                                Star()
+                            ]
+                        ) : CountriesList.isContinentEasySolved(continent) ? Star() : SizedBox.shrink()
+                    )
+                ),
+                Positioned(
+                    right: 10,
+                    top: 10,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                            Text(
+                                '${CountriesList.getTotalSolvedStarsByContinent(continent)} / ${CountriesList.getTotalStarsByContinent(continent)}',
+                                style: TextStyle(
+                                    color: Color(0xFF0FBEBE),
+                                    fontSize: 16
+                                )
+                            ),
+                            SizedBox(width: 5),
+                            Star(height: 20)
+                        ]
+                    )
+                )
+            ]   
+        );
+    }
+}
+
+class Dot extends StatelessWidget {
+
+    @override
+    Widget build(BuildContext context) {
+        return Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle
+            )
+        );
+    }
+}
+
+class Star extends StatelessWidget {
+    final double height;
+    
+    Star({this.height = 30});
+
+    @override
+    Widget build(BuildContext context) {
+        return SvgPicture.asset(
+            'assets/star.svg',
+            height: height
+        );
+    }
 }
 
 class Countries extends StatefulWidget {

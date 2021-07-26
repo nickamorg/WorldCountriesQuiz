@@ -98,49 +98,41 @@ class CountriesList {
     }
 
     static void storeData() {
-		// String str = '{'categories':{';
+		String str = '{"Countries":{';
 
-        // int catIdx = categories.length;
-        // categories.forEach((cat) {
-        //     str += ''${cat.title}':{'highScore':${cat.highScore}, 'Countries': [';
+        int countryIdx = countries.length;
+        countries.forEach((country) {
+            str += '"${country.title}":{"isEasySolved":${country.isEasySolved},"isHardSolved":${country.isHardSolved}}';
 
-        //     int countryIdx = cat.Countries.length;
-        //     cat.Countries.forEach((country) {
-        //         str += '{'${country.title}':${country.isSolved}}${(--countryIdx > 0 ? ',' : '')}';
-        //     });
+            str += '${(--countryIdx > 0 ? ',' : '')}';
+        });
 
-        //     str += ']}${(--catIdx > 0 ? ',' : '')}';
-        // });
+        str += '},"hints":$hints}';
 
-        // str += '},'hints':$hints}';
-
-		// DataStorage.writeData(str);
+		DataStorage.writeData(str);
     }
 
     static loadDataStorage() {
-		// DataStorage.fileExists().then((value) {
-		// 	if (value) {
-		// 		DataStorage.readData().then((value) {
-		// 			if (value.isNotEmpty) {
-		// 				Map<String, dynamic> categoriesList = jsonDecode(value);
+		DataStorage.fileExists().then((value) {
+			if (value) {
+				DataStorage.readData().then((value) {
+					if (value.isNotEmpty) {
+						Map<String, dynamic> countriesList = jsonDecode(value);
 
-        //                 categoriesList['categories'].forEach((catTitle, catCountries) {
-        //                     Category? cat = getCategoryByTitle(catTitle);
+                        countriesList['Countries'].forEach((countryTitle, countryData) {
+                            Country? country = getCountryByTitle(countryTitle);
 
-        //                     cat!.highScore = catCountries['highScore'];
+                            country.isEasySolved = countryData['isEasySolved'];
+                            country.isHardSolved = countryData['isHardSolved'];
+                        });
 
-        //                     catCountries['Countries'].forEach((country) {
-        //                         cat.getcountryByTitle(country.entries.first.key)!.isSolved = country.entries.first.value;
-        //                     });
-        //                 });
-
-        //                 hints = categoriesList['hints'];
-        //             }
-		// 		});
-		// 	} else {
-		// 		DataStorage.createFile();
-		// 	}
-		// });
+                        hints = countriesList['hints'];
+                    }
+				});
+			} else {
+				DataStorage.createFile();
+			}
+		});
 	}
 }
 

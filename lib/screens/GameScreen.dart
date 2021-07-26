@@ -904,7 +904,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         selectedCapitalIdx = idx;
 
         if (country!.capital == capitals[idx]) {
-            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isGameFinished();
+
             currQuizIdx++;
 
             if (currQuizIdx < totalModes) {
@@ -928,7 +929,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         selectedContinentIdx = idx;
 
         if (country!.continent == continents[idx]) {
-            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isGameFinished();
+
             currQuizIdx++;
 
             if (currQuizIdx < totalModes) {
@@ -952,7 +954,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         selectedShapeIdx = idx;
 
         if (shapes[idx].contains(country!.title)) {
-            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isGameFinished();
+
             currQuizIdx++;
 
             if (currQuizIdx < totalModes) {
@@ -972,11 +975,29 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         setState(() { });
     }
 
+    void isGameFinished() {
+        if(currQuizIdx + 1 == quizList.length) {
+            AudioPlayer.play(AudioList.WIN);
+
+            country!.isEasySolved = true;
+            if (gameMode == GameMode.HARD) country!.isHardSolved = true;
+
+            CountriesList.storeData();
+
+            Future.delayed(Duration(milliseconds: 1000), () {
+                Navigator.of(context).pop(true);
+            });
+        } else {
+            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+        }
+    }
+
     void verifyPopulation() {
         isPopulationSubmitted = true;
 
         if (selectedPersonIdx + 1 == population.round()) {
-            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isGameFinished();
+
             isPopulationCorrect = true;
             currQuizIdx++;
 
@@ -1002,7 +1023,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         selectedFlagIdx = idx;
 
         if (flags[idx].contains(country!.title)) {
-            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isGameFinished();
+
             currQuizIdx++;
 
             if (currQuizIdx < totalModes) {
@@ -1026,7 +1048,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         areColorsSubmitted = true;
 
         if (selectedMarkers.every((marker) => flagColors.contains(marker))) {
-            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isGameFinished();
+
             areColorsCorrect = true;
             currQuizIdx++;
 
@@ -1052,7 +1075,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         isIsoSubmitted = true;
 
         if (isoLetters[isoChar1] + isoLetters[isoChar2] == country!.iso) {
-            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isGameFinished();
+
             isIsoCorrect = true;
             currQuizIdx++;
 
@@ -1080,7 +1104,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         if (response == 'Landlocked' && country!.isLandlocked || 
             response == 'Coastal' && !country!.isLandlocked) {
 
-            AudioPlayer.play(AudioList.CORRECT_ANSWER);
+            isGameFinished();
+
             isIsoCorrect = true;
             currQuizIdx++;
 

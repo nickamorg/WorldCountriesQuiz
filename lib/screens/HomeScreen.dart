@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/AdManager.dart';
-import 'package:worldcountriesquiz/screens/ContentScreen.dart';
+import 'package:worldcountriesquiz/screens/CountriesScreen.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -53,7 +53,7 @@ class HomeState extends State<Home> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) => ContentScreen()
+                                                    builder: (context) => CountriesScreen()
                                                 )
                                             )
                                         },

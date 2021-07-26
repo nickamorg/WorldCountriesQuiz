@@ -10,6 +10,7 @@ class AudioPlayer {
 }
 
 class AudioList {
-	static const String WRONG_ANSWER = 'wrong_answer.mp3';
-	static const String CORRECT_ANSWER = 'correct_answer.mp3';
+	static const String WRONG_ANSWER = 'audio/wrong_answer.mp3';
+	static const String CORRECT_ANSWER = 'audio/correct_answer.mp3';
+    static const String WIN = 'audio/win.mp3';
 }
