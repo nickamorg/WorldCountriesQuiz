@@ -41,7 +41,6 @@ flutter:
     - assets/hint.png
     - assets/crown.png
     - assets/world.png
-    - assets/Greece.png
 
 
     # SVG
@@ -102,6 +101,7 @@ flutter:
     - assets/countries/Europe/Vatican City.png
     - assets/countries/Europe/Aland Islands.png
     - assets/countries/Europe/Gibraltar.png
+    - assets/countries/Europe/Monaco.png
     - assets/countries/Europe/Guernsey.png
     - assets/countries/Europe/Isle of Man.png
     - assets/countries/Europe/Svalbard and Jan Mayen.png
@@ -160,6 +160,7 @@ flutter:
     - assets/shapes/Europe/Vatican City.png
     - assets/shapes/Europe/Aland Islands.png
     - assets/shapes/Europe/Gibraltar.png
+    - assets/shapes/Europe/Monaco.png
     - assets/shapes/Europe/Guernsey.png
     - assets/shapes/Europe/Isle of Man.png
     - assets/shapes/Europe/Svalbard and Jan Mayen.png
@@ -218,6 +219,7 @@ flutter:
     - assets/flags/Europe/Vatican City.png
     - assets/flags/Europe/Aland Islands.png
     - assets/flags/Europe/Gibraltar.png
+    - assets/flags/Europe/Monaco.png
     - assets/flags/Europe/Guernsey.png
     - assets/flags/Europe/Isle of Man.png
     - assets/flags/Europe/Svalbard and Jan Mayen.png
@@ -239,6 +241,14 @@ flutter:
     - assets/continents/North America.png
     - assets/continents/Oceania.png
     - assets/continents/South America.png
+
+    # Continents Background
+    - assets/continents_background/Africa.png
+    - assets/continents_background/Asia.png
+    - assets/continents_background/Europe.png
+    - assets/continents_background/North America.png
+    - assets/continents_background/Oceania.png
+    - assets/continents_background/South America.png
 
     # Religions
     - assets/religions/Christianity.svg 

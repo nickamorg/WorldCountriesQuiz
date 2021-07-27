@@ -1,5 +1,6 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/library.dart';
 import 'package:worldcountriesquiz/screens/GameScreen.dart';
@@ -36,7 +37,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                     color: Color(0xFF0FBEBE),
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
-                        image: AssetImage("assets/countries/Europe/Greece.png"),
+                        image: AssetImage("assets/countries/$continentTitle/${countriesList[Random().nextInt(countriesList.length)].title}.png"),
                         fit: BoxFit.cover
                     )
                 ),
@@ -105,7 +106,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                     child: Row(
                         children: [
                             Expanded(
-                                child: getCardTitle(title)
+                                child: getCountryCardTitle(title)
                             ),
                             Container(
                                 width: 140,
@@ -116,11 +117,11 @@ class SolvedCountriesState extends State<SolvedCountries> {
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
-                                                    getModeCard(GameMode.EASY),
-                                                    getModeCard(GameMode.NORMAL)
+                                                    ModeDifficulty(event: () => navigate2GameScreen(GameMode.EASY), txt: 'Easy'),
+                                                    ModeDifficulty(event: () => navigate2GameScreen(GameMode.NORMAL), txt: 'Normal'),
                                                 ]
                                             ),
-                                            getHardModeCard()
+                                            ModeDifficulty(event: () => navigate2GameScreen(GameMode.HARD)),
                                         ]
                                     )
                                 )
@@ -145,131 +146,22 @@ class SolvedCountriesState extends State<SolvedCountries> {
                                 expandedCountry = title;
                             });
                         },
-                        child: getCardTitle(title)
+                        child: getCountryCardTitle(title)
                     )
                 )
             );
         }
     }
 
-    Widget getCardTitle(String title) {
-        return Center(
-            child: Text(
-                title,
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Color(0xFF0FBEBE)
-                )
+    void navigate2GameScreen(GameMode mode) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: mode)
             )
-        );
-    }
-
-    Card getModeCard(GameMode mode) {
-        return Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-            ),
-            child: Container(
-                height: 40,
-                width: 80,
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    border: Border.all(
-                        color: Color(0xFF0FBEBE),
-                        width: 1
-                    )
-                ),
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0)
-                    ),
-                    onPressed: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: mode)
-                            )
-                        ).then((value) {
-                            setState(() { });
-                        })
-                    },
-                    child: Center(
-                        child: Text(
-                            enum2String(mode),
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xFF0FBEBE)
-                            )
-                        )
-                    )
-                )
-            )
-        );
-    }
-
-    Card getHardModeCard() {
-        return Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-            ),
-            child: Container(
-                height: 85,
-                width: 40,
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    border: Border.all(
-                        color: Color(0xFF0FBEBE),
-                        width: 1
-                    )
-                ),
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0)
-                    ),
-                    onPressed: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GameScreen(countryTitle: expandedCountry, gameMode: GameMode.HARD)
-                            )
-                        ).then((value) {
-                            setState(() { });
-                        })
-                    },
-                    child: Center(
-                        child: SvgPicture.asset(
-                            'assets/devil.svg',
-                            height: 25
-                        )
-                    )
-                )
-            )
-        );
-    }
-
-    String enum2String(GameMode mode) {
-        String str = mode.toString().split('.').last.toLowerCase();
-        str = str[0].toUpperCase() + str.substring(1);
-
-        return str;
-    } 
-}
-
-class Star extends StatelessWidget {
-    final double height;
-    
-    Star({this.height = 30});
-
-    @override
-    Widget build(BuildContext context) {
-        return SvgPicture.asset(
-            'assets/star.svg',
-            height: height
-        );
+        ).then((value) {
+            setState(() { });
+        });
     }
 }
 

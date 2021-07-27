@@ -19,7 +19,7 @@ class GameScreen extends StatelessWidget {
 }
 
 class GameState extends State<Game> with TickerProviderStateMixin {
-    String countryTitle = ' ';
+    String countryTitle = '';
     GameMode gameMode = GameMode.EASY;
     List<Country> countriesList = [];
 
@@ -37,8 +37,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     double population = 0;
     int populationRange = 0;
     List<String> flags = [];
-    Set<String> colors = {'Black', 'Blue', 'Green', 'Red', 'White', 'Yellow'};
-    List<String> religions = ['Christianity', 'Islam', 'Judaism', 'Buddhism', 'Hinduism'];
     List<String> flagColors = [];
     List<String> isoLetters = [];
     List<String> languages = [];
@@ -75,7 +73,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
     Country? country;
     GameQuiz? currQuiz;
-    List<GameQuiz> quizList = [ ];
+    List<GameQuiz> quizList = [];
 
     @override
 	void initState() {
@@ -233,10 +231,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     List<GameQuiz> initQuizDifficulty() {
-        List<GameQuiz> easyQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.RELIGION ];
-        List<GameQuiz> normalQuiz = List.from(easyQuiz)..addAll([ GameQuiz.CAPITAL, GameQuiz.LANGUAGE, GameQuiz.FLAG, GameQuiz.ISO ]);
-        List<GameQuiz> hardQuiz = List.from(normalQuiz)..addAll([ GameQuiz.COLORS, GameQuiz.NEIGHBORS, GameQuiz.POPULATION ]);
-
         switch (gameMode) {
             case GameMode.EASY: return easyQuiz;
             case GameMode.NORMAL: return normalQuiz;
@@ -311,11 +305,11 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     initModeContinent() {
-        List<String> allContinents = ['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'];
-        allContinents.remove(country!.continent);
-        allContinents.shuffle();
+        continents = List.from(CONTINENTS);
+        continents.remove(country!.continent);
+        continents.shuffle();
         
-        continents = allContinents.sublist(0, 3);
+        continents = continents.sublist(0, 3);
         continents.add(country!.continent);
         continents.shuffle();
 
@@ -474,12 +468,12 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.SHAPE: return 'Shape';
             case GameQuiz.POPULATION: return 'Approximate Population';
             case GameQuiz.FLAG: return 'Flag';
-            case GameQuiz.COLORS: return '$minColors Colors';
+            case GameQuiz.COLORS: return '$minColors Primary Color${minColors > 1 ? 's' : ''}';
             case GameQuiz.ISO: return 'ISO Code';
             case GameQuiz.LANDLOCKED: return 'Landlocked or Coastal';
             case GameQuiz.RELIGION: return 'Religion';
             case GameQuiz.LANGUAGE: return 'Language';
-            case GameQuiz.NEIGHBORS: return '$minNeighbors Neighbors';
+            case GameQuiz.NEIGHBORS: return '$minNeighbors Neighbor${minNeighbors > 1 ? 's' : ''}';
         }
     }
 
@@ -566,7 +560,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     ),
                     child: SizedBox(
                         child: Padding(
-                            padding: const EdgeInsets.all(15),
+                            padding: EdgeInsets.all(15),
                             child: Image(
                                 image: AssetImage('assets/continents/' + continents[index] + '.png')
                             )
@@ -597,7 +591,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     ),
                     child: SizedBox(
                         child: Padding(
-                            padding: const EdgeInsets.all(15),
+                            padding: EdgeInsets.all(15),
                             child: Image(
                                 image: AssetImage('assets/shapes/' + shapes[index] + '.png')
                             )
@@ -742,9 +736,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     ),
                     child: SizedBox(
                         child: Padding(
-                            padding: const EdgeInsets.all(15),
+                            padding: EdgeInsets.all(15),
                             child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(15),
                                 child: Image(
                                     image: AssetImage('assets/flags/' + flags[index] + '.png')
                                 )
@@ -759,18 +753,18 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     Column getModeColorsAnswers() {
         List<Widget> colorMarkers = [];
 
-        for (int i = 0; i < colors.length; i++) {
+        for (int i = 0; i < COLORS.length; i++) {
             colorMarkers.add(
                 AnimatedOpacity(
                     duration: Duration(milliseconds: 500),
-                    opacity: selectedMarkers.contains(colors.elementAt(i)) ? 1 : 0.5,
+                    opacity: selectedMarkers.contains(COLORS[i]) ? 1 : 0.5,
                     child: TextButton(
                         onPressed: areColorsSubmitted ? null : () {
                             setState(() {
-                                if (selectedMarkers.contains(colors.elementAt(i))) {
-                                    selectedMarkers.remove(colors.elementAt(i));
+                                if (selectedMarkers.contains(COLORS[i])) {
+                                    selectedMarkers.remove(COLORS[i]);
                                 } else {
-                                    selectedMarkers.add(colors.elementAt(i));
+                                    selectedMarkers.add(COLORS[i]);
 
                                     if (selectedMarkers.length == minColors) {
                                         verifyColors();
@@ -780,10 +774,10 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                         },
                         style: TextButton.styleFrom(
                             padding: EdgeInsets.all(0),
-                            backgroundColor: areColorsSubmitted && selectedMarkers.contains(colors.elementAt(i)) ? flagColors.contains(colors.elementAt(i)) ? Colors.green : Colors.red : Colors.transparent 
+                            backgroundColor: areColorsSubmitted && selectedMarkers.contains(COLORS[i]) ? flagColors.contains(COLORS[i]) ? Colors.green : Colors.red : Colors.transparent 
                         ),
                         child: SvgPicture.asset(
-                            'assets/markers/${colors.elementAt(i)}.svg',
+                            'assets/markers/${COLORS[i]}.svg',
                             height: 100
                         )
                     )
@@ -796,13 +790,19 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             children: [
                 Stack(
                     children: [
-                        Image(image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png')),
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image(image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png'))
+                        ),
                         AnimatedOpacity(
                             duration: Duration(milliseconds: 500),
                             opacity: areColorsSubmitted ? 0 : 0.92,
-                            child: Image(
-                                image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png'),
-                                color: Colors.black
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image(
+                                    image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png'),
+                                    color: Colors.black,
+                                )
                             )
                         )
                     ]
@@ -1009,16 +1009,16 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)
                             ),
-                            color: isReligionSubmitted ? religions[selectedReligionIdx] == country!.religion ? Colors.green : Colors.red : Colors.white,
+                            color: isReligionSubmitted ? RELIGIONS[selectedReligionIdx] == country!.religion ? Colors.green : Colors.red : Colors.white,
                             child: RotatedBox(
                                 quarterTurns: 3,
                                 child: Container(
-                                    height: 200,
-                                    width: 100,
+                                    height: 240,
+                                    width: 120,
                                     child: ListWheelScrollView.useDelegate(
-                                        physics: isIsoSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
+                                        physics: isReligionSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
                                         perspective: 0.01,
-                                        itemExtent: 100,
+                                        itemExtent: 120,
                                         childDelegate: ListWheelChildLoopingListDelegate(
                                             children: getReligions()
                                         ),
@@ -1040,13 +1040,27 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     List<Widget> getReligions() {
         List<Widget> answers = [];
 
-        for (int i = 0; i < religions.length; i++) {
+        for (int i = 0; i < RELIGIONS.length; i++) {
             answers.add(
                 RotatedBox(
                     quarterTurns: 1,
-                    child: SvgPicture.asset(
-                        'assets/religions/${religions[i]}.svg',
-                        height: 50
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                            SvgPicture.asset(
+                                'assets/religions/${RELIGIONS[i]}.svg',
+                                height: 50
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(top: 5),
+                                child: Text(
+                                    RELIGIONS[i],
+                                    style: TextStyle(
+                                        color: isReligionSubmitted ? Colors.white : Colors.black
+                                    )
+                                )
+                            )
+                        ]
                     )
                 )
             );
@@ -1414,7 +1428,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
      void verifyReligion() {
         isReligionSubmitted = true;
 
-        if (religions[selectedReligionIdx] == country!.religion) {
+        if (RELIGIONS[selectedReligionIdx] == country!.religion) {
             isGameFinished();
 
             isIsoCorrect = true;

@@ -9,7 +9,7 @@
             "Landlocked": false,
             "Religion": "Islam",
             "Language": "Albanian",
-            "Neighbors": ["Montenegro", "Greece", "North Macedonia", "Kosovo"]
+            "Neighbors": ["Montenegro", "Greece", "North Macedonia", "Serbia"]
         },
         "Andorra": {
             "Continent": "Europe",
@@ -350,7 +350,7 @@
             "Landlocked": false,
             "Religion": "Christianity",
             "Language": "Serbian",
-            "Neighbors": ["Albania", "Bosnia And Herzegovina", "Croatia", "Kosovo", "Serbia"]
+            "Neighbors": ["Albania", "Bosnia And Herzegovina", "Croatia", "Serbia"]
         },
         "Netherlands": {
             "Continent": "Europe",
@@ -372,7 +372,7 @@
             "Landlocked": true,
             "Religion": "Christianity",
             "Language": "Slavo-Macedonian",
-            "Neighbors": ["Albania", "Kosovo", "Greece", "Bulgaria", "Serbia"]
+            "Neighbors": ["Albania", "Greece", "Bulgaria", "Serbia"]
         },
         "Norway": {
             "Continent": "Europe",
@@ -438,7 +438,7 @@
             "Landlocked": true,
             "Religion": "Christianity",
             "Language": "Serbian",
-            "Neighbors": ["Bosnia And Herzegovina", "Bulgaria", "Croatia", "Hungary", "Kosovo", "North Macedonia", "Montenegro", "Romania"]
+            "Neighbors": ["Bosnia And Herzegovina", "Bulgaria", "Croatia", "Hungary", "North Macedonia", "Montenegro", "Romania"]
         },
         "Slovakia": {
             "Continent": "Europe",
