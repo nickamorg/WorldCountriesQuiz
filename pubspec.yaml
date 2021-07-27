@@ -56,8 +56,55 @@ flutter:
 
     - assets/countries/Asia/Pakistan.png
 
+    - assets/countries/Europe/Albania.png
+    - assets/countries/Europe/Andorra.png
+    - assets/countries/Europe/Austria.png
+    - assets/countries/Europe/Belarus.png
+    - assets/countries/Europe/Belgium.png
+    - assets/countries/Europe/Bosnia and Herzegovina.png
+    - assets/countries/Europe/Bulgaria.png
+    - assets/countries/Europe/Czech Republic.png
+    - assets/countries/Europe/Croatia.png
+    - assets/countries/Europe/Cyprus.png
+    - assets/countries/Europe/Denmark.png
+    - assets/countries/Europe/Estonia.png
+    - assets/countries/Europe/Faroe Islands.png
+    - assets/countries/Europe/Finland.png
+    - assets/countries/Europe/France.png
+    - assets/countries/Europe/Germany.png
     - assets/countries/Europe/Greece.png
+    - assets/countries/Europe/Hungary.png
+    - assets/countries/Europe/Iceland.png
+    - assets/countries/Europe/Ireland.png
     - assets/countries/Europe/Italy.png
+    - assets/countries/Europe/Latvia.png
+    - assets/countries/Europe/Liechtenstein.png
+    - assets/countries/Europe/Lithuania.png
+    - assets/countries/Europe/Luxembourg.png
+    - assets/countries/Europe/Malta.png
+    - assets/countries/Europe/Moldova.png
+    - assets/countries/Europe/Montenegro.png
+    - assets/countries/Europe/Netherlands.png
+    - assets/countries/Europe/North Macedonia.png
+    - assets/countries/Europe/Norway.png
+    - assets/countries/Europe/Poland.png
+    - assets/countries/Europe/Romania.png
+    - assets/countries/Europe/Portugal.png
+    - assets/countries/Europe/San Marino.png
+    - assets/countries/Europe/Serbia.png
+    - assets/countries/Europe/Slovakia.png
+    - assets/countries/Europe/Slovenia.png
+    - assets/countries/Europe/Spain.png
+    - assets/countries/Europe/Sweden.png
+    - assets/countries/Europe/Switzerland.png
+    - assets/countries/Europe/Ukraine.png
+    - assets/countries/Europe/United Kingdom.png
+    - assets/countries/Europe/Vatican City.png
+    - assets/countries/Europe/Aland Islands.png
+    - assets/countries/Europe/Gibraltar.png
+    - assets/countries/Europe/Guernsey.png
+    - assets/countries/Europe/Isle of Man.png
+    - assets/countries/Europe/Svalbard and Jan Mayen.png
 
     - assets/countries/South America/Argentina.png
 
@@ -67,8 +114,55 @@ flutter:
 
     - assets/shapes/Asia/Pakistan.png
 
+    - assets/shapes/Europe/Albania.png
+    - assets/shapes/Europe/Andorra.png
+    - assets/shapes/Europe/Austria.png
+    - assets/shapes/Europe/Belarus.png
+    - assets/shapes/Europe/Belgium.png
+    - assets/shapes/Europe/Bosnia and Herzegovina.png
+    - assets/shapes/Europe/Bulgaria.png
+    - assets/shapes/Europe/Czech Republic.png
+    - assets/shapes/Europe/Croatia.png
+    - assets/shapes/Europe/Cyprus.png
+    - assets/shapes/Europe/Denmark.png
+    - assets/shapes/Europe/Estonia.png
+    - assets/shapes/Europe/Faroe Islands.png
+    - assets/shapes/Europe/Finland.png
+    - assets/shapes/Europe/France.png
+    - assets/shapes/Europe/Germany.png
     - assets/shapes/Europe/Greece.png
+    - assets/shapes/Europe/Hungary.png
+    - assets/shapes/Europe/Iceland.png
+    - assets/shapes/Europe/Ireland.png
     - assets/shapes/Europe/Italy.png
+    - assets/shapes/Europe/Latvia.png
+    - assets/shapes/Europe/Liechtenstein.png
+    - assets/shapes/Europe/Lithuania.png
+    - assets/shapes/Europe/Luxembourg.png
+    - assets/shapes/Europe/Malta.png
+    - assets/shapes/Europe/Moldova.png
+    - assets/shapes/Europe/Montenegro.png
+    - assets/shapes/Europe/Netherlands.png
+    - assets/shapes/Europe/North Macedonia.png
+    - assets/shapes/Europe/Norway.png
+    - assets/shapes/Europe/Poland.png
+    - assets/shapes/Europe/Romania.png
+    - assets/shapes/Europe/Portugal.png
+    - assets/shapes/Europe/San Marino.png
+    - assets/shapes/Europe/Serbia.png
+    - assets/shapes/Europe/Slovakia.png
+    - assets/shapes/Europe/Slovenia.png
+    - assets/shapes/Europe/Spain.png
+    - assets/shapes/Europe/Sweden.png
+    - assets/shapes/Europe/Switzerland.png
+    - assets/shapes/Europe/Ukraine.png
+    - assets/shapes/Europe/United Kingdom.png
+    - assets/shapes/Europe/Vatican City.png
+    - assets/shapes/Europe/Aland Islands.png
+    - assets/shapes/Europe/Gibraltar.png
+    - assets/shapes/Europe/Guernsey.png
+    - assets/shapes/Europe/Isle of Man.png
+    - assets/shapes/Europe/Svalbard and Jan Mayen.png
 
     - assets/shapes/South America/Argentina.png
 
@@ -78,8 +172,55 @@ flutter:
 
     - assets/flags/Asia/Pakistan.png
 
+    - assets/flags/Europe/Albania.png
+    - assets/flags/Europe/Andorra.png
+    - assets/flags/Europe/Austria.png
+    - assets/flags/Europe/Belarus.png
+    - assets/flags/Europe/Belgium.png
+    - assets/flags/Europe/Bosnia and Herzegovina.png
+    - assets/flags/Europe/Bulgaria.png
+    - assets/flags/Europe/Czech Republic.png
+    - assets/flags/Europe/Croatia.png
+    - assets/flags/Europe/Cyprus.png
+    - assets/flags/Europe/Denmark.png
+    - assets/flags/Europe/Estonia.png
+    - assets/flags/Europe/Faroe Islands.png
+    - assets/flags/Europe/Finland.png
+    - assets/flags/Europe/France.png
+    - assets/flags/Europe/Germany.png
     - assets/flags/Europe/Greece.png
+    - assets/flags/Europe/Hungary.png
+    - assets/flags/Europe/Iceland.png
+    - assets/flags/Europe/Ireland.png
     - assets/flags/Europe/Italy.png
+    - assets/flags/Europe/Latvia.png
+    - assets/flags/Europe/Liechtenstein.png
+    - assets/flags/Europe/Lithuania.png
+    - assets/flags/Europe/Luxembourg.png
+    - assets/flags/Europe/Malta.png
+    - assets/flags/Europe/Moldova.png
+    - assets/flags/Europe/Montenegro.png
+    - assets/flags/Europe/Netherlands.png
+    - assets/flags/Europe/North Macedonia.png
+    - assets/flags/Europe/Norway.png
+    - assets/flags/Europe/Poland.png
+    - assets/flags/Europe/Romania.png
+    - assets/flags/Europe/Portugal.png
+    - assets/flags/Europe/San Marino.png
+    - assets/flags/Europe/Serbia.png
+    - assets/flags/Europe/Slovakia.png
+    - assets/flags/Europe/Slovenia.png
+    - assets/flags/Europe/Spain.png
+    - assets/flags/Europe/Sweden.png
+    - assets/flags/Europe/Switzerland.png
+    - assets/flags/Europe/Ukraine.png
+    - assets/flags/Europe/United Kingdom.png
+    - assets/flags/Europe/Vatican City.png
+    - assets/flags/Europe/Aland Islands.png
+    - assets/flags/Europe/Gibraltar.png
+    - assets/flags/Europe/Guernsey.png
+    - assets/flags/Europe/Isle of Man.png
+    - assets/flags/Europe/Svalbard and Jan Mayen.png
 
     - assets/flags/South America/Argentina.png
 

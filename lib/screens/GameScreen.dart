@@ -743,8 +743,11 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     child: SizedBox(
                         child: Padding(
                             padding: const EdgeInsets.all(15),
-                            child: Image(
-                                image: AssetImage('assets/flags/' + flags[index] + '.png')
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image(
+                                    image: AssetImage('assets/flags/' + flags[index] + '.png')
+                                )
                             )
                         )
                     )

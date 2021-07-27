@@ -7,7 +7,6 @@ import 'package:worldcountriesquiz/DataStorage.dart';
 class Country {
     String title;
     String continent;
-    String currency;
     String capital;
     String iso;
     List<String> colors;
@@ -20,12 +19,11 @@ class Country {
     bool isNormalSolved = false;
     bool isHardSolved = false;
 
-    Country({required this.title, required this.continent, required this.currency, required this.capital, 
-             required this.iso, required this.colors, required this.population, required this.isLandlocked,
+    Country({required this.title, required this.continent, required this.capital, required this.iso,
+             required this.colors, required this.population, required this.isLandlocked,
              required this.religion, required this.language, required this.neighbors}) {
         this.title = title;
         this.continent = continent;
-        this.currency = this.currency;
         this.capital = capital;
         this.iso = iso;
         this.colors = colors;
@@ -52,9 +50,9 @@ class CountriesList {
 
                 countriesList['Countries'].forEach((title, value) {
                     Map<String, dynamic> properties = Map.from(value);
-                    countries.add(Country(title: title, continent: properties['Continent'], currency: properties['Currency'],
-                                          capital: properties['Capital'], colors: List<String>.from(properties['Colors']),
-                                          iso: properties['ISO'], population: properties['Population'], isLandlocked: properties['Landlocked'],
+                    countries.add(Country(title: title, continent: properties['Continent'], capital: properties['Capital'],
+                                          colors: List<String>.from(properties['Colors']), iso: properties['ISO'],
+                                          population: properties['Population'], isLandlocked: properties['Landlocked'],
                                           religion: properties['Religion'], language: properties['Language'],
                                           neighbors: List<String>.from(properties['Neighbors'])));
                 });

@@ -105,7 +105,7 @@ class CountriesState extends State<Countries> {
                                                     getModeCard(GameMode.NORMAL)
                                                 ]
                                             ),
-                                            getUltimateModeCard()
+                                            getHardModeCard()
                                         ]
                                     )
                                 )
@@ -194,7 +194,7 @@ class CountriesState extends State<Countries> {
         );
     }
 
-    Card getUltimateModeCard() {
+    Card getHardModeCard() {
         return Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15)
