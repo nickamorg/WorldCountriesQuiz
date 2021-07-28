@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:worldcountriesquiz/AppTheme.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/library.dart';
 import 'package:worldcountriesquiz/screens/GameScreen.dart';
@@ -27,7 +28,7 @@ class CountriesState extends State<Countries> {
         return Scaffold(
             body: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xFF0FBEBE),
+                    color: AppTheme.MAIN_COLOR,
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
                         image: AssetImage("assets/continents_background/${CONTINENTS[Random().nextInt(CONTINENTS.length)]}.png"),
@@ -184,7 +185,7 @@ class CountriesState extends State<Countries> {
                                             continent,
                                             style: TextStyle(
                                                 fontSize: 30,
-                                                color: Color(0xFF0FBEBE)
+                                                color: AppTheme.MAIN_COLOR
                                             )
                                         )
                                     )
@@ -224,7 +225,7 @@ class CountriesState extends State<Countries> {
                             Text(
                                 '${CountriesList.getTotalSolvedStarsByContinent(continent)} / ${CountriesList.getTotalStarsByContinent(continent)}',
                                 style: TextStyle(
-                                    color: Color(0xFF0FBEBE),
+                                    color: AppTheme.MAIN_COLOR,
                                     fontSize: 16
                                 )
                             ),

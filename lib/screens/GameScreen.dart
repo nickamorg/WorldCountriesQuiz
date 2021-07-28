@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:worldcountriesquiz/AppTheme.dart';
 import 'package:worldcountriesquiz/AudioPlayer.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/library.dart';
@@ -109,7 +110,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         return Scaffold(
             body: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xFF0FBEBE),
+                    color: AppTheme.MAIN_COLOR,
                     image: currQuizIdx == 0 ? null : DecorationImage(
                         image: AssetImage('assets/countries/' + country!.continent + '/' + country!.title + '.png'),
                         colorFilter: ColorFilter.linearToSrgbGamma(),
@@ -134,7 +135,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                             height: 35,
                                             child: Icon(
                                                 Icons.arrow_back,
-                                                color: Color(0xFF0FBEBE),
+                                                color: AppTheme.MAIN_COLOR,
                                                 size: 20,
                                             ),
                                             decoration: BoxDecoration(
@@ -197,7 +198,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                                         countryTitle,
                                                         style: TextStyle(
                                                             fontSize: 30,
-                                                            color: Color(0xFF0FBEBE),
+                                                            color: AppTheme.MAIN_COLOR,
                                                             fontWeight: FontWeight.bold
                                                         )
                                                     )
@@ -209,7 +210,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                                 getCurrentModeDescription(),
                                                 style: TextStyle(
                                                     fontSize: 20,
-                                                    color: Color(0xFF0FBEBE),
+                                                    color: AppTheme.MAIN_COLOR,
                                                     fontWeight: FontWeight.bold
                                                 )
                                             )
@@ -517,7 +518,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     style: TextStyle(
                                         fontFamily: 'Segoe UI',
                                         fontSize: 20,
-                                        color: selectedCapitalIdx == - 1 || selectedCapitalIdx != i ? Color(0xFF0FBEBE) : Colors.white,
+                                        color: selectedCapitalIdx == - 1 || selectedCapitalIdx != i ? AppTheme.MAIN_COLOR : Colors.white,
                                         fontWeight: FontWeight.w700
                                     )
                                 )
@@ -643,7 +644,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 ),
                                 child: Icon(
                                     Icons.remove,
-                                    color: Color(0xFF0FBEBE),
+                                    color: AppTheme.MAIN_COLOR,
                                     size: 40
                                 )
                             ),
@@ -666,7 +667,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                         style: TextStyle(
                                             fontFamily: 'Segoe UI',
                                             fontSize: 20,
-                                            color: isPopulationSubmitted ? Colors.white : Color(0xFF0FBEBE),
+                                            color: isPopulationSubmitted ? Colors.white : AppTheme.MAIN_COLOR,
                                             fontWeight: FontWeight.w700
                                         )
                                     )
@@ -692,7 +693,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 ),
                                 child: Icon(
                                     Icons.add,
-                                    color: Color(0xFF0FBEBE),
+                                    color: AppTheme.MAIN_COLOR,
                                     size: 40
                                 )
                             ),
@@ -834,7 +835,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             onPressed: isIsoSubmitted ? null : verifyIso,
                             child: Icon(
                                 Icons.check,
-                                color: Color(0xFF0FBEBE),
+                                color: AppTheme.MAIN_COLOR,
                                 size: 40
                             )
                         )
@@ -904,7 +905,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     isoLetters[i],
                     style: TextStyle(
                         fontSize: 30,
-                        color: isIsoSubmitted ? Colors.white : currIsoChar == i ? Color(0xFF0FBEBE) : Colors.black
+                        color: isIsoSubmitted ? Colors.white : currIsoChar == i ? AppTheme.MAIN_COLOR : Colors.black
                     )
                 )
             );
@@ -938,7 +939,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     style: TextStyle(
                                         fontFamily: 'Segoe UI',
                                         fontSize: 20,
-                                        color: isLandlockedOrCoastal == 'Landlocked' ? Colors.white : Color(0xFF0FBEBE),
+                                        color: isLandlockedOrCoastal == 'Landlocked' ? Colors.white : AppTheme.MAIN_COLOR,
                                         fontWeight: FontWeight.w700
                                     )
                                 )
@@ -967,7 +968,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     style: TextStyle(
                                         fontFamily: 'Segoe UI',
                                         fontSize: 20,
-                                        color: isLandlockedOrCoastal == 'Coastal' ? Colors.white : Color(0xFF0FBEBE),
+                                        color: isLandlockedOrCoastal == 'Coastal' ? Colors.white : AppTheme.MAIN_COLOR,
                                         fontWeight: FontWeight.w700
                                     )
                                 )
@@ -996,7 +997,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             onPressed: isReligionSubmitted ? null : verifyReligion,
                             child: Icon(
                                 Icons.check,
-                                color: Color(0xFF0FBEBE),
+                                color: AppTheme.MAIN_COLOR,
                                 size: 40
                             )
                         )
@@ -1092,7 +1093,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     style: TextStyle(
                                         fontFamily: 'Segoe UI',
                                         fontSize: 20,
-                                        color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? Color(0xFF0FBEBE) : Colors.white,
+                                        color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? AppTheme.MAIN_COLOR : Colors.white,
                                         fontWeight: FontWeight.w700
                                     )
                                 )

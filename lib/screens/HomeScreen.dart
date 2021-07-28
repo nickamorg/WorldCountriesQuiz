@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worldcountriesquiz/AppTheme.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/AdManager.dart';
 import 'package:worldcountriesquiz/screens/CountriesScreen.dart';
@@ -29,7 +30,7 @@ class HomeState extends State<Home> {
         return Scaffold(
             body: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xFF0FBEBE),
+                    color: AppTheme.MAIN_COLOR,
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
                         image: AssetImage("assets/world.png"),
@@ -61,7 +62,7 @@ class HomeState extends State<Home> {
                                             'Play',
                                             style: TextStyle(
                                                 fontSize: 70,
-                                                color: Color(0xFF0FBEBE)
+                                                color: AppTheme.MAIN_COLOR
                                             )
                                         )
                                     )
@@ -82,7 +83,7 @@ class HomeState extends State<Home> {
                                                 child: Center(
                                                     child: Icon(
                                                         Icons.soap,
-                                                        color: const Color(0xFF0FBEBE),
+                                                        color: AppTheme.MAIN_COLOR,
                                                         size: 40
                                                     )
                                                 )
@@ -101,7 +102,7 @@ class HomeState extends State<Home> {
                                                 child: Center(
                                                     child: Icon(
                                                         Icons.alarm,
-                                                        color: const Color(0xFF0FBEBE),
+                                                        color: AppTheme.MAIN_COLOR,
                                                         size: 40
                                                     )
                                                 )

@@ -51,7 +51,64 @@ flutter:
 
 
     # Countries
+    - assets/countries/Africa/Algeria.png
+    - assets/countries/Africa/Angola.png
+    - assets/countries/Africa/Benin.png
+    - assets/countries/Africa/Botswana.png
+    - assets/countries/Africa/Burkina Faso.png
+    - assets/countries/Africa/Burundi.png
+    - assets/countries/Africa/Cameroon.png
+    - assets/countries/Africa/Cape Verde.png
+    - assets/countries/Africa/Central African Republic.png
+    - assets/countries/Africa/Chad.png
+    - assets/countries/Africa/Comoros.png
+    - assets/countries/Africa/Congo.png
+    - assets/countries/Africa/Democratic Republic of the Congo.png
+    - assets/countries/Africa/Djibouti.png
     - assets/countries/Africa/Egypt.png
+    - assets/countries/Africa/Equatorial Guinea.png
+    - assets/countries/Africa/Eritrea.png
+    - assets/countries/Africa/Ethiopia.png
+    - assets/countries/Africa/Gabon.png
+    - assets/countries/Africa/Gambia.png
+    - assets/countries/Africa/Ghana.png
+    - assets/countries/Africa/Guinea.png
+    - assets/countries/Africa/Guinea-Bissau.png
+    - assets/countries/Africa/Ivory Coast.png
+    - assets/countries/Africa/Kenya.png
+    - assets/countries/Africa/Lesotho.png
+    - assets/countries/Africa/Liberia.png
+    - assets/countries/Africa/Libya.png
+    - assets/countries/Africa/Madagascar.png
+    - assets/countries/Africa/Malawi.png
+    - assets/countries/Africa/Mali.png
+    - assets/countries/Africa/Mauritania.png
+    - assets/countries/Africa/Mauritius.png
+    - assets/countries/Africa/Mayotte.png
+    - assets/countries/Africa/Morocco.png
+    - assets/countries/Africa/Mozambique.png
+    - assets/countries/Africa/Namibia.png
+    - assets/countries/Africa/Niger.png
+    - assets/countries/Africa/Nigeria.png
+    - assets/countries/Africa/Reunion.png
+    - assets/countries/Africa/Rwanda.png
+    - assets/countries/Africa/Saint Helena.png
+    - assets/countries/Africa/Sudan.png
+    - assets/countries/Africa/Sao Tome and Principe.png
+    - assets/countries/Africa/Senegal.png
+    - assets/countries/Africa/Seychelles.png
+    - assets/countries/Africa/Sierra Leone.png
+    - assets/countries/Africa/Somalia.png
+    - assets/countries/Africa/South Africa.png
+    - assets/countries/Africa/South Sudan.png
+    - assets/countries/Africa/Eswatini.png
+    - assets/countries/Africa/Tanzania.png
+    - assets/countries/Africa/Togo.png
+    - assets/countries/Africa/Tunisia.png
+    - assets/countries/Africa/Uganda.png
+    - assets/countries/Africa/Western Sahara.png
+    - assets/countries/Africa/Zambia.png
+    - assets/countries/Africa/Zimbabwe.png
 
     - assets/countries/Asia/Pakistan.png
 
@@ -109,8 +166,65 @@ flutter:
     - assets/countries/South America/Argentina.png
 
 
-    # Shapes  
+    # Shapes
+    - assets/shapes/Africa/Algeria.png
+    - assets/shapes/Africa/Angola.png
+    - assets/shapes/Africa/Benin.png
+    - assets/shapes/Africa/Botswana.png
+    - assets/shapes/Africa/Burkina Faso.png
+    - assets/shapes/Africa/Burundi.png
+    - assets/shapes/Africa/Cameroon.png
+    - assets/shapes/Africa/Cape Verde.png
+    - assets/shapes/Africa/Central African Republic.png
+    - assets/shapes/Africa/Chad.png
+    - assets/shapes/Africa/Comoros.png
+    - assets/shapes/Africa/Congo.png
+    - assets/shapes/Africa/Democratic Republic of the Congo.png
+    - assets/shapes/Africa/Djibouti.png
     - assets/shapes/Africa/Egypt.png
+    - assets/shapes/Africa/Equatorial Guinea.png
+    - assets/shapes/Africa/Eritrea.png
+    - assets/shapes/Africa/Ethiopia.png
+    - assets/shapes/Africa/Gabon.png
+    - assets/shapes/Africa/Gambia.png
+    - assets/shapes/Africa/Ghana.png
+    - assets/shapes/Africa/Guinea.png
+    - assets/shapes/Africa/Guinea-Bissau.png
+    - assets/shapes/Africa/Ivory Coast.png
+    - assets/shapes/Africa/Kenya.png
+    - assets/shapes/Africa/Lesotho.png
+    - assets/shapes/Africa/Liberia.png
+    - assets/shapes/Africa/Libya.png
+    - assets/shapes/Africa/Madagascar.png
+    - assets/shapes/Africa/Malawi.png
+    - assets/shapes/Africa/Mali.png
+    - assets/shapes/Africa/Mauritania.png
+    - assets/shapes/Africa/Mauritius.png
+    - assets/shapes/Africa/Mayotte.png
+    - assets/shapes/Africa/Morocco.png
+    - assets/shapes/Africa/Mozambique.png
+    - assets/shapes/Africa/Namibia.png
+    - assets/shapes/Africa/Niger.png
+    - assets/shapes/Africa/Nigeria.png
+    - assets/shapes/Africa/Reunion.png
+    - assets/shapes/Africa/Rwanda.png
+    - assets/shapes/Africa/Saint Helena.png
+    - assets/shapes/Africa/Sudan.png
+    - assets/shapes/Africa/Sao Tome and Principe.png
+    - assets/shapes/Africa/Senegal.png
+    - assets/shapes/Africa/Seychelles.png
+    - assets/shapes/Africa/Sierra Leone.png
+    - assets/shapes/Africa/Somalia.png
+    - assets/shapes/Africa/South Africa.png
+    - assets/shapes/Africa/South Sudan.png
+    - assets/shapes/Africa/Eswatini.png
+    - assets/shapes/Africa/Tanzania.png
+    - assets/shapes/Africa/Togo.png
+    - assets/shapes/Africa/Tunisia.png
+    - assets/shapes/Africa/Uganda.png
+    - assets/shapes/Africa/Western Sahara.png
+    - assets/shapes/Africa/Zambia.png
+    - assets/shapes/Africa/Zimbabwe.png
 
     - assets/shapes/Asia/Pakistan.png
 
@@ -169,7 +283,64 @@ flutter:
 
 
     # Flags
+    - assets/flags/Africa/Algeria.png
+    - assets/flags/Africa/Angola.png
+    - assets/flags/Africa/Benin.png
+    - assets/flags/Africa/Botswana.png
+    - assets/flags/Africa/Burkina Faso.png
+    - assets/flags/Africa/Burundi.png
+    - assets/flags/Africa/Cameroon.png
+    - assets/flags/Africa/Cape Verde.png
+    - assets/flags/Africa/Central African Republic.png
+    - assets/flags/Africa/Chad.png
+    - assets/flags/Africa/Comoros.png
+    - assets/flags/Africa/Congo.png
+    - assets/flags/Africa/Democratic Republic of the Congo.png
+    - assets/flags/Africa/Djibouti.png
     - assets/flags/Africa/Egypt.png
+    - assets/flags/Africa/Equatorial Guinea.png
+    - assets/flags/Africa/Eritrea.png
+    - assets/flags/Africa/Ethiopia.png
+    - assets/flags/Africa/Gabon.png
+    - assets/flags/Africa/Gambia.png
+    - assets/flags/Africa/Ghana.png
+    - assets/flags/Africa/Guinea.png
+    - assets/flags/Africa/Guinea-Bissau.png
+    - assets/flags/Africa/Ivory Coast.png
+    - assets/flags/Africa/Kenya.png
+    - assets/flags/Africa/Lesotho.png
+    - assets/flags/Africa/Liberia.png
+    - assets/flags/Africa/Libya.png
+    - assets/flags/Africa/Madagascar.png
+    - assets/flags/Africa/Malawi.png
+    - assets/flags/Africa/Mali.png
+    - assets/flags/Africa/Mauritania.png
+    - assets/flags/Africa/Mauritius.png
+    - assets/flags/Africa/Mayotte.png
+    - assets/flags/Africa/Morocco.png
+    - assets/flags/Africa/Mozambique.png
+    - assets/flags/Africa/Namibia.png
+    - assets/flags/Africa/Niger.png
+    - assets/flags/Africa/Nigeria.png
+    - assets/flags/Africa/Reunion.png
+    - assets/flags/Africa/Rwanda.png
+    - assets/flags/Africa/Saint Helena.png
+    - assets/flags/Africa/Sudan.png
+    - assets/flags/Africa/Sao Tome and Principe.png
+    - assets/flags/Africa/Senegal.png
+    - assets/flags/Africa/Seychelles.png
+    - assets/flags/Africa/Sierra Leone.png
+    - assets/flags/Africa/Somalia.png
+    - assets/flags/Africa/South Africa.png
+    - assets/flags/Africa/South Sudan.png
+    - assets/flags/Africa/Eswatini.png
+    - assets/flags/Africa/Tanzania.png
+    - assets/flags/Africa/Togo.png
+    - assets/flags/Africa/Tunisia.png
+    - assets/flags/Africa/Uganda.png
+    - assets/flags/Africa/Western Sahara.png
+    - assets/flags/Africa/Zambia.png
+    - assets/flags/Africa/Zimbabwe.png
 
     - assets/flags/Asia/Pakistan.png
 

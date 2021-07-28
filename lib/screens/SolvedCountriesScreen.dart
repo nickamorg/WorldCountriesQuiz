@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:worldcountriesquiz/AppTheme.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/library.dart';
 import 'package:worldcountriesquiz/screens/GameScreen.dart';
@@ -34,7 +35,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
         return Scaffold(
             body: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xFF0FBEBE),
+                    color: AppTheme.MAIN_COLOR,
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
                         image: AssetImage("assets/countries/$continentTitle/${countriesList[Random().nextInt(countriesList.length)].title}.png"),
