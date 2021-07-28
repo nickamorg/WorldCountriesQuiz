@@ -404,6 +404,7 @@ flutter:
     - assets/markers/Red.svg
     - assets/markers/White.svg
     - assets/markers/Yellow.svg
+    - assets/markers/Orange.svg
 
     # Continents
     - assets/continents/Africa.png

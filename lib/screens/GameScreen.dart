@@ -204,7 +204,12 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                                     )
                                                 )
                                             ),
-                                            ModesTracking(currQuizIdx: currQuizIdx, totalModes: totalModes),
+                                            Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                                child: FittedBox(
+                                                    child: ModesTracking(currQuizIdx: currQuizIdx, totalModes: totalModes),
+                                                )
+                                            ),
                                             SizedBox(height: 10),
                                             Text(
                                                 getCurrentModeDescription(),
@@ -415,12 +420,15 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     initModeLanguage() {
         Set<String> languagesSet = {};
 
-        languagesSet.add(country!.language);
+        languagesSet.add(country!.languages[Random().nextInt(country!.languages.length)]);
 
         do {
             int countryIdx = Random().nextInt(CountriesList.countries.length);
+            int languageIdx = Random().nextInt(CountriesList.countries[countryIdx].languages.length);
 
-            languagesSet.add(CountriesList.countries[countryIdx].language);
+            if (country!.languages.contains(CountriesList.countries[countryIdx].languages[languageIdx])) continue;
+
+            languagesSet.add(CountriesList.countries[countryIdx].languages[languageIdx]);
         } while (languagesSet.length < 4);
 
         languages = languagesSet.toList();
@@ -431,35 +439,35 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
     initModeNeighbors() {
         countryNeighbors = country!.neighbors;
-        Set<String> neighborsSet = {};
-
-        neighborsSet = countryNeighbors.map((neighbor) => CountriesList.getCountryByTitle(neighbor).continent + '/' + neighbor).toSet();
-
-        if (countryNeighbors.length <= 2) {
-            minNeighbors = countryNeighbors.length;
-        } else {
-            minNeighbors = 2 + Random().nextInt(countryNeighbors.length - 1);
-        }
-
-        int totalOptions = neighborsSet.length + 1 + Random().nextInt(2);
-        do {
-            int countryIdx = Random().nextInt(CountriesList.countries.length);
-
-            if (country!.title == CountriesList.countries[countryIdx].title) continue;
-
-            neighborsSet.add(CountriesList.countries[countryIdx].continent + '/' + CountriesList.countries[countryIdx].title);
-        } while (neighborsSet.length < totalOptions);
-
-        neighbors = neighborsSet.toList();
-        neighbors.shuffle();
 
         if (countryNeighbors.length == 0) {
-            currQuizIdx++;
-            currQuiz = quizList[currQuizIdx];
+            currQuiz = quizList[++currQuizIdx];
             initMode();
-        }
+        } else {
+            Set<String> neighborsSet = {};
 
-        setState(() { });
+            neighborsSet = countryNeighbors.map((neighbor) => CountriesList.getCountryByTitle(neighbor).continent + '/' + neighbor).toSet();
+
+            if (countryNeighbors.length <= 2) {
+                minNeighbors = countryNeighbors.length;
+            } else {
+                minNeighbors = 2 + Random().nextInt(countryNeighbors.length - 1);
+            }
+
+            int totalOptions = neighborsSet.length + 1 + Random().nextInt(2);
+            do {
+                int countryIdx = Random().nextInt(CountriesList.countries.length);
+
+                if (country!.title == CountriesList.countries[countryIdx].title) continue;
+
+                neighborsSet.add(CountriesList.countries[countryIdx].continent + '/' + CountriesList.countries[countryIdx].title);
+            } while (neighborsSet.length < totalOptions);
+
+            neighbors = neighborsSet.toList();
+            neighbors.shuffle();
+
+            setState(() { });
+        }
     }
 
     String getCurrentModeDescription() {
@@ -473,7 +481,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.ISO: return 'ISO Code';
             case GameQuiz.LANDLOCKED: return 'Landlocked or Coastal';
             case GameQuiz.RELIGION: return 'Religion';
-            case GameQuiz.LANGUAGE: return 'Language';
+            case GameQuiz.LANGUAGE: return country!.languages.length == 1 ? 'Language' : '1 of the official languages';
             case GameQuiz.NEIGHBORS: return '$minNeighbors Neighbor${minNeighbors > 1 ? 's' : ''}';
         }
     }
@@ -808,8 +816,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                         )
                     ]
                 ),
-                SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+                FittedBox(
                     child: Row(
                         children: colorMarkers
                     )
@@ -1100,7 +1107,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             )
                         ),
                         decoration: BoxDecoration(
-                            color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? Colors.white : languages[selectedLanguageIdx] == country!.language ? Colors.green : Colors.red,
+                            color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? Colors.white : country!.languages.contains(languages[selectedLanguageIdx]) ? Colors.green : Colors.red,
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.all(Radius.circular(30))
                         )
@@ -1456,7 +1463,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     void verifyLanguage(int idx) {
         selectedLanguageIdx = idx;
 
-        if (country!.language == languages[idx]) {
+        if (country!.languages.contains(languages[idx])) {
             isGameFinished();
 
             currQuizIdx++;
@@ -1526,10 +1533,10 @@ class ModesTracking extends StatelessWidget {
         for (int i = 0; i < totalModes; i++) {
             modesList.add(
                 Padding(
-                    padding: EdgeInsets.only(right: i + 1 < totalModes ? totalModes == 4 ? 20 : 10 : 0),
+                    padding: EdgeInsets.only(right: i + 1 < totalModes ? 20 : 0),
                     child: Container(
-                        height: totalModes <= 8 ? 20 : 15,
-                        width: totalModes <= 8 ? 20 : 15,
+                        height: 20,
+                        width: 20,
                         decoration: BoxDecoration(
                             color: currQuizIdx > i ? Color(0xFF13A931) : Color(0xFFBEBEBE),
                             shape: BoxShape.circle

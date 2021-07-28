@@ -13,7 +13,7 @@ class Country {
     int population;
     bool isLandlocked;
     String religion;
-    String language;
+    List<String> languages;
     List<String> neighbors;
     bool isEasySolved = false;
     bool isNormalSolved = false;
@@ -21,7 +21,7 @@ class Country {
 
     Country({required this.title, required this.continent, required this.capital, required this.iso,
              required this.colors, required this.population, required this.isLandlocked,
-             required this.religion, required this.language, required this.neighbors}) {
+             required this.religion, required this.languages, required this.neighbors}) {
         this.title = title;
         this.continent = continent;
         this.capital = capital;
@@ -30,7 +30,7 @@ class Country {
         this.population = population;
         this.isLandlocked = isLandlocked;
         this.religion = religion;
-        this.language = language;
+        this.languages = languages;
         this.neighbors = neighbors;
     }
 }
@@ -53,7 +53,7 @@ class CountriesList {
                     countries.add(Country(title: title, continent: properties['Continent'], capital: properties['Capital'],
                                           colors: List<String>.from(properties['Colors']), iso: properties['ISO'],
                                           population: properties['Population'], isLandlocked: properties['Landlocked'],
-                                          religion: properties['Religion'], language: properties['Language'],
+                                          religion: properties['Religion'], languages: List<String>.from(properties['Languages']),
                                           neighbors: List<String>.from(properties['Neighbors'])));
                 });
             });

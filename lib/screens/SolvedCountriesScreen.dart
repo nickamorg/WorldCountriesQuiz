@@ -18,6 +18,7 @@ class SolvedCountriesScreen extends StatelessWidget {
 }
 
 class SolvedCountriesState extends State<SolvedCountries> {
+    String backgroundImage = '';
     String? continentTitle;
     List<Country> countriesList = [];
     String expandedCountry = '';
@@ -28,6 +29,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
 
         continentTitle = widget.continentTitle;
         countriesList = CountriesList.countries.where((country) => country.continent == continentTitle && country.isEasySolved).toList();
+        backgroundImage = "assets/countries/$continentTitle/${countriesList[Random().nextInt(countriesList.length)].title}.png";
 	}
 
 	@override
@@ -38,7 +40,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                     color: AppTheme.MAIN_COLOR,
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
-                        image: AssetImage("assets/countries/$continentTitle/${countriesList[Random().nextInt(countriesList.length)].title}.png"),
+                        image: AssetImage(backgroundImage),
                         fit: BoxFit.cover
                     )
                 ),
@@ -145,6 +147,7 @@ class SolvedCountriesState extends State<SolvedCountries> {
                         onPressed: ()  { 
                             setState(() {
                                 expandedCountry = title;
+                                backgroundImage = "assets/countries/$continentTitle/$title.png";
                             });
                         },
                         child: getCountryCardTitle(title)

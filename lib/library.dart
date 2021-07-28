@@ -9,7 +9,7 @@ const List<String> CONTINENTS = ['Africa', 'Asia', 'Europe', 'North America', 'O
 
 const List<String> RELIGIONS = ['Christianity', 'Islam', 'Judaism', 'Buddhism', 'Hinduism'];
 
-const List<String> COLORS = ['Black', 'Blue', 'Green', 'Red', 'White', 'Yellow'];
+const List<String> COLORS = ['Black', 'Blue', 'Green', 'Red', 'White', 'Yellow', 'Orange'];
 
 List<GameQuiz> easyQuiz = [ GameQuiz.SHAPE, GameQuiz.CONTINENT, GameQuiz.LANDLOCKED, GameQuiz.RELIGION ];
 List<GameQuiz> normalQuiz = List.from(easyQuiz)..addAll([ GameQuiz.CAPITAL, GameQuiz.LANGUAGE, GameQuiz.FLAG, GameQuiz.ISO ]);

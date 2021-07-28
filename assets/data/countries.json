@@ -4,11 +4,11 @@
             "Continent": "Europe",
             "Capital": "Tirana",
             "ISO": "AX",
-            "Colors": ["Gold", "Red", "Blue"],
+            "Colors": ["Yellow", "Red", "Blue"],
             "Population": 29900,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Swedish",
+            "Languages": ["Swedish"],
             "Neighbors": []
         },
         "Albania": {
@@ -19,18 +19,18 @@
             "Population": 2874443,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Albanian",
+            "Languages": ["Albanian"],
             "Neighbors": ["Montenegro", "Greece", "North Macedonia", "Serbia"]
         },
         "Andorra": {
             "Continent": "Europe",
             "Capital": "Andorra la Vella",
             "ISO": "AL",
-            "Colors": ["Gold", "Red", "Blue"],
+            "Colors": ["Yellow", "Red", "Blue"],
             "Population": 77397,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Catalan",
+            "Languages": ["Catalan"],
             "Neighbors": ["France", "Spain"]
         },
         "Austria": {
@@ -41,7 +41,7 @@
             "Population": 9061815,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "German",
+            "Languages": ["German"],
             "Neighbors": ["Czech Republic", "Germany", "Hungary", "Italy", "Liechtenstein", "Slovakia", "Slovenia", "Switzerland"]
         },
         "Belarus": {
@@ -52,29 +52,29 @@
             "Population": 9446008,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Russian",
+            "Languages": ["Belarusian", "Russian"],
             "Neighbors": ["Latvia", "Lithuania", "Poland", "Russia", "Ukraine"]
         },
         "Belgium": {
             "Continent": "Europe",
             "Capital": "Minsk",
             "ISO": "BE",
-            "Colors": ["Gold", "Black", "Red"],
+            "Colors": ["Yellow", "Black", "Red"],
             "Population": 11643883,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["Dutch", "French", "German"],
             "Neighbors": ["France", "Germany", "Luxembourg", "Netherlands"]
         },
         "Bosnia and Herzegovina": {
             "Continent": "Europe",
             "Capital": "Sarajevo",
             "ISO": "BA",
-            "Colors": ["Gold", "White", "Blue"],
+            "Colors": ["Yellow", "White", "Blue"],
             "Population": 3259278,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Bosnian",
+            "Languages": ["Bosnian", "Croatian", "Serbian"],
             "Neighbors": ["Croatia", "Montenegro", "Serbia"]
         },
         "Bulgaria": {
@@ -85,7 +85,7 @@
             "Population": 6893361,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Bulgarian",
+            "Languages": ["Bulgarian"],
             "Neighbors": ["Greece", "North Macedonia", "Romania", "Serbia", "Turkey"]
         },
         "Croatia": {
@@ -96,18 +96,18 @@
             "Population": 4078541,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Croatian",
+            "Languages": ["Croatian"],
             "Neighbors": ["Bosnia And Herzegovina", "Hungary", "Montenegro", "Serbia", "Slovenia"]
         },
         "Cyprus": {
             "Continent": "Europe",
             "Capital": "Nicosia",
             "ISO": "CY",
-            "Colors": ["Gold", "White", "Green"],
+            "Colors": ["Orange", "White", "Green"],
             "Population": 1216867,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Greek",
+            "Languages": ["Greek", "Turkish"],
             "Neighbors": ["United Kingdom"]
         },
         "Czech Republic": {
@@ -118,7 +118,7 @@
             "Population": 10730261,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Czech",
+            "Languages": ["Czech", "Slovak"],
             "Neighbors": ["Austria", "Germany", "Poland", "Slovakia"]
         },
         "Denmark": {
@@ -129,7 +129,7 @@
             "Population": 5814117,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Danish",
+            "Languages": ["Danish"],
             "Neighbors": ["Germany"]
         },
         "Estonia": {
@@ -140,7 +140,7 @@
             "Population": 1327489,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Estonian",
+            "Languages": ["Estonian"],
             "Neighbors": ["Latvia", "Russia"]
         },
         "Faroe Islands": {
@@ -151,7 +151,7 @@
             "Population": 49049,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Danish",
+            "Languages": ["Danish", "Faroese"],
             "Neighbors": []
         },
         "Finland": {
@@ -162,7 +162,7 @@
             "Population": 5549935,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Finnish",
+            "Languages": ["Finnish", "Swedish"],
             "Neighbors": ["Norway", "Sweden", "Russia"]
         },
         "France": {
@@ -173,18 +173,18 @@
             "Population": 65428323,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Andorra", "Belgium", "Germany", "Italy", "Luxembourg", "Monaco", "Spain", "Switzerland"]
         },
         "Germany": {
             "Continent": "Europe",
             "Capital": "Berlin",
             "ISO": "DE",
-            "Colors": ["Gold", "Black", "Red"],
+            "Colors": ["Yellow", "Black", "Red"],
             "Population": 84071607,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "German",
+            "Languages": ["German"],
             "Neighbors": ["Austria", "Belgium", "Czech Republic", "Denmark", "France", "Luxembourg", "Netherlands", "Poland", "Switzerland"]
         },
         "Gibraltar": {
@@ -195,7 +195,7 @@
             "Population": 33680,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Spain"]
         },
         "Greece": {
@@ -206,18 +206,18 @@
             "Population": 10369181,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Greek",
+            "Languages": ["Greek"],
             "Neighbors": ["Albania", "Bulgaria", "Turkey", "North Macedonia"]
         },
         "Guernsey": {
             "Continent": "Europe",
             "Capital": "St. Peter Port",
             "ISO": "GG",
-            "Colors": ["Gold", "White", "Red"],
+            "Colors": ["Yellow", "White", "Red"],
             "Population": 63000,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": []
         },
         "Hungary": {
@@ -228,7 +228,7 @@
             "Population": 9634284,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Hungarian",
+            "Languages": ["Hungarian"],
             "Neighbors": ["Austria", "Croatia", "Romania", "Serbia", "Slovakia", "Slovenia", "Ukraine"]
         },
         "Iceland": {
@@ -239,29 +239,29 @@
             "Population": 343635,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Icelandic",
+            "Languages": ["Icelandic"],
             "Neighbors": []
         },
         "Ireland": {
             "Continent": "Europe",
             "Capital": "Dublin",
             "ISO": "IE",
-            "Colors": ["Gold", "White", "Green"],
+            "Colors": ["Orange", "White", "Green"],
             "Population": 4997881,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Irish",
+            "Languages": ["English", "Irish"],
             "Neighbors": ["United Kingdom"]
         },
         "Isle of Man": {
             "Continent": "Europe",
             "Capital": "Douglas",
             "ISO": "IM",
-            "Colors": ["Gold", "White", "Red"],
+            "Colors": ["Yellow", "White", "Red"],
             "Population": 85518,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": []
         },
         "Italy": {
@@ -272,18 +272,18 @@
             "Population": 60367165,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Italian",
+            "Languages": ["Italian"],
             "Neighbors": ["Austria", "France", "San Marino", "Slovenia", "Switzerland", "Vatican City"]
         },
         "Latvia": {
             "Continent": "Europe",
             "Capital": "Riga",
             "ISO": "LV",
-            "Colors": ["White", "Murrey"],
+            "Colors": ["White", "Red"],
             "Population": 1864373,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Latvian",
+            "Languages": ["Latvian"],
             "Neighbors": ["Belarus", "Estonia", "Lithuania", "Russia"]
         },
         "Liechtenstein": {
@@ -294,18 +294,18 @@
             "Population": 38245,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "German",
+            "Languages": ["German"],
             "Neighbors": ["Austria", "Switzerland"]
         },
         "Lithuania": {
             "Continent": "Europe",
             "Capital": "Vilnius",
             "ISO": "LT",
-            "Colors": ["Gold", "Red", "Green"],
+            "Colors": ["Yellow", "Red", "Green"],
             "Population": 2682738,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Lithuanian",
+            "Languages": ["Lithuanian"],
             "Neighbors": ["Belarus", "Latvia", "Poland", "Russia"]
         },
         "Luxembourg": {
@@ -316,7 +316,7 @@
             "Population": 637179,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French", "German", "Luxembourgish"],
             "Neighbors": ["Belgium", "France", "Germany"]
         },
         "Malta": {
@@ -327,18 +327,18 @@
             "Population": 442805,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Maltese",
+            "Languages": ["Maltese", "English"],
             "Neighbors": []
         },
         "Moldova": {
             "Continent": "Europe",
             "Capital": "Chișinău",
             "ISO": "MD",
-            "Colors": ["Gold", "Blue", "Red"],
+            "Colors": ["Yellow", "Blue", "Red"],
             "Population": 4023995,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Romanian",
+            "Languages": ["Romanian"],
             "Neighbors": ["Romania", "Ukraine"]
         },
         "Monaco": {
@@ -349,18 +349,18 @@
             "Population": 39543,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["France"]
         },
         "Montenegro": {
             "Continent": "Europe",
             "Capital": "Podgorica",
             "ISO": "ME",
-            "Colors": ["Gold", "Red"],
+            "Colors": ["Yellow", "Red"],
             "Population": 628151,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Serbian",
+            "Languages": ["Montenegrin"],
             "Neighbors": ["Albania", "Bosnia And Herzegovina", "Croatia", "Serbia"]
         },
         "Netherlands": {
@@ -371,18 +371,18 @@
             "Population": 17175513,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Dutch",
+            "Languages": ["Dutch"],
             "Neighbors": ["Belgium", "Germany"]
         },
         "North Macedonia": {
             "Continent": "Europe",
             "Capital": "Skopje",
             "ISO": "MK",
-            "Colors": ["Gold", "Red"],
+            "Colors": ["Yellow", "Red"],
             "Population": 2083283,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Slavo-Macedonian",
+            "Languages": ["Slavo-Macedonian"],
             "Neighbors": ["Albania", "Greece", "Bulgaria", "Serbia"]
         },
         "Norway": {
@@ -393,7 +393,7 @@
             "Population": 5467149,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Norwegian",
+            "Languages": ["Norwegian"],
             "Neighbors": ["Finland", "Sweden", "Russia"]
         },
         "Poland": {
@@ -404,7 +404,7 @@
             "Population": 37802443,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Polish",
+            "Languages": ["Polish"],
             "Neighbors": ["Belarus", "Czech Republic", "Germany", "Lithuania", "Russia", "Slovakia", "Ukraine"]
         },
         "Portugal": {
@@ -415,18 +415,18 @@
             "Population": 10165133,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Portuguese",
+            "Languages": ["Portuguese"],
             "Neighbors": ["Spain"]
         },
         "Romania": {
             "Continent": "Europe",
             "Capital": "Bucharest",
             "ISO": "RO",
-            "Colors": ["Red", "Gold", "Blue"],
+            "Colors": ["Red", "Yellow", "Blue"],
             "Population": 19102316,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Romanian",
+            "Languages": ["Romanian"],
             "Neighbors": ["Bulgaria", "Hungary", "Moldova", "Serbia", "Ukraine"]
         },
         "San Marino": {
@@ -437,7 +437,7 @@
             "Population": 34007,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Italian",
+            "Languages": ["Italian"],
             "Neighbors": ["Italy"]
         },
         "Serbia": {
@@ -448,7 +448,7 @@
             "Population": 8700068,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Serbian",
+            "Languages": ["Serbian"],
             "Neighbors": ["Bosnia And Herzegovina", "Bulgaria", "Croatia", "Hungary", "North Macedonia", "Montenegro", "Romania"]
         },
         "Slovakia": {
@@ -459,7 +459,7 @@
             "Population": 5462468,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Slovak",
+            "Languages": ["Slovak"],
             "Neighbors": ["Austria", "Czech Republic", "Hungary", "Poland", "Ukraine"]
         },
         "Slovenia": {
@@ -470,19 +470,19 @@
             "Population": 2079243,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Slovene",
+            "Languages": ["Slovene"],
             "Neighbors": ["Austria", "Croatia", "Italy", "Hungary"]
         },
         "Spain": {
             "Continent": "Europe",
             "Capital": "Madrid",
             "ISO": "ES",
-            "Colors": ["Red", "Gold"],
+            "Colors": ["Red", "Yellow"],
             "Population": 46774127,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Spanish",
-            "Neighbors": ["Andorra", "France", "Gibraltar", "Portugal"]
+            "Languages": ["Spanish"],
+            "Neighbors": ["Andorra", "France", "Gibraltar", "Portugal", "Morocco"]
         },
         "Svalbard and Jan Mayen": {
             "Continent": "Europe",
@@ -492,18 +492,18 @@
             "Population": 2459,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Norwegian",
+            "Languages": ["Norwegian"],
             "Neighbors": []
         },
         "Sweden": {
             "Continent": "Europe",
             "Capital": "Stockholm",
             "ISO": "SE",
-            "Colors": ["Gold", "Blue"],
+            "Colors": ["Yellow", "Blue"],
             "Population": 10167269,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Norwegian",
+            "Languages": ["Swedish"],
             "Neighbors": ["Finland", "Norway"]
         },
         "Switzerland": {
@@ -514,18 +514,18 @@
             "Population": 8723105,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "German",
+            "Languages": ["German", "French", "Italian"],
             "Neighbors": ["Austria", "France", "Italy", "Liechtenstein", "Germany"]
         },
         "Ukraine": {
             "Continent": "Europe",
             "Capital": "Kiev",
             "ISO": "UA",
-            "Colors": ["Blue", "Gold"],
+            "Colors": ["Blue", "Yellow"],
             "Population": 43456260,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Ukrainian",
+            "Languages": ["Ukrainian"],
             "Neighbors": ["Belarus", "Hungary", "Moldova", "Poland", "Romania", "Russia", "Slovakia"]
         },
         "United Kingdom": {
@@ -536,18 +536,18 @@
             "Population": 68270418,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Ireland"]
         },
         "Vatican City": {
             "Continent": "Europe",
             "Capital": "Vatican City",
             "ISO": "VA",
-            "Colors": ["White", "Gold"],
+            "Colors": ["White", "Yellow"],
             "Population": 825,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Italian",
+            "Languages": ["Italian"],
             "Neighbors": ["Italy"]
         },
 
@@ -559,7 +559,7 @@
             "Population": 41343201,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Spanish",
+            "Languages": ["Spanish"],
             "Neighbors": ["Egypt"]
         },
 
@@ -571,7 +571,7 @@
             "Population": 184404791,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Punjabi",
+            "Languages": ["Urdu", "English"],
             "Neighbors": ["Egypt", "Greece"]
         },
 
@@ -583,29 +583,29 @@
             "Population": 44726563,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic", "Tamazight"],
             "Neighbors": ["Tunisia", "Libya", "Niger", "Western Sahara", "Mauritania", "Mali", "Morocco"]
         },
         "Angola": {
             "Continent": "Africa",
             "Capital": "Luanda",
             "ISO": "AO",
-            "Colors": ["Red", "Black"],
+            "Colors": ["Red", "Black", "Yellow"],
             "Population": 34024898,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Portuguese",
+            "Languages": ["Portuguese"],
             "Neighbors": ["Democratic Republic of the Congo", "Congo", "Zambia", "Namibia"]
         },
         "Benin": {
             "Continent": "Africa",
             "Capital": "Porto-Novo",
             "ISO": "BJ",
-            "Colors": ["Red", "Gold", "Green"],
+            "Colors": ["Red", "Yellow", "Green"],
             "Population": 12479694,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Burkina Faso", "Niger", "Nigeria", "Togo"]
         },
         "Botswana": {
@@ -616,18 +616,18 @@
             "Population": 2404336,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English", "Tswana"],
             "Neighbors": ["Namibia", "South Africa", "Zambia", "Zimbabwe"]
         },
         "Burkina Faso": {
             "Continent": "Africa",
             "Capital": "Ouagadougou",
             "ISO": "BF",
-            "Colors": ["Gold", "Red", "Green"],
+            "Colors": ["Yellow", "Red", "Green"],
             "Population": 21548286,
             "Landlocked": true,
             "Religion": "Islam",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Benin", "Ivory Coast", "Ghana", "Mali", "Niger", "Togo"]
         },
         "Burundi": {
@@ -638,84 +638,84 @@
             "Population": 12291111,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French", "Kirundi", "English"],
             "Neighbors": ["Democratic Republic of the Congo", "Rwanda", "Tanzania"]
         },
         "Cameroon": {
             "Continent": "Africa",
             "Capital": "Yaoundé",
             "ISO": "CM",
-            "Colors": ["Red", "Gold", "Green"],
+            "Colors": ["Red", "Yellow", "Green"],
             "Population": 27285899,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["English", "French"],
             "Neighbors": ["Central African Republic", "Chad", "Congo", "Equatorial Guinea", "Gabon", "Nigeria"]
         },
         "Cape Verde": {
             "Continent": "Africa",
             "Capital": "Praia",
             "ISO": "CV",
-            "Colors": ["Red", "Gold", "White", "Blue"],
+            "Colors": ["Red", "Yellow", "White", "Blue"],
             "Population": 561898,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Portuguese",
+            "Languages": ["Portuguese"],
             "Neighbors": []
         },
         "Central African Republic": {
             "Continent": "Africa",
             "Capital": "Bangui",
             "ISO": "CF",
-            "Colors": ["Red", "Gold", "White", "Blue", "Green"],
+            "Colors": ["Red", "Yellow", "White", "Blue", "Green"],
             "Population": 4922502,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Cameroon", "Chad", "Congo", "Democratic Republic Of The Congo", "South Sudan", "Sudan"]
         },
         "Chad": {
             "Continent": "Africa",
             "Capital": "N'Djamena",
             "ISO": "TD",
-            "Colors": ["Red", "Gold", "Blue"],
+            "Colors": ["Red", "Yellow", "Blue"],
             "Population": 4922502,
             "Landlocked": true,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic", "French"],
             "Neighbors": ["Cameroon", "Central African Republic", "Libya", "Niger", "Nigeria", "South Sudan"]
         },
         "Comoros": {
             "Continent": "Africa",
             "Capital": "Moroni",
             "ISO": "KM",
-            "Colors": ["Red", "Gold", "White", "Blue", "Green"],
+            "Colors": ["Red", "Yellow", "White", "Blue", "Green"],
             "Population": 890207,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Comorian",
+            "Languages": ["Arabic", "Comorian", "French"],
             "Neighbors": []
         },
         "Congo": {
             "Continent": "Africa",
             "Capital": "Brazzaville",
             "ISO": "CG",
-            "Colors": ["Red", "Gold", "Green"],
+            "Colors": ["Red", "Yellow", "Green"],
             "Population": 5670123,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Angola", "Cameroon", "Central African Republic", "Democratic Republic Of The Congo", "Gabon"]
         },
         "Democratic Republic of the Congo": {
             "Continent": "Africa",
             "Capital": "Kinshasa",
             "ISO": "CD",
-            "Colors": ["Red", "Gold", "Blue"],
+            "Colors": ["Red", "Yellow", "Blue"],
             "Population": 92643114,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Angola", "Burundi", "Central African Republic", "Congo", "Rwanda", "South Sudan", "Tanzania", "Uganda", "Zambia"]
         },
         "Djibouti": {
@@ -726,18 +726,18 @@
             "Population": 1003784,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic", "French"],
             "Neighbors": ["Eritrea", "Ethiopia", "Somalia"]
         },
         "Egypt": {
             "Continent": "Africa",
             "Capital": "Cairo",
             "ISO": "EG",
-            "Colors": ["Gold", "White", "Black", "Red"],
+            "Colors": ["Yellow", "White", "Black", "Red"],
             "Population": 104471819,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic"],
             "Neighbors": ["Israel", "Libya", "Sudan"]
         },
         "Equatorial Guinea": {
@@ -748,40 +748,40 @@
             "Population": 1455402,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Spanish",
+            "Languages": ["French", "Portuguese", "Spanish"],
             "Neighbors": ["Cameroon", "Gabon"]
         },
         "Eritrea": {
             "Continent": "Africa",
             "Capital": "Asmara",
             "ISO": "ER",
-            "Colors": ["Red", "Gold", "Blue", "Green"],
+            "Colors": ["Red", "Yellow", "Blue", "Green"],
             "Population": 3600275,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Tigrinya",
+            "Languages": ["Tigrinya"],
             "Neighbors": ["Djibouti", "Ethiopia", "Sudan"]
         },
         "Ethiopia": {
             "Continent": "Africa",
             "Capital": "Amharic",
             "ISO": "ET",
-            "Colors": ["Red", "Gold", "Blue", "Green"],
+            "Colors": ["Red", "Yellow", "Blue", "Green"],
             "Population": 118152240,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Arabic",
+            "Languages": ["Afar", "Amharic", "Oromo", "Somali", "Tigrinya"],
             "Neighbors": ["Djibouti", "Eritrea", "Kenya", "Somalia", "South Sudan", "Sudan"]
         },
         "Gabon": {
             "Continent": "Africa",
             "Capital": "Libreville",
             "ISO": "GA",
-            "Colors": ["Green", "Gold", "Blue"],
+            "Colors": ["Green", "Yellow", "Blue"],
             "Population": 2284411,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Cameroon", "Congo", "Equatorial Guinea"]
         },
         "Gambia": {
@@ -792,40 +792,40 @@
             "Population": 2493173,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Senegal"]
         },
         "Ghana": {
             "Continent": "Africa",
             "Capital": "N'Djamena",
             "ISO": "GH",
-            "Colors": ["Red", "Gold", "Black", "Green"],
+            "Colors": ["Red", "Yellow", "Black", "Green"],
             "Population": 31793933,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Burkina Faso", "Ivory Coast", "Togo"]
         },
         "Guinea-Bissau": {
             "Continent": "Africa",
             "Capital": "Bissau",
             "ISO": "GW",
-            "Colors": ["Red", "Gold", "Black", "Green"],
+            "Colors": ["Red", "Yellow", "Black", "Green"],
             "Population": 2019978,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Portuguese",
+            "Languages": ["Portuguese"],
             "Neighbors": ["Senegal", "Guinea"]
         },
         "Guinea": {
             "Continent": "Africa",
             "Capital": "Conakry",
             "ISO": "GN",
-            "Colors": ["Gold", "Red", "Green"],
+            "Colors": ["Yellow", "Red", "Green"],
             "Population": 13533500,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Ivory Coast", "Guinea-Bissau", "Liberia", "Mali", "Senegal", "Sierra Leone"]
         },
         "Ivory Coast": {
@@ -836,7 +836,7 @@
             "Population": 27053629,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Burkina Faso", "Ghana", "Guinea", "Liberia", "Mali"]
         },
         "Kenya": {
@@ -847,7 +847,7 @@
             "Population": 55090887,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Swahili",
+            "Languages": ["English", "Swahili"],
             "Neighbors": ["Ethiopia", "Somalia", "South Sudan", "Tanzania", "Uganda"]
         },
         "Lesotho": {
@@ -858,7 +858,7 @@
             "Population": 2160683,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Sesotho",
+            "Languages": ["Sotho", "English"],
             "Neighbors": ["South Africa"]
         },
         "Liberia": {
@@ -869,7 +869,7 @@
             "Population": 5190489,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Guinea", "Ivory Coast", "Sierra Leone"]
         },
         "Libya": {
@@ -880,18 +880,18 @@
             "Population": 6973778,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic"],
             "Neighbors": ["Algeria", "Chad", "Egypt", "Niger", "Sudan", "Tunisia"]
         },
         "Madagascar": {
             "Continent": "Africa",
             "Capital": "Antananarivo",
             "ISO": "MG",
-            "Colors": ["Red", "White", "Green"],
+            "Colors": ["Orange", "White", "Green"],
             "Population": 28489660,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["Malagasy", "French"],
             "Neighbors": []
         },
         "Malawi": {
@@ -902,40 +902,40 @@
             "Population": 19684665,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["Chewa", "English"],
             "Neighbors": ["Mozambique", "Tanzania", "Zambia"]
         },
         "Mali": {
             "Continent": "Africa",
             "Capital": "Bamako",
             "ISO": "ML",
-            "Colors": ["Red", "Gold", "Green"],
+            "Colors": ["Red", "Yellow", "Green"],
             "Population": 20909081,
             "Landlocked": true,
             "Religion": "Islam",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Algeria", "Burkina Faso", "Guinea", "Ivory Coast", "Mauritania", "Niger", "Senegal"]
         },
         "Mauritania": {
             "Continent": "Africa",
             "Capital": "Nouakchott",
             "ISO": "MR",
-            "Colors": ["Red", "Gold", "Green"],
+            "Colors": ["Red", "Yellow", "Green"],
             "Population": 4786926,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic"],
             "Neighbors": ["Algeria", "Mali", "Senegal", "Western Sahara"]
         },
         "Mauritius": {
             "Continent": "Africa",
             "Capital": "Port Louis",
             "ISO": "MU",
-            "Colors": ["Red", "Blue", "Gold", "Green"],
+            "Colors": ["Red", "Blue", "Yellow", "Green"],
             "Population": 1274033,
             "Landlocked": false,
             "Religion": "Hinduism",
-            "Language": "French",
+            "Languages": ["English"],
             "Neighbors": []
         },
         "Mayotte": {
@@ -946,7 +946,7 @@
             "Population": 280178,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": []
         },
         "Morocco": {
@@ -957,29 +957,29 @@
             "Population": 37388913,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
-            "Neighbors": ["Algeria", "Western Sahara"]
+            "Languages": ["Arabic", "Tamazight"],
+            "Neighbors": ["Algeria", "Western Sahara", "Spain"]
         },
         "Mozambique": {
             "Continent": "Africa",
             "Capital": "Maputo",
             "ISO": "MZ",
-            "Colors": ["Red", "Gold", "Green", "White", "Black"],
+            "Colors": ["Red", "Yellow", "Green", "White", "Black"],
             "Population": 32242204,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Portuguese",
+            "Languages": ["Portuguese"],
             "Neighbors": ["Malawi", "South Africa", "Eswatini", "Tanzania", "Zambia", "Zimbabwe"]
         },
         "Namibia": {
             "Continent": "Africa",
             "Capital": "Windhoek",
             "ISO": "NA",
-            "Colors": ["Red", "Gold", "Green", "White", "Blue"],
+            "Colors": ["Red", "Yellow", "Green", "White", "Blue"],
             "Population": 2591802,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Angola", "Botswana", "South Africa", "Zambia"]
         },
         "Niger": {
@@ -990,7 +990,7 @@
             "Population": 25209840,
             "Landlocked": true,
             "Religion": "Islam",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Algeria", "Benin", "Burkina Faso", "Chad", "Libya", "Mali", "Nigeria"]
         },
         "Nigeria": {
@@ -1001,7 +1001,7 @@
             "Population": 211861805,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Benin", "Cameroon", "Chad", "Niger"]
         },
         "Reunion": {
@@ -1012,18 +1012,18 @@
             "Population": 902238,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": []
         },
         "Rwanda": {
             "Continent": "Africa",
             "Capital": "Kigali",
             "ISO": "RW",
-            "Colors": ["Red", "Gold", "Green"],
+            "Colors": ["Red", "Yellow", "Green"],
             "Population": 13311923,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Kinyarwanda",
+            "Languages": ["Kinyarwanda", "French", "English", "Swahili"],
             "Neighbors": ["Burundi", "Democratic Republic of the Congo", "Tanzania", "Uganda"]
         },
         "Saint Helena": {
@@ -1034,18 +1034,18 @@
             "Population": 6096,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": []
         },
         "Sao Tome and Principe": {
             "Continent": "Africa",
             "Capital": "São Tomé",
             "ISO": "ST",
-            "Colors": ["Red", "Black", "Green", "Gold"],
+            "Colors": ["Red", "Black", "Green", "Yellow"],
             "Population": 223664,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Portuguese",
+            "Languages": ["Portuguese"],
             "Neighbors": []
         },
         "Senegal": {
@@ -1056,18 +1056,18 @@
             "Population": 17239584,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Gambia", "Guinea", "Guinea-Bissau", "Mali", "Mauritania"]
         },
         "Seychelles": {
             "Continent": "Africa",
             "Capital": "Victoria",
             "ISO": "SC",
-            "Colors": ["Red", "White", "Blue", "Gold", "Green"],
+            "Colors": ["Red", "White", "Blue", "Yellow", "Green"],
             "Population": 99006,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Seychelles Creole",
+            "Languages": ["English", "French", "Seychelles Creole"],
             "Neighbors": []
         },
         "Sierra Leone": {
@@ -1078,7 +1078,7 @@
             "Population": 8157158,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Guinea", "Liberia"]
         },
         "Somalia": {
@@ -1089,29 +1089,29 @@
             "Population": 16392902,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Somali",
+            "Languages": ["Somali", "Arabic"],
             "Neighbors": ["Djibouti", "Ethiopia", "Kenya"]
         },
         "South Africa": {
             "Continent": "Africa",
             "Capital": "Pretoria",
             "ISO": "ZA",
-            "Colors": ["Red", "White", "Blue", "Gold", "Green", "Black"],
+            "Colors": ["Red", "White", "Blue", "Yellow", "Green", "Black"],
             "Population": 60127641,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Zulu",
+            "Languages": ["English", "Ndebele", "Pedi", "Sotho", "Swati", "Tsonga", "Tswana", "Venḓa", "Xhosa", "Zulu", "Afrikaans"],
             "Neighbors": ["Botswana", "Lesotho", "Mozambique", "Namibia", "Eswatini", "Zimbabwe"]
         },
         "South Sudan": {
             "Continent": "Africa",
             "Capital": "Juba",
             "ISO": "SS",
-            "Colors": ["Red", "White", "Blue", "Gold", "Green", "Black"],
+            "Colors": ["Red", "White", "Blue", "Yellow", "Green", "Black"],
             "Population": 11337221,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Central African Republic", "Democratic Republic of the Congo", "Ethiopia", "Kenya", "Sudan", "Uganda"]
         },
         "Sudan": {
@@ -1122,40 +1122,40 @@
             "Population": 44993105,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic", "English"],
             "Neighbors": ["Central African Republic", "Chad", "Egypt", "Eritrea", "Ethiopia", "Libya", "South Sudan"]
         },
         "Eswatini": {
             "Continent": "Africa",
             "Capital": "Lobamba",
             "ISO": "SZ",
-            "Colors": ["Red", "White", "Blue", "Gold", "Black"],
+            "Colors": ["Red", "White", "Blue", "Yellow", "Black"],
             "Population": 1173266,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "Swazi",
+            "Languages": ["English", "Swazi"],
             "Neighbors": ["Mozambique", "South Africa"]
         },
         "Tanzania": {
             "Continent": "Africa",
             "Capital": "Dodoma",
             "ISO": "TZ",
-            "Colors": ["Black", "Blue", "Gold", "Green"],
+            "Colors": ["Black", "Blue", "Yellow", "Green"],
             "Population": 61653768,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Swahili",
+            "Languages": ["English", "Swahili"],
             "Neighbors": ["Burundi", "Democratic Republic of the Congo", "Kenya", "Malawi", "Mozambique", "Rwanda", "Uganda", "Zambia"]
         },
         "Togo": {
             "Continent": "Africa",
             "Capital": "Lomé",
             "ISO": "TG",
-            "Colors": ["Red", "White", "Gold", "Green"],
+            "Colors": ["Red", "White", "Yellow", "Green"],
             "Population": 8495543,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "French",
+            "Languages": ["French"],
             "Neighbors": ["Benin", "Burkina Faso", "Ghana"]
         },
         "Tunisia": {
@@ -1166,18 +1166,18 @@
             "Population": 99006,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic"],
             "Neighbors": ["Algeria", "Libya"]
         },
         "Uganda": {
             "Continent": "Africa",
             "Capital": "Kampala",
             "ISO": "UG",
-            "Colors": ["Red", "White", "Gold", "Black"],
+            "Colors": ["Red", "White", "Yellow", "Black"],
             "Population": 47380493,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English", "Swahili"],
             "Neighbors": ["Democratic Republic of the Congo", "Kenya", "Rwanda", "South Sudan", "Tanzania"]
         },
         "Western Sahara": {
@@ -1188,7 +1188,7 @@
             "Population": 613786,
             "Landlocked": false,
             "Religion": "Islam",
-            "Language": "Arabic",
+            "Languages": ["Arabic"],
             "Neighbors": ["Algeria", "Mauritania", "Morocco"]
         },
         "Zambia": {
@@ -1199,18 +1199,18 @@
             "Population": 18964296,
             "Landlocked": true,
             "Religion": "Christianity",
-            "Language": "English",
+            "Languages": ["English"],
             "Neighbors": ["Angola", "Botswana", "Democratic Republic of the Congo", "Malawi", "Mozambique", "Namibia", "Tanzania", "Zimbabwe"]
         },
         "Zimbabwe": {
             "Continent": "Africa",
             "Capital": "Harare",
             "ISO": "ZW",
-            "Colors": ["Red", "White", "Black", "Gold", "Green"],
+            "Colors": ["Red", "White", "Black", "Yellow", "Green"],
             "Population": 15100743,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Language": "Shona",
+            "Languages": ["English", "Ndebele", "Shona", "Sotho", "Tsonga", "Tswana", "Venḓa", "Xhosa", "Nyanga"],
             "Neighbors": ["Botswana", "Mozambique", "South Africa", "Zambia"]
         }
     }

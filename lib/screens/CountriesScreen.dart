@@ -18,8 +18,11 @@ class CountriesScreen extends StatelessWidget {
 }
 
 class CountriesState extends State<Countries> {
+    String backgroundImage = "assets/continents_background/${CONTINENTS[Random().nextInt(CONTINENTS.length)]}.png";
     Set<String> continents = CountriesList.getContinents();
     String expandedCountry = '';
+    String countriesOrContinents = '';
+    double dy = 0;
 
 	@override
     Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class CountriesState extends State<Countries> {
                     color: AppTheme.MAIN_COLOR,
                     image: DecorationImage(
                         colorFilter: ColorFilter.linearToSrgbGamma(),
-                        image: AssetImage("assets/continents_background/${CONTINENTS[Random().nextInt(CONTINENTS.length)]}.png"),
+                        image: AssetImage(backgroundImage),
                         fit: BoxFit.cover
                     )
                 ),
@@ -39,7 +42,7 @@ class CountriesState extends State<Countries> {
                     padding: EdgeInsets.all(20),
                     child: Column(
                         children: [
-                            availableCountries.length == 0 ? SizedBox.shrink() : Expanded(
+                            countriesOrContinents == 'Continents' || availableCountries.length == 0 ? SizedBox.shrink() : Expanded(
                                 child: Center(
                                     child: ListView.separated(
                                         shrinkWrap: true,
@@ -53,14 +56,41 @@ class CountriesState extends State<Countries> {
                                     )
                                 )
                             ),
-                            availableCountries.length == 0 ? SizedBox.shrink() : Container(
-                                height: 60,
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [ Dot(), Dot(), Dot() ]
+                            availableCountries.length == 0 ? SizedBox.shrink() : GestureDetector(
+                                onVerticalDragUpdate: (dragUpdateDetails) {
+                                    setState(() {
+                                        dy = dragUpdateDetails.delta.dy;
+                                    });
+                                } ,
+                                onVerticalDragEnd: (dragEndDetails) {
+                                    if (dragEndDetails.velocity.pixelsPerSecond.dy == 0) return;
+
+                                    if (dy > 0) {
+                                        if(countriesOrContinents == 'Continents') {
+                                            countriesOrContinents = '';
+                                        } else {
+                                            countriesOrContinents = 'Countries';
+                                        }
+                                    } else {
+                                         if(countriesOrContinents == 'Countries') {
+                                            countriesOrContinents = '';
+                                        } else {
+                                            countriesOrContinents = 'Continents';
+                                        }
+                                    }
+                                    setState(() { });
+                                },
+                                child: Container(
+                                    height: 60,
+                                    color: Colors.transparent,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [ Dot(), Dot(), Dot() ]
+                                    )
                                 )
                             ),
-                            Expanded(
+                            countriesOrContinents == 'Countries' ? SizedBox.shrink() : Expanded(
                                 child: Center(
                                     child: ListView.separated(
                                         shrinkWrap: true,
