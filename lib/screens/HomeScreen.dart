@@ -3,6 +3,7 @@ import 'package:worldcountriesquiz/AppTheme.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/AdManager.dart';
 import 'package:worldcountriesquiz/screens/CountriesScreen.dart';
+import 'package:worldcountriesquiz/screens/StatisticsScreen.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -79,7 +80,14 @@ class HomeState extends State<Home> {
                                             width: (MediaQuery.of(context).size.width - 40) / 2 - 30,
                                             height: 100,
                                             child: TextButton(
-                                                onPressed: () => {},
+                                                onPressed: () => {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) => StatisticsScreen()
+                                                        )
+                                                    )
+                                                },
                                                 child: Center(
                                                     child: Icon(
                                                         Icons.soap,
@@ -109,7 +117,7 @@ class HomeState extends State<Home> {
                                             )
                                         )
                                     )
-                                ],
+                                ]
                             )
                         ]
                     )

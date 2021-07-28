@@ -61,29 +61,29 @@ class CountriesState extends State<Countries> {
                                     setState(() {
                                         dy = dragUpdateDetails.delta.dy;
                                     });
-                                } ,
+                                },
                                 onVerticalDragEnd: (dragEndDetails) {
                                     if (dragEndDetails.velocity.pixelsPerSecond.dy == 0) return;
 
                                     if (dy > 0) {
-                                        if(countriesOrContinents == 'Continents') {
+                                        if (countriesOrContinents == 'Continents') {
                                             countriesOrContinents = '';
                                         } else {
                                             countriesOrContinents = 'Countries';
                                         }
                                     } else {
-                                         if(countriesOrContinents == 'Countries') {
+                                         if (countriesOrContinents == 'Countries') {
                                             countriesOrContinents = '';
                                         } else {
                                             countriesOrContinents = 'Continents';
                                         }
                                     }
+
                                     setState(() { });
                                 },
                                 child: Container(
                                     height: 60,
                                     color: Colors.transparent,
-                                    width: MediaQuery.of(context).size.width,
                                     child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [ Dot(), Dot(), Dot() ]

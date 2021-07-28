@@ -84,14 +84,26 @@ class CountriesList {
         return 3 * countries.where((country) => country.continent == continent).length;
     }
 
+    static int getTotalCountriesByContinent(String continent) {
+        return countries.where((country) => country.continent == continent).length;
+    }
+
     static int getTotalSolvedStarsByContinent(String continent) {
-        int count = 0;
+        return getTotalEasySolvedStarsByContinent(continent) +
+               getTotalNormalSolvedStarsByContinent(continent) +
+               getTotalHardSolvedStarsByContinent(continent);
+    }
 
-        count += countries.where((country) => country.continent == continent && country.isEasySolved).length;
-        count += countries.where((country) => country.continent == continent && country.isNormalSolved).length;
-        count += countries.where((country) => country.continent == continent && country.isHardSolved).length;
+    static int getTotalEasySolvedStarsByContinent(String continent) {
+        return countries.where((country) => country.continent == continent && country.isEasySolved).length;
+    }
 
-        return count;
+    static int getTotalNormalSolvedStarsByContinent(String continent) {
+        return countries.where((country) => country.continent == continent && country.isNormalSolved).length;
+    }
+
+    static int getTotalHardSolvedStarsByContinent(String continent) {
+        return countries.where((country) => country.continent == continent && country.isHardSolved).length;
     }
 
     static Set<String> getContinents() {
