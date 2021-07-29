@@ -41,9 +41,9 @@ class StatisticsState extends State<Statistics> {
                             separatorBuilder: (BuildContext context, int index) {
                                 return SizedBox(height: 20);
                             },
-                            itemCount: continents.length,
+                            itemCount: continents.length + 1,
                             itemBuilder: (BuildContext context, int index) {
-                                return getContinentCard(continents.elementAt(index));
+                                return index == 0 ? getContinentCard('World') : getContinentCard(continents.elementAt(index - 1));
                             }
                         )
                     )
@@ -58,110 +58,110 @@ class StatisticsState extends State<Statistics> {
                 borderRadius: BorderRadius.circular(15)
             ),
             child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Container(
-                  height: 220,
-                  width: MediaQuery.of(context).size.width - 48,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                          Text(
-                              continent,
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  color: AppTheme.MAIN_COLOR,
-                                  fontWeight: FontWeight.bold
-                              )
-                          ),
-                          CountriesList.isContinentHardSolved(continent) ? Padding(
-                              padding: EdgeInsets.only(top: 10),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                      Star(),
-                                      SizedBox(width: 10),
-                                      Star(),
-                                      SizedBox(width: 10),
-                                      Star()
-                                  ]
-                              )
-                          ) : CountriesList.isContinentNormalSolved(continent) ? Padding(
-                              padding: EdgeInsets.only(top: 10),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                      Star(),
-                                      SizedBox(width: 10),
-                                      Star()
-                                  ]
-                              )
-                          ) : CountriesList.isContinentEasySolved(continent) ? Padding(
-                              padding: EdgeInsets.only(top: 10),
-                              child: Star()
-                          ) : SizedBox.shrink(),
-                          Padding(
-                              padding: EdgeInsets.only(top: 10),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                      Text(
-                                          'Easy Quiz: ${CountriesList.getTotalEasySolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: AppTheme.MAIN_COLOR
-                                          )
-                                      )
-                                  ]
-                              )
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                  Text(
-                                      'Normal Quiz: ${CountriesList.getTotalNormalSolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: AppTheme.MAIN_COLOR
-                                      )
-                                  )
-                              ],
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                  SvgPicture.asset(
-                                      'assets/devil.svg',
-                                      height: 25
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                      '${CountriesList.getTotalHardSolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: AppTheme.MAIN_COLOR
-                                      )
-                                  )
-                              ],
-                          ),
-                          SizedBox(height: 10),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                  Text(
-                                      'Total: ${CountriesList.getTotalSolvedStarsByContinent(continent)}/${CountriesList.getTotalStarsByContinent(continent)}',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: AppTheme.MAIN_COLOR,
-                                          fontWeight: FontWeight.bold
-                                      )
-                                  ),
-                                  SizedBox(width: 10),
-                                  Star(height: 20)
-                              ],
-                          )
-                      ]
-                  )
-              ),
+                padding: EdgeInsets.all(20),
+                child: Container(
+                    height: 220,
+                    width: MediaQuery.of(context).size.width - 48,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                            Text(
+                                continent,
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    color: AppTheme.MAIN_COLOR,
+                                    fontWeight: FontWeight.bold
+                                )
+                            ),
+                            CountriesList.isContinentHardSolved(continent) ? Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                        Star(),
+                                        SizedBox(width: 10),
+                                        Star(),
+                                        SizedBox(width: 10),
+                                        Star()
+                                    ]
+                                )
+                            ) : CountriesList.isContinentNormalSolved(continent) ? Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                        Star(),
+                                        SizedBox(width: 10),
+                                        Star()
+                                    ]
+                                )
+                            ) : CountriesList.isContinentEasySolved(continent) ? Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Star()
+                            ) : SizedBox.shrink(),
+                            Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                        Text(
+                                            'Easy Quiz: ${CountriesList.getTotalEasySolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: AppTheme.MAIN_COLOR
+                                            )
+                                        )
+                                    ]
+                                )
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                    Text(
+                                        'Normal Quiz: ${CountriesList.getTotalNormalSolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: AppTheme.MAIN_COLOR
+                                        )
+                                    )
+                                ]
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                    SvgPicture.asset(
+                                        'assets/devil.svg',
+                                        height: 25
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                        '${CountriesList.getTotalHardSolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: AppTheme.MAIN_COLOR
+                                        )
+                                    )
+                                ]
+                            ),
+                            SizedBox(height: 10),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                    Text(
+                                        'Total: ${CountriesList.getTotalSolvedStarsByContinent(continent)}/${CountriesList.getTotalStarsByContinent(continent)}',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: AppTheme.MAIN_COLOR,
+                                            fontWeight: FontWeight.bold
+                                        )
+                                    ),
+                                    SizedBox(width: 10),
+                                    Star(height: 20)
+                                ]
+                            )
+                        ]
+                    )
+                )
             )
         );
     }

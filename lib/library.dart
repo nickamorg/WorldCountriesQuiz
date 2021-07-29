@@ -86,7 +86,8 @@ class Star extends StatelessWidget {
                         title,
                         style: TextStyle(
                             fontSize: 30,
-                            color: Color(0xFF0FBEBE)
+                            color: Color(0xFF0FBEBE),
+                            fontWeight: FontWeight.bold
                         )
                     )
                 )

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worldcountriesquiz/AppTheme.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/AdManager.dart';
+import 'package:worldcountriesquiz/screens/ContactScreen.dart';
 import 'package:worldcountriesquiz/screens/CountriesScreen.dart';
 import 'package:worldcountriesquiz/screens/StatisticsScreen.dart';
 
@@ -43,85 +45,104 @@ class HomeState extends State<Home> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                            Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)
-                                ),
-                                child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 150,
-                                    child: TextButton(
-                                        onPressed: () => {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => CountriesScreen()
-                                                )
-                                            )
-                                        },
-                                        child: Text(
-                                            'Play',
-                                            style: TextStyle(
-                                                fontSize: 70,
-                                                color: AppTheme.MAIN_COLOR
-                                            )
-                                        )
+                            ButtonCard(
+                                height: 150,
+                                width: MediaQuery.of(context).size.width,
+                                cardContent: Text(
+                                    'Play',
+                                    style: TextStyle(
+                                        fontSize: 70,
+                                        color: AppTheme.MAIN_COLOR
                                     )
-                                )
+                                ),
+                                screen: () => CountriesScreen()
                             ),
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                    Card(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(15)
+                                    ButtonCard(
+                                        height: 100,
+                                        width: MediaQuery.of(context).size.width / 2 - 40,
+                                        cardContent: SvgPicture.asset(
+                                            'assets/statistics.svg',
+                                            height: 50
                                         ),
-                                        child: Container(
-                                            width: (MediaQuery.of(context).size.width - 40) / 2 - 30,
-                                            height: 100,
-                                            child: TextButton(
-                                                onPressed: () => {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) => StatisticsScreen()
-                                                        )
-                                                    )
-                                                },
-                                                child: Center(
-                                                    child: Icon(
-                                                        Icons.soap,
-                                                        color: AppTheme.MAIN_COLOR,
-                                                        size: 40
-                                                    )
-                                                )
-                                            )
-                                        )
+                                        screen: () => StatisticsScreen()
                                     ),
-                                    Card(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(15)
+                                    ButtonCard(
+                                        height: 100,
+                                        width: MediaQuery.of(context).size.width / 2 - 40,
+                                        cardContent: SvgPicture.asset(
+                                            'assets/idea.svg',
+                                            height: 50
                                         ),
-                                        child: Container(
-                                            width: (MediaQuery.of(context).size.width - 40) / 2 - 30,
-                                            height: 100,
-                                            child: TextButton(
-                                                onPressed: () => {},
-                                                child: Center(
-                                                    child: Icon(
-                                                        Icons.alarm,
-                                                        color: AppTheme.MAIN_COLOR,
-                                                        size: 40
-                                                    )
-                                                )
-                                            )
-                                        )
+                                        screen: () => ContactScreen()
                                     )
                                 ]
                             )
                         ]
                     )
                 ) 
+            )
+        );
+    }
+
+    Card contentCard(double height, double width, Widget displayedContent, Function screen) {
+        return Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+            ),
+            child: Container(
+                width: width,
+                height: height,
+                child: TextButton(
+                    onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => screen()
+                            )
+                        )
+                    },
+                    child: Center(
+                        child: displayedContent
+                    )
+                )
+            )
+        );
+    }
+}
+
+class ButtonCard extends StatelessWidget {
+    final double height;
+    final double width;
+    final Widget cardContent;
+    final Function screen;
+    
+    ButtonCard({required this.height, required this.width, required this.cardContent, required this.screen});
+
+    @override
+    Widget build(BuildContext context) {
+        return Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+            ),
+            child: Container(
+                width: width,
+                height: height,
+                child: TextButton(
+                    onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => screen()
+                            )
+                        )
+                    },
+                    child: Center(
+                        child: cardContent
+                    )
+                )
             )
         );
     }

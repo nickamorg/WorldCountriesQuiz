@@ -69,23 +69,26 @@ class CountriesList {
     }
 
     static bool isContinentEasySolved(String continent) {
-        return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isEasySolved).length;
+        return continent == 'World' ? countries.length == countries.where((country) => country.isEasySolved).length :
+               countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isEasySolved).length;
     }
 
     static bool isContinentNormalSolved(String continent) {
-        return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isNormalSolved).length;
+        return continent == 'World' ? countries.length == countries.where((country) => country.isNormalSolved).length :
+               countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isNormalSolved).length;
     }
 
     static bool isContinentHardSolved(String continent) {
-        return countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isHardSolved).length;
+        return continent == 'World' ? countries.length == countries.where((country) => country.isHardSolved).length :
+               countries.where((country) => country.continent == continent).length == countries.where((country) => country.continent == continent && country.isHardSolved).length;
     }
 
     static int getTotalStarsByContinent(String continent) {
-        return 3 * countries.where((country) => country.continent == continent).length;
+        return 3 * (continent == 'World' ? countries.length : countries.where((country) => country.continent == continent).length);
     }
 
     static int getTotalCountriesByContinent(String continent) {
-        return countries.where((country) => country.continent == continent).length;
+        return continent == 'World' ? countries.length : countries.where((country) => country.continent == continent).length;
     }
 
     static int getTotalSolvedStarsByContinent(String continent) {
@@ -95,15 +98,18 @@ class CountriesList {
     }
 
     static int getTotalEasySolvedStarsByContinent(String continent) {
-        return countries.where((country) => country.continent == continent && country.isEasySolved).length;
+        return continent == 'World' ? countries.where((country) => country.isEasySolved).length :
+               countries.where((country) => country.continent == continent && country.isEasySolved).length;
     }
 
     static int getTotalNormalSolvedStarsByContinent(String continent) {
-        return countries.where((country) => country.continent == continent && country.isNormalSolved).length;
+        return continent == 'World' ? countries.where((country) => country.isNormalSolved).length :
+               countries.where((country) => country.continent == continent && country.isNormalSolved).length;
     }
 
     static int getTotalHardSolvedStarsByContinent(String continent) {
-        return countries.where((country) => country.continent == continent && country.isHardSolved).length;
+        return continent == 'World' ? countries.where((country) => country.isHardSolved).length :
+               countries.where((country) => country.continent == continent && country.isHardSolved).length;
     }
 
     static Set<String> getContinents() {

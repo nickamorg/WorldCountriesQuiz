@@ -67,13 +67,13 @@ class CountriesState extends State<Countries> {
 
                                     if (dy > 0) {
                                         if (countriesOrContinents == 'Continents') {
-                                            countriesOrContinents = '';
+                                            countriesOrContinents = dragEndDetails.velocity.pixelsPerSecond.dy > 5000 ? 'Countries' : '';
                                         } else {
                                             countriesOrContinents = 'Countries';
                                         }
                                     } else {
-                                         if (countriesOrContinents == 'Countries') {
-                                            countriesOrContinents = '';
+                                        if (countriesOrContinents == 'Countries') {
+                                            countriesOrContinents = dragEndDetails.velocity.pixelsPerSecond.dy < -4000 ? 'Continents' : '';
                                         } else {
                                             countriesOrContinents = 'Continents';
                                         }

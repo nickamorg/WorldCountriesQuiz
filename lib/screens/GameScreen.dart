@@ -131,7 +131,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                         ),
                                         onPressed: () => Navigator.pop(context),
                                         child: Container(
-                                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                                             height: 35,
                                             child: Icon(
                                                 Icons.arrow_back,
@@ -189,11 +189,12 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 ),
                                 child: Container(
                                     height: 130,
+                                    padding: EdgeInsets.symmetric(horizontal: 20),
                                     child: Column(
                                         children: [
                                             Container(
                                                 height: 70,
-                                                child: Center(
+                                                child: FittedBox(fit: BoxFit.scaleDown,
                                                     child: Text(
                                                         countryTitle,
                                                         style: TextStyle(
@@ -204,11 +205,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                                     )
                                                 )
                                             ),
-                                            Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                                child: FittedBox(
-                                                    child: ModesTracking(currQuizIdx: currQuizIdx, totalModes: totalModes),
-                                                )
+                                            FittedBox(
+                                                child: ModesTracking(currQuizIdx: currQuizIdx, totalModes: totalModes),
                                             ),
                                             SizedBox(height: 10),
                                             Text(
