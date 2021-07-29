@@ -163,6 +163,44 @@ flutter:
     - assets/countries/Europe/Isle of Man.png
     - assets/countries/Europe/Svalbard and Jan Mayen.png
 
+    - assets/countries/North America/Anguilla.png
+    - assets/countries/North America/Antigua and Barbuda.png
+    - assets/countries/North America/Bahamas.png
+    - assets/countries/North America/Barbados.png
+    - assets/countries/North America/Belize.png
+    - assets/countries/North America/Bermuda.png
+    - assets/countries/North America/British Virgin Islands.png
+    - assets/countries/North America/Canada.png
+    - assets/countries/North America/Cayman Islands.png
+    - assets/countries/North America/Costa Rica.png
+    - assets/countries/North America/Cuba.png
+    - assets/countries/North America/Dominica.png
+    - assets/countries/North America/Dominican Republic.png
+    - assets/countries/North America/El Salvador.png
+    - assets/countries/North America/Greenland.png
+    - assets/countries/North America/Grenada.png
+    - assets/countries/North America/Guadeloupe.png
+    - assets/countries/North America/Guatemala.png
+    - assets/countries/North America/Haiti.png
+    - assets/countries/North America/Honduras.png
+    - assets/countries/North America/Jamaica.png
+    - assets/countries/North America/Martinique.png
+    - assets/countries/North America/Mexico.png
+    - assets/countries/North America/Montserrat.png
+    - assets/countries/North America/Nicaragua.png
+    - assets/countries/North America/Panama.png
+    - assets/countries/North America/Puerto Rico.png
+    - assets/countries/North America/Saint Barthelemy.png
+    - assets/countries/North America/Saint Kitts and Nevis.png
+    - assets/countries/North America/Saint Lucia.png
+    - assets/countries/North America/Saint Pierre and Miquelon.png
+    - assets/countries/North America/Saint Vincent and the Grenadines.png
+    - assets/countries/North America/Sint Maarten.png
+    - assets/countries/North America/Saint Martin.png
+    - assets/countries/North America/Turks and Caicos Islands.png
+    - assets/countries/North America/United States.png
+    - assets/countries/North America/U.S. Virgin Islands.png
+
     - assets/countries/South America/Argentina.png
 
 
@@ -279,6 +317,44 @@ flutter:
     - assets/shapes/Europe/Isle of Man.png
     - assets/shapes/Europe/Svalbard and Jan Mayen.png
 
+    - assets/shapes/North America/Anguilla.png
+    - assets/shapes/North America/Antigua and Barbuda.png
+    - assets/shapes/North America/Bahamas.png
+    - assets/shapes/North America/Barbados.png
+    - assets/shapes/North America/Belize.png
+    - assets/shapes/North America/Bermuda.png
+    - assets/shapes/North America/British Virgin Islands.png
+    - assets/shapes/North America/Canada.png
+    - assets/shapes/North America/Cayman Islands.png
+    - assets/shapes/North America/Costa Rica.png
+    - assets/shapes/North America/Cuba.png
+    - assets/shapes/North America/Dominica.png
+    - assets/shapes/North America/Dominican Republic.png
+    - assets/shapes/North America/El Salvador.png
+    - assets/shapes/North America/Greenland.png
+    - assets/shapes/North America/Grenada.png
+    - assets/shapes/North America/Guadeloupe.png
+    - assets/shapes/North America/Guatemala.png
+    - assets/shapes/North America/Haiti.png
+    - assets/shapes/North America/Honduras.png
+    - assets/shapes/North America/Jamaica.png
+    - assets/shapes/North America/Martinique.png
+    - assets/shapes/North America/Mexico.png
+    - assets/shapes/North America/Montserrat.png
+    - assets/shapes/North America/Nicaragua.png
+    - assets/shapes/North America/Panama.png
+    - assets/shapes/North America/Puerto Rico.png
+    - assets/shapes/North America/Saint Barthelemy.png
+    - assets/shapes/North America/Saint Kitts and Nevis.png
+    - assets/shapes/North America/Saint Lucia.png
+    - assets/shapes/North America/Saint Pierre and Miquelon.png
+    - assets/shapes/North America/Saint Vincent and the Grenadines.png
+    - assets/shapes/North America/Sint Maarten.png
+    - assets/shapes/North America/Saint Martin.png
+    - assets/shapes/North America/Turks and Caicos Islands.png
+    - assets/shapes/North America/United States.png
+    - assets/shapes/North America/U.S. Virgin Islands.png
+
     - assets/shapes/South America/Argentina.png
 
 
@@ -394,6 +470,44 @@ flutter:
     - assets/flags/Europe/Guernsey.png
     - assets/flags/Europe/Isle of Man.png
     - assets/flags/Europe/Svalbard and Jan Mayen.png
+
+    - assets/flags/North America/Anguilla.png
+    - assets/flags/North America/Antigua and Barbuda.png
+    - assets/flags/North America/Bahamas.png
+    - assets/flags/North America/Barbados.png
+    - assets/flags/North America/Belize.png
+    - assets/flags/North America/Bermuda.png
+    - assets/flags/North America/British Virgin Islands.png
+    - assets/flags/North America/Canada.png
+    - assets/flags/North America/Cayman Islands.png
+    - assets/flags/North America/Costa Rica.png
+    - assets/flags/North America/Cuba.png
+    - assets/flags/North America/Dominica.png
+    - assets/flags/North America/Dominican Republic.png
+    - assets/flags/North America/El Salvador.png
+    - assets/flags/North America/Greenland.png
+    - assets/flags/North America/Grenada.png
+    - assets/flags/North America/Guadeloupe.png
+    - assets/flags/North America/Guatemala.png
+    - assets/flags/North America/Haiti.png
+    - assets/flags/North America/Honduras.png
+    - assets/flags/North America/Jamaica.png
+    - assets/flags/North America/Martinique.png
+    - assets/flags/North America/Mexico.png
+    - assets/flags/North America/Montserrat.png
+    - assets/flags/North America/Nicaragua.png
+    - assets/flags/North America/Panama.png
+    - assets/flags/North America/Puerto Rico.png
+    - assets/flags/North America/Saint Barthelemy.png
+    - assets/flags/North America/Saint Kitts and Nevis.png
+    - assets/flags/North America/Saint Lucia.png
+    - assets/flags/North America/Saint Pierre and Miquelon.png
+    - assets/flags/North America/Saint Vincent and the Grenadines.png
+    - assets/flags/North America/Sint Maarten.png
+    - assets/flags/North America/Saint Martin.png
+    - assets/flags/North America/Turks and Caicos Islands.png
+    - assets/flags/North America/United States.png
+    - assets/flags/North America/U.S. Virgin Islands.png
 
     - assets/flags/South America/Argentina.png
 
