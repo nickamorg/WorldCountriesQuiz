@@ -18,7 +18,7 @@ class StatisticsScreen extends StatelessWidget {
 
 class StatisticsState extends State<Statistics> {
     String backgroundImage = "assets/continents_background/${CONTINENTS[Random().nextInt(CONTINENTS.length)]}.png";
-    Set<String> continents = CountriesList.getContinents();
+    Set<String> continents = CONTINENTS.toSet();
 
 	@override
     Widget build(BuildContext context) {

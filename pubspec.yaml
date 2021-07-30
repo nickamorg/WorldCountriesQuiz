@@ -204,8 +204,46 @@ flutter:
     - assets/countries/North America/United States.png
     - assets/countries/North America/U.S. Virgin Islands.png
 
-    - assets/countries/South America/Argentina.png
+    - assets/countries/Oceania/American Samoa.png
+    - assets/countries/Oceania/Australia.png
+    - assets/countries/Oceania/Cook Islands.png
+    - assets/countries/Oceania/Fiji.png
+    - assets/countries/Oceania/French Polynesia.png
+    - assets/countries/Oceania/Guam.png
+    - assets/countries/Oceania/Kiribati.png
+    - assets/countries/Oceania/Nauru.png
+    - assets/countries/Oceania/New Caledonia.png
+    - assets/countries/Oceania/New Zealand.png
+    - assets/countries/Oceania/Norfolk Island.png
+    - assets/countries/Oceania/Niue.png
+    - assets/countries/Oceania/Palau.png
+    - assets/countries/Oceania/Papua New Guinea.png
+    - assets/countries/Oceania/Pitcairn Islands.png
+    - assets/countries/Oceania/Samoa.png
+    - assets/countries/Oceania/Solomon Islands.png
+    - assets/countries/Oceania/Tokelau.png
+    - assets/countries/Oceania/Tonga.png
+    - assets/countries/Oceania/Vanuatu.png
+    - assets/countries/Oceania/Wallis and Futuna.png
 
+    - assets/countries/South America/Argentina.png
+    - assets/countries/South America/Aruba.png
+    - assets/countries/South America/BES Islands.png
+    - assets/countries/South America/Bolivia.png
+    - assets/countries/South America/Brazil.png
+    - assets/countries/South America/Chile.png
+    - assets/countries/South America/Colombia.png
+    - assets/countries/South America/Curacao.png
+    - assets/countries/South America/Ecuador.png
+    - assets/countries/South America/Falkland Islands.png
+    - assets/countries/South America/French Guiana.png
+    - assets/countries/South America/Guyana.png
+    - assets/countries/South America/Paraguay.png
+    - assets/countries/South America/Peru.png
+    - assets/countries/South America/Suriname.png
+    - assets/countries/South America/Trinidad and Tobago.png
+    - assets/countries/South America/Uruguay.png
+    - assets/countries/South America/Venezuela.png
 
     # Shapes
     - assets/shapes/Africa/Algeria.png
@@ -358,7 +396,46 @@ flutter:
     - assets/shapes/North America/United States.png
     - assets/shapes/North America/U.S. Virgin Islands.png
 
+    - assets/shapes/Oceania/American Samoa.png
+    - assets/shapes/Oceania/Australia.png
+    - assets/shapes/Oceania/Cook Islands.png
+    - assets/shapes/Oceania/Fiji.png
+    - assets/shapes/Oceania/French Polynesia.png
+    - assets/shapes/Oceania/Guam.png
+    - assets/shapes/Oceania/Kiribati.png
+    - assets/shapes/Oceania/Nauru.png
+    - assets/shapes/Oceania/New Caledonia.png
+    - assets/shapes/Oceania/New Zealand.png
+    - assets/shapes/Oceania/Norfolk Island.png
+    - assets/shapes/Oceania/Niue.png
+    - assets/shapes/Oceania/Palau.png
+    - assets/shapes/Oceania/Papua New Guinea.png
+    - assets/shapes/Oceania/Pitcairn Islands.png
+    - assets/shapes/Oceania/Samoa.png
+    - assets/shapes/Oceania/Solomon Islands.png
+    - assets/shapes/Oceania/Tokelau.png
+    - assets/shapes/Oceania/Tonga.png
+    - assets/shapes/Oceania/Vanuatu.png
+    - assets/shapes/Oceania/Wallis and Futuna.png
+
     - assets/shapes/South America/Argentina.png
+    - assets/shapes/South America/Aruba.png
+    - assets/shapes/South America/BES Islands.png
+    - assets/shapes/South America/Bolivia.png
+    - assets/shapes/South America/Brazil.png
+    - assets/shapes/South America/Chile.png
+    - assets/shapes/South America/Colombia.png
+    - assets/shapes/South America/Curacao.png
+    - assets/shapes/South America/Ecuador.png
+    - assets/shapes/South America/Falkland Islands.png
+    - assets/shapes/South America/French Guiana.png
+    - assets/shapes/South America/Guyana.png
+    - assets/shapes/South America/Paraguay.png
+    - assets/shapes/South America/Peru.png
+    - assets/shapes/South America/Suriname.png
+    - assets/shapes/South America/Trinidad and Tobago.png
+    - assets/shapes/South America/Uruguay.png
+    - assets/shapes/South America/Venezuela.png
 
 
     # Flags
@@ -512,7 +589,46 @@ flutter:
     - assets/flags/North America/United States.png
     - assets/flags/North America/U.S. Virgin Islands.png
 
+    - assets/flags/Oceania/American Samoa.png
+    - assets/flags/Oceania/Australia.png
+    - assets/flags/Oceania/Cook Islands.png
+    - assets/flags/Oceania/Fiji.png
+    - assets/flags/Oceania/French Polynesia.png
+    - assets/flags/Oceania/Guam.png
+    - assets/flags/Oceania/Kiribati.png
+    - assets/flags/Oceania/Nauru.png
+    - assets/flags/Oceania/New Caledonia.png
+    - assets/flags/Oceania/New Zealand.png
+    - assets/flags/Oceania/Norfolk Island.png
+    - assets/flags/Oceania/Niue.png
+    - assets/flags/Oceania/Palau.png
+    - assets/flags/Oceania/Papua New Guinea.png
+    - assets/flags/Oceania/Pitcairn Islands.png
+    - assets/flags/Oceania/Samoa.png
+    - assets/flags/Oceania/Solomon Islands.png
+    - assets/flags/Oceania/Tokelau.png
+    - assets/flags/Oceania/Tonga.png
+    - assets/flags/Oceania/Vanuatu.png
+    - assets/flags/Oceania/Wallis and Futuna.png
+
     - assets/flags/South America/Argentina.png
+    - assets/flags/South America/Aruba.png
+    - assets/flags/South America/BES Islands.png
+    - assets/flags/South America/Bolivia.png
+    - assets/flags/South America/Brazil.png
+    - assets/flags/South America/Chile.png
+    - assets/flags/South America/Colombia.png
+    - assets/flags/South America/Curacao.png
+    - assets/flags/South America/Ecuador.png
+    - assets/flags/South America/Falkland Islands.png
+    - assets/flags/South America/French Guiana.png
+    - assets/flags/South America/Guyana.png
+    - assets/flags/South America/Paraguay.png
+    - assets/flags/South America/Peru.png
+    - assets/flags/South America/Suriname.png
+    - assets/flags/South America/Trinidad and Tobago.png
+    - assets/flags/South America/Uruguay.png
+    - assets/flags/South America/Venezuela.png
 
     # Markers
     - assets/markers/Black.svg

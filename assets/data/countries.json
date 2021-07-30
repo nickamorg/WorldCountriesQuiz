@@ -551,18 +551,6 @@
             "Neighbors": ["Italy"]
         },
 
-        "Argentina": {
-            "Continent": "South America",
-            "Capital": "Buenos Aires",
-            "ISO": "AR",
-            "Colors": ["Blue", "White", "Yellow"],
-            "Population": 41343201,
-            "Landlocked": false,
-            "Religion": "Christianity",
-            "Languages": ["Spanish"],
-            "Neighbors": ["Egypt"]
-        },
-
         "Pakistan": {
             "Continent": "Asia",
             "Capital": "Islamabad",
@@ -1620,6 +1608,437 @@
             "Religion": "Christianity",
             "Languages": ["English"],
             "Neighbors": ["Canada", "Mexico"]
+        },
+
+        "Argentina": {
+            "Continent": "South America",
+            "Capital": "Buenos Aires",
+            "ISO": "AR",
+            "Colors": ["Blue", "White"],
+            "Population": 45649466,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Spanish"],
+            "Neighbors": ["Bolivia", "Brazil", "Chile", "Paraguay", "Uruguay"]
+        },
+        "Aruba": {
+            "Continent": "South America",
+            "Capital": "Oranjestad",
+            "ISO": "AW",
+            "Colors": ["Blue", "White", "Red", "Yellow"],
+            "Population": 107257,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Dutch", "Papiamento"],
+            "Neighbors": []
+        },
+        "BES Islands": {
+            "Continent": "South America",
+            "Capital": "Bonaire",
+            "ISO": "BQ",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 26490,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Dutch"],
+            "Neighbors": []
+        },
+        "Bolivia": {
+            "Continent": "South America",
+            "Capital": "Sucre",
+            "ISO": "BO",
+            "Colors": ["Red", "White", "Red"],
+            "Population": 11848647,
+            "Landlocked": true,
+            "Religion": "Christianity",
+            "Languages": ["Spanish", "Aymara", "Guaraní", "Quechua"],
+            "Neighbors": ["Argentina", "Brazil", "Chile", "Paraguay", "Peru"]
+        },
+        "Brazil": {
+            "Continent": "South America",
+            "Capital": "Brasília",
+            "ISO": "BR",
+            "Colors": ["Blue", "Yellow", "Green"],
+            "Population": 214206128,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Portuguese"],
+            "Neighbors": ["Argentina", "Bolivia", "Colombia", "French Guiana", "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela"]
+        },
+        "Chile": {
+            "Continent": "South America",
+            "Capital": "Santiago",
+            "ISO": "CL",
+            "Colors": ["Red", "White", "Red"],
+            "Population": 19295520,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Spanish"],
+            "Neighbors": ["Argentina", "Bolivia", "Peru"]
+        },
+        "Colombia": {
+            "Continent": "South America",
+            "Capital": "Bogotá",
+            "ISO": "CO",
+            "Colors": ["Blue", "Yellow", "Red"],
+            "Population": 51477821,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Spanish"],
+            "Neighbors": ["Brazil", "Ecuador", "Panama", "Peru", "Venezuela"]
+        },
+        "Curacao": {
+            "Continent": "South America",
+            "Capital": "Willemstad",
+            "ISO": "CW",
+            "Colors": ["Blue", "White", "Yellow"],
+            "Population": 164820,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Papiamentu", "Dutch", "English"],
+            "Neighbors": []
+        },
+        "Ecuador": {
+            "Continent": "South America",
+            "Capital": "Quito",
+            "ISO": "EC",
+            "Colors": ["Blue", "Yellow", "Red"],
+            "Population": 17939404,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Spanish"],
+            "Neighbors": ["Colombia", "Peru"]
+        },
+        "Falkland Islands": {
+            "Continent": "South America",
+            "Capital": "Stanley",
+            "ISO": "FK",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 3595,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English"],
+            "Neighbors": []
+        },
+        "French Guiana": {
+            "Continent": "South America",
+            "Capital": "Cayenne",
+            "ISO": "GF",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 307419,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["French"],
+            "Neighbors": ["Brazil", "Suriname"]
+        },
+        "Guyana": {
+            "Continent": "South America",
+            "Capital": "Georgetown",
+            "ISO": "GY",
+            "Colors": ["Green", "Black", "White", "Yellow", "Red"],
+            "Population": 790671,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English"],
+            "Neighbors": ["Brazil", "Suriname", "Venezuela"]
+        },
+        "Paraguay": {
+            "Continent": "South America",
+            "Capital": "Asunción",
+            "ISO": "PY",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 7228938,
+            "Landlocked": true,
+            "Religion": "Christianity",
+            "Languages": ["Spanish", "Guarani"],
+            "Neighbors": ["Argentina", "Bolivia", "Brazil"]
+        },
+        "Peru": {
+            "Continent": "South America",
+            "Capital": "Lima",
+            "ISO": "PE",
+            "Colors": ["White", "Red"],
+            "Population": 33478752,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Spanish"],
+            "Neighbors": ["Bolivia", "Brazil", "Chile", "Colombia", "Ecuador"]
+        },
+        "Suriname": {
+            "Continent": "South America",
+            "Capital": "Paramaribo",
+            "ISO": "SR",
+            "Colors": ["Blue", "Yellow", "White", "Green"],
+            "Population": 592380,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Dutch"],
+            "Neighbors": ["Brazil", "French Guiana", "Guyana"]
+        },
+        "Trinidad and Tobago": {
+            "Continent": "South America",
+            "Capital": "Port of Spain",
+            "ISO": "TT",
+            "Colors": ["Black", "White", "Red"],
+            "Population": 1403375,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English"],
+            "Neighbors": []
+        },
+        "Uruguay": {
+            "Continent": "South America",
+            "Capital": "Montevideo",
+            "ISO": "UY",
+            "Colors": ["Blue", "Yellow", "White"],
+            "Population": 3486764,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Spanish"],
+            "Neighbors": ["Argentina", "Brazil"]
+        },
+        "Venezuela": {
+            "Continent": "South America",
+            "Capital": "Caracas",
+            "ISO": "VE",
+            "Colors": ["Blue", "Yellow", "Red", "White"],
+            "Population": 28349703,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Spanish"],
+            "Neighbors": ["Brazil", "Colombia", "Guyana"]
+        },
+
+        "American Samoa": {
+            "Continent": "Oceania",
+            "Capital": "Pago Pago",
+            "ISO": "AS",
+            "Colors": ["Blue", "Yellow", "Red"],
+            "Population": 55060,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Samoan"],
+            "Neighbors": []
+        },
+        "Australia": {
+            "Continent": "Oceania",
+            "Capital": "Canberra",
+            "ISO": "AU",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 25825022,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English"],
+            "Neighbors": []
+        },
+        "Cook Islands": {
+            "Continent": "Oceania",
+            "Capital": "Avarua",
+            "ISO": "CK",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 17581,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English, Cook Islands Māori"],
+            "Neighbors": []
+        },
+        "Fiji": {
+            "Continent": "Oceania",
+            "Capital": "Suva",
+            "ISO": "FJ",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 903527,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Fijian", "English", "Fiji Hindi"],
+            "Neighbors": []
+        },
+        "French Polynesia": {
+            "Continent": "Oceania",
+            "Capital": "Papeetē",
+            "ISO": "PF",
+            "Colors": ["White", "Red"],
+            "Population": 282674,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["French"],
+            "Neighbors": []
+        },
+        "Guam": {
+            "Continent": "Oceania",
+            "Capital": "Hagåtña",
+            "ISO": "GU",
+            "Colors": ["Blue", "Red"],
+            "Population": 170393,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Chamorro"],
+            "Neighbors": []
+        },
+        "Kiribati": {
+            "Continent": "Oceania",
+            "Capital": "South Tarawa",
+            "ISO": "KI",
+            "Colors": ["Blue", "White", "Red", "Yellow"],
+            "Population": 121477,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Gilbertese"],
+            "Neighbors": []
+        },
+        "Nauru": {
+            "Continent": "Oceania",
+            "Capital": "Yaren",
+            "ISO": "NR",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 10898,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Nauru"],
+            "Neighbors": []
+        },
+        "New Caledonia": {
+            "Continent": "Oceania",
+            "Capital": "Nouméa",
+            "ISO": "NC",
+            "Colors": ["Blue", "Green", "Orange", "Yellow", "Black"],
+            "Population": 288503,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["French"],
+            "Neighbors": []
+        },
+        "New Zealand": {
+            "Continent": "Oceania",
+            "Capital": "Wellington",
+            "ISO": "NZ",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 4865002,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Māori"],
+            "Neighbors": []
+        },
+        "Niue": {
+            "Continent": "Oceania",
+            "Capital": "Alofi",
+            "ISO": "NU",
+            "Colors": ["Blue", "White", "Red", "Yellow"],
+            "Population": 1638,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Niuean"],
+            "Neighbors": []
+        },
+        "Norfolk Island": {
+            "Continent": "Oceania",
+            "Capital": "Kingston",
+            "ISO": "NF",
+            "Colors": ["Green", "White"],
+            "Population": 1748,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Norfuk"],
+            "Neighbors": []
+        },
+        "Palau": {
+            "Continent": "Oceania",
+            "Capital": "Ngerulmud",
+            "ISO": "PW",
+            "Colors": ["Blue", "Yellow"],
+            "Population": 18188,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Palauan"],
+            "Neighbors": []
+        },
+        "Papua New Guinea": {
+            "Continent": "Oceania",
+            "Capital": "Port Moresby",
+            "ISO": "PG",
+            "Colors": ["Black", "Yellow", "White", "Red"],
+            "Population": 9135821,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Hiri Motu", "Tok Pisin"],
+            "Neighbors": ["Indonesia"]
+        },
+        "Pitcairn Islands": {
+            "Continent": "Oceania",
+            "Capital": "Adamstown",
+            "ISO": "PN",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 47,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English"],
+            "Neighbors": []
+        },
+        "Samoa": {
+            "Continent": "Oceania",
+            "Capital": "Apia",
+            "ISO": "WS",
+            "Colors": ["Blue", "White", "Red"],
+            "Population": 199850,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Samoan"],
+            "Neighbors": []
+        },
+        "Solomon Islands": {
+            "Continent": "Oceania",
+            "Capital": "Honiara",
+            "ISO": "SB",
+            "Colors": ["Blue", "White", "Yellow", "Green"],
+            "Population": 705846,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English"],
+            "Neighbors": []
+        },
+        "Tokelau": {
+            "Continent": "Oceania",
+            "Capital": "Fakaofo",
+            "ISO": "TK",
+            "Colors": ["Blue", "Yellow", "White"],
+            "Population": 1376,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Samoan", "Tokelauan"],
+            "Neighbors": []
+        },
+        "Tonga": {
+            "Continent": "Oceania",
+            "Capital": "Nuku'alofa",
+            "ISO": "TO",
+            "Colors": ["White", "Red"],
+            "Population": 107011,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["English", "Tongan"],
+            "Neighbors": []
+        },
+        "Vanuatu": {
+            "Continent": "Oceania",
+            "Capital": "Port Vila",
+            "ISO": "VU",
+            "Colors": ["Black", "Green", "Yellow", "Red"],
+            "Population": 315207,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["Bislama", "English", "French"],
+            "Neighbors": []
+        },
+        "Wallis and Futuna": {
+            "Continent": "Oceania",
+            "Capital": "Mata-Utu",
+            "ISO": "WF",
+            "Colors": ["White", "Blue", "Red"],
+            "Population": 11034,
+            "Landlocked": false,
+            "Religion": "Christianity",
+            "Languages": ["French"],
+            "Neighbors": []
         }
     }
 }
