@@ -1686,9 +1686,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                     case GameQuiz.CAPITAL: return hintButton(2, '50-50', getModeCapitalHint);
                                     case GameQuiz.CONTINENT: return hintButton(2, '50-50', getModeContinentHint);
                                     case GameQuiz.SHAPE: return hintButton(2, '50-50', getModeShapeHint);
-                                    case GameQuiz.POPULATION: return hintButton(2, 'Three of a Kind', getModePopulationHint);
+                                    case GameQuiz.POPULATION: return hintButton(3, 'Three of a Kind', getModePopulationHint);
                                     case GameQuiz.FLAG: return hintButton(2, '50-50', getModeFlagHint);
-                                    case GameQuiz.COLORS: return hintButton(2, '1 irrelative color', getModeColorsHint);
+                                    case GameQuiz.COLORS: return hintButton(3, '1 irrelative color', getModeColorsHint);
                                     case GameQuiz.ISO: return hintButton(2, 'Reveal 1 of the letters', getModeIsoHint);
                                     case GameQuiz.LANDLOCKED: return SizedBox.shrink();
                                     case GameQuiz.RELIGION: return hintButton(2, 'Three of a Kind', getModeReligionHint);

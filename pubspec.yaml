@@ -109,7 +109,59 @@ flutter:
     - assets/countries/Africa/Zambia.png
     - assets/countries/Africa/Zimbabwe.png
 
+    - assets/countries/Asia/Afghanistan.png
+    - assets/countries/Asia/Armenia.png
+    - assets/countries/Asia/Azerbaijan.png
+    - assets/countries/Asia/Bahrain.png
+    - assets/countries/Asia/Bangladesh.png
+    - assets/countries/Asia/Bhutan.png
+    - assets/countries/Asia/Brunei.png
+    - assets/countries/Asia/Cambodia.png
+    - assets/countries/Asia/China.png
+    - assets/countries/Asia/Christmas Island.png
+    - assets/countries/Asia/Cocos Islands.png
+    - assets/countries/Asia/Georgia.png
+    - assets/countries/Asia/Hong Kong.png
+    - assets/countries/Asia/Japan.png
+    - assets/countries/Asia/Jordan.png
+    - assets/countries/Asia/India.png
+    - assets/countries/Asia/Indonesia.png
+    - assets/countries/Asia/Iran.png
+    - assets/countries/Asia/Iraq.png
+    - assets/countries/Asia/Israel.png
+    - assets/countries/Asia/Kazakhstan.png
+    - assets/countries/Asia/South Korea.png
+    - assets/countries/Asia/Kuwait.png
+    - assets/countries/Asia/Kyrgyzstan.png
+    - assets/countries/Asia/Laos.png
+    - assets/countries/Asia/Lebanon.png
+    - assets/countries/Asia/Macao.png
+    - assets/countries/Asia/Malaysia.png
+    - assets/countries/Asia/Maldives.png
+    - assets/countries/Asia/Mongolia.png
+    - assets/countries/Asia/Myanmar.png
+    - assets/countries/Asia/Nepal.png
+    - assets/countries/Asia/North Korea.png
+    - assets/countries/Asia/Oman.png
     - assets/countries/Asia/Pakistan.png
+    - assets/countries/Asia/Palestine.png
+    - assets/countries/Asia/Philippines.png
+    - assets/countries/Asia/Qatar.png
+    - assets/countries/Asia/Russia.png
+    - assets/countries/Asia/Saudi Arabia.png
+    - assets/countries/Asia/Singapore.png
+    - assets/countries/Asia/Sri Lanka.png
+    - assets/countries/Asia/Syria.png
+    - assets/countries/Asia/Taiwan.png
+    - assets/countries/Asia/Tajikistan.png
+    - assets/countries/Asia/Thailand.png
+    - assets/countries/Asia/Timor-Leste.png
+    - assets/countries/Asia/Turkey.png
+    - assets/countries/Asia/Turkmenistan.png
+    - assets/countries/Asia/Uzbekistan.png
+    - assets/countries/Asia/United Arab Emirates.png
+    - assets/countries/Asia/Vietnam.png
+    - assets/countries/Asia/Yemen.png
 
     - assets/countries/Europe/Albania.png
     - assets/countries/Europe/Andorra.png
@@ -301,7 +353,59 @@ flutter:
     - assets/shapes/Africa/Zambia.png
     - assets/shapes/Africa/Zimbabwe.png
 
+    - assets/shapes/Asia/Afghanistan.png
+    - assets/shapes/Asia/Armenia.png
+    - assets/shapes/Asia/Azerbaijan.png
+    - assets/shapes/Asia/Bahrain.png
+    - assets/shapes/Asia/Bangladesh.png
+    - assets/shapes/Asia/Bhutan.png
+    - assets/shapes/Asia/Brunei.png
+    - assets/shapes/Asia/Cambodia.png
+    - assets/shapes/Asia/China.png
+    - assets/shapes/Asia/Christmas Island.png
+    - assets/shapes/Asia/Cocos Islands.png
+    - assets/shapes/Asia/Georgia.png
+    - assets/shapes/Asia/Hong Kong.png
+    - assets/shapes/Asia/Japan.png
+    - assets/shapes/Asia/Jordan.png
+    - assets/shapes/Asia/India.png
+    - assets/shapes/Asia/Indonesia.png
+    - assets/shapes/Asia/Iran.png
+    - assets/shapes/Asia/Iraq.png
+    - assets/shapes/Asia/Israel.png
+    - assets/shapes/Asia/Kazakhstan.png
+    - assets/shapes/Asia/South Korea.png
+    - assets/shapes/Asia/Kuwait.png
+    - assets/shapes/Asia/Kyrgyzstan.png
+    - assets/shapes/Asia/Laos.png
+    - assets/shapes/Asia/Lebanon.png
+    - assets/shapes/Asia/Macao.png
+    - assets/shapes/Asia/Malaysia.png
+    - assets/shapes/Asia/Maldives.png
+    - assets/shapes/Asia/Mongolia.png
+    - assets/shapes/Asia/Myanmar.png
+    - assets/shapes/Asia/Nepal.png
+    - assets/shapes/Asia/North Korea.png
+    - assets/shapes/Asia/Oman.png
     - assets/shapes/Asia/Pakistan.png
+    - assets/shapes/Asia/Palestine.png
+    - assets/shapes/Asia/Philippines.png
+    - assets/shapes/Asia/Qatar.png
+    - assets/shapes/Asia/Russia.png
+    - assets/shapes/Asia/Saudi Arabia.png
+    - assets/shapes/Asia/Singapore.png
+    - assets/shapes/Asia/Sri Lanka.png
+    - assets/shapes/Asia/Syria.png
+    - assets/shapes/Asia/Taiwan.png
+    - assets/shapes/Asia/Tajikistan.png
+    - assets/shapes/Asia/Thailand.png
+    - assets/shapes/Asia/Timor-Leste.png
+    - assets/shapes/Asia/Turkey.png
+    - assets/shapes/Asia/Turkmenistan.png
+    - assets/shapes/Asia/Uzbekistan.png
+    - assets/shapes/Asia/United Arab Emirates.png
+    - assets/shapes/Asia/Vietnam.png
+    - assets/shapes/Asia/Yemen.png
 
     - assets/shapes/Europe/Albania.png
     - assets/shapes/Europe/Andorra.png
@@ -494,7 +598,59 @@ flutter:
     - assets/flags/Africa/Zambia.png
     - assets/flags/Africa/Zimbabwe.png
 
+    - assets/flags/Asia/Afghanistan.png
+    - assets/flags/Asia/Armenia.png
+    - assets/flags/Asia/Azerbaijan.png
+    - assets/flags/Asia/Bahrain.png
+    - assets/flags/Asia/Bangladesh.png
+    - assets/flags/Asia/Bhutan.png
+    - assets/flags/Asia/Brunei.png
+    - assets/flags/Asia/Cambodia.png
+    - assets/flags/Asia/China.png
+    - assets/flags/Asia/Christmas Island.png
+    - assets/flags/Asia/Cocos Islands.png
+    - assets/flags/Asia/Georgia.png
+    - assets/flags/Asia/Hong Kong.png
+    - assets/flags/Asia/Japan.png
+    - assets/flags/Asia/Jordan.png
+    - assets/flags/Asia/India.png
+    - assets/flags/Asia/Indonesia.png
+    - assets/flags/Asia/Iran.png
+    - assets/flags/Asia/Iraq.png
+    - assets/flags/Asia/Israel.png
+    - assets/flags/Asia/Kazakhstan.png
+    - assets/flags/Asia/South Korea.png
+    - assets/flags/Asia/Kuwait.png
+    - assets/flags/Asia/Kyrgyzstan.png
+    - assets/flags/Asia/Laos.png
+    - assets/flags/Asia/Lebanon.png
+    - assets/flags/Asia/Macao.png
+    - assets/flags/Asia/Malaysia.png
+    - assets/flags/Asia/Maldives.png
+    - assets/flags/Asia/Mongolia.png
+    - assets/flags/Asia/Myanmar.png
+    - assets/flags/Asia/Nepal.png
+    - assets/flags/Asia/North Korea.png
+    - assets/flags/Asia/Oman.png
     - assets/flags/Asia/Pakistan.png
+    - assets/flags/Asia/Palestine.png
+    - assets/flags/Asia/Philippines.png
+    - assets/flags/Asia/Qatar.png
+    - assets/flags/Asia/Russia.png
+    - assets/flags/Asia/Saudi Arabia.png
+    - assets/flags/Asia/Singapore.png
+    - assets/flags/Asia/Sri Lanka.png
+    - assets/flags/Asia/Syria.png
+    - assets/flags/Asia/Taiwan.png
+    - assets/flags/Asia/Tajikistan.png
+    - assets/flags/Asia/Thailand.png
+    - assets/flags/Asia/Timor-Leste.png
+    - assets/flags/Asia/Turkey.png
+    - assets/flags/Asia/Turkmenistan.png
+    - assets/flags/Asia/Uzbekistan.png
+    - assets/flags/Asia/United Arab Emirates.png
+    - assets/flags/Asia/Vietnam.png
+    - assets/flags/Asia/Yemen.png
 
     - assets/flags/Europe/Albania.png
     - assets/flags/Europe/Andorra.png
