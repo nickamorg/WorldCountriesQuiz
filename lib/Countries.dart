@@ -112,14 +112,6 @@ class CountriesList {
                countries.where((country) => country.continent == continent && country.isHardSolved).length;
     }
 
-    static Set<String> getContinents() {
-        Set<String> continents = {};
-
-        countries.forEach((country) { continents.add(country.continent);});
-
-        return continents;
-    }
-
     static Country getCountryByTitle(String title) {
         return countries.singleWhere((country) => country.title == title);
     }

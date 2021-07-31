@@ -70,7 +70,7 @@ class ContactState extends State<ContactWidget> {
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide()
                         ),
-                        hintText: 'Type something'
+                        hintText: 'Type something...'
                     ),
                     validator: (value) {
                         if (validateProposals()) {

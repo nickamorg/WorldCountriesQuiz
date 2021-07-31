@@ -105,7 +105,7 @@ class StatisticsState extends State<Statistics> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                         Text(
-                                            'Easy Quiz: ${CountriesList.getTotalEasySolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
+                                            'Easy: ${CountriesList.getTotalEasySolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 color: AppTheme.MAIN_COLOR
@@ -118,7 +118,7 @@ class StatisticsState extends State<Statistics> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                     Text(
-                                        'Normal Quiz: ${CountriesList.getTotalNormalSolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
+                                        'Normal: ${CountriesList.getTotalNormalSolvedStarsByContinent(continent)}/${CountriesList.getTotalCountriesByContinent(continent)}',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: AppTheme.MAIN_COLOR

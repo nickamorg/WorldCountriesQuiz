@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:worldcountriesquiz/AdManager.dart';
 import 'package:worldcountriesquiz/AppTheme.dart';
 import 'package:worldcountriesquiz/AudioPlayer.dart';
 import 'package:worldcountriesquiz/Countries.dart';
@@ -33,16 +35,26 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     );
 
     List<String> capitals = [];
+    Set<int> hiddenCapitalsIdxs = {};
     List<String> continents = [];
+    Set<int> hiddenContinentIdxs = {};
     List<String> shapes = [];
+    Set<int> hiddenShapeIdxs = {};
     double population = 0;
     int populationRange = 0;
+    int minPopulationIdx = -1;
     List<String> flags = [];
     List<String> flagColors = [];
+    Set<String> hiddenColors = {};
+    Set<int> hiddenflagIdxs = {};
     List<String> isoLetters = [];
+    int isoCharLockIdx = -1;
+    Set<String> hiddenReligions = {};
     List<String> languages = [];
+    Set<int> hiddenLanguageIdxs = {};
     List<String> neighbors = [];
     List<String> countryNeighbors = [];
+    Set<int> hiddenNeighborsIdxs = {};
 
 
     int currQuizIdx = 0;
@@ -50,7 +62,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     int selectedCapitalIdx = -1;
     int selectedContinentIdx = -1;
     int selectedShapeIdx = -1;
-    int selectedPersonIdx = -1;
+    int selectedPersonIdx = 0;
     bool isPopulationSubmitted = false;
     bool isPopulationCorrect = false;
     double multiplier = 1;
@@ -59,8 +71,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     int minColors = 2;
     bool areColorsSubmitted = false;
     bool areColorsCorrect = false;
-    int isoChar1 = 0;
-    int isoChar2 = 0;
+    List<int> isoCharIdx = [0, 0];
     bool isIsoSubmitted = false;
     bool isIsoCorrect = true;
     String isLandlockedOrCoastal = '';
@@ -71,6 +82,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     Set<String> selectedNeighbors = {};
     bool areNeighborsSubmitted = false;
     bool areNeighborsCorrect = false;
+    bool isHintUsed = false;
 
     Country? country;
     GameQuiz? currQuiz;
@@ -136,7 +148,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                             child: Icon(
                                                 Icons.arrow_back,
                                                 color: AppTheme.MAIN_COLOR,
-                                                size: 20,
+                                                size: 20
                                             ),
                                             decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -145,39 +157,47 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                             )
                                         )
                                     ),
-                                    Container(
-                                        padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                        height: 35,
-                                        child: Row(
-                                            children: [
-                                                SizedBox(
-                                                    width: 20,
-                                                    child: Image(
-                                                        image: AssetImage('assets/hint.png'), fit: BoxFit.contain)
-                                                ),
-                                                SizedBox(
-                                                    width: 10
-                                                ),
-                                                AnimatedBuilder(
-                                                    animation: hintsAnimation!,
-                                                    builder: (BuildContext context, Widget? child) {
-                                                        return Text(
-                                                            hintsAnimation!.value.toInt().toString(),
-                                                            style: TextStyle(
-                                                                fontFamily: 'Segoe UI',
-                                                                fontSize: 20,
-                                                                color: Color(0xFFFFD517),
-                                                                fontWeight: FontWeight.w700
-                                                            )
-                                                        );
-                                                    }
-                                                )
-                                            ]
+                                    TextButton(
+                                        style: TextButton.styleFrom(
+                                            padding: EdgeInsets.all(0)
                                         ),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            shape: BoxShape.rectangle,
-                                            borderRadius: BorderRadius.all(Radius.circular(30))
+                                        onPressed: () => {
+                                            showHintsDialog()
+                                        },
+                                        child: Container(
+                                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                            height: 35,
+                                            child: Row(
+                                                children: [
+                                                    SizedBox(
+                                                        width: 20,
+                                                        child: Image(
+                                                            image: AssetImage('assets/hint.png'), 
+                                                            fit: BoxFit.contain
+                                                        )
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                    AnimatedBuilder(
+                                                        animation: hintsAnimation!,
+                                                        builder: (BuildContext context, Widget? child) {
+                                                            return Text(
+                                                                hintsAnimation!.value.toInt().toString(),
+                                                                style: TextStyle(
+                                                                    fontFamily: 'Segoe UI',
+                                                                    fontSize: 20,
+                                                                    color: Color(0xFFFFD517),
+                                                                    fontWeight: FontWeight.w700
+                                                                )
+                                                            );
+                                                        }
+                                                    )
+                                                ]
+                                            ),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius: BorderRadius.all(Radius.circular(30))
+                                            )
                                         )
                                     )
                                 ]
@@ -194,6 +214,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                         children: [
                                             Container(
                                                 height: 70,
+                                                width: MediaQuery.of(context).size.width,
                                                 child: FittedBox(fit: BoxFit.scaleDown,
                                                     child: Text(
                                                         countryTitle,
@@ -243,7 +264,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     initMode() {
-        switch (quizList[currQuizIdx]) {
+        isHintUsed = false;
+
+        switch (currQuiz!) {
             case GameQuiz.CAPITAL: {
                 initModeCapital();
                 break;
@@ -292,14 +315,12 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     initModeCapital() {
-        Set<String> capitalsSet = {};
-
-        capitalsSet.add(country!.capital);
-
+        Set<String> capitalsSet = {country!.capital};
+        List<Country> sameContinentCountries = CountriesList.countries.where((currCountry) => currCountry.continent == country!.continent).toList();
+        
         do {
-            int countryIdx = Random().nextInt(CountriesList.countries.length);
-
-            capitalsSet.add(CountriesList.countries[countryIdx].capital);
+            int countryIdx = Random().nextInt(sameContinentCountries.length);
+            capitalsSet.add(sameContinentCountries[countryIdx].capital);
         } while (capitalsSet.length < 4);
 
         capitals = capitalsSet.toList();
@@ -321,14 +342,12 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     initModeShape() {
-        Set<String> shapesSet = {};
-
-        shapesSet.add(country!.continent + '/' + country!.title);
-
+        Set<String> shapesSet = {(country!.continent + '/' + country!.title)};
+        List<Country> sameContinentCountries = CountriesList.countries.where((currCountry) => currCountry.continent == country!.continent).toList();
+        
         do {
-            int countryIdx = Random().nextInt(CountriesList.countries.length);
-
-            shapesSet.add(CountriesList.countries[countryIdx].continent + '/' + CountriesList.countries[countryIdx].title);
+            int countryIdx = Random().nextInt(sameContinentCountries.length);
+            shapesSet.add(sameContinentCountries[countryIdx].continent + '/' + sameContinentCountries[countryIdx].title);
         } while (shapesSet.length < 4);
 
         shapes = shapesSet.toList();
@@ -362,20 +381,18 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             }
         } while (true); 
 
-        populationRange = population.round() + 1 + Random().nextInt(4);
+        populationRange = population.round() + 2 + Random().nextInt(4);
 
         setState(() { });
     }
 
     initModeFlag() {
-        Set<String> flagsSet = {};
-
-        flagsSet.add(country!.continent + '/' + country!.title);
+        Set<String> flagsSet = {country!.continent + '/' + country!.title};
+        List<Country> sameContinentCountries = CountriesList.countries.where((currCountry) => currCountry.continent == country!.continent).toList();
 
         do {
-            int countryIdx = Random().nextInt(CountriesList.countries.length);
-
-            flagsSet.add(CountriesList.countries[countryIdx].continent + '/' + CountriesList.countries[countryIdx].title);
+            int countryIdx = Random().nextInt(sameContinentCountries.length);
+            flagsSet.add(sameContinentCountries[countryIdx].continent + '/' + sameContinentCountries[countryIdx].title);
         } while (flagsSet.length < 4);
 
         flags = flagsSet.toList();
@@ -416,17 +433,15 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     initModeLanguage() {
-        Set<String> languagesSet = {};
-
-        languagesSet.add(country!.languages[Random().nextInt(country!.languages.length)]);
+        Set<String> languagesSet = {country!.languages[Random().nextInt(country!.languages.length)]};
+        List<Country> sameContinentCountries = CountriesList.countries.where((currCountry) => currCountry.continent == country!.continent).toList();
 
         do {
-            int countryIdx = Random().nextInt(CountriesList.countries.length);
-            int languageIdx = Random().nextInt(CountriesList.countries[countryIdx].languages.length);
+            int countryIdx = Random().nextInt(sameContinentCountries.length);
+            int languageIdx = Random().nextInt(sameContinentCountries[countryIdx].languages.length);
 
-            if (country!.languages.contains(CountriesList.countries[countryIdx].languages[languageIdx])) continue;
-
-            languagesSet.add(CountriesList.countries[countryIdx].languages[languageIdx]);
+            if (country!.languages.contains(sameContinentCountries[countryIdx].languages[languageIdx])) continue;
+            languagesSet.add(sameContinentCountries[countryIdx].languages[languageIdx]);
         } while (languagesSet.length < 4);
 
         languages = languagesSet.toList();
@@ -442,9 +457,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             currQuiz = quizList[++currQuizIdx];
             initMode();
         } else {
-            Set<String> neighborsSet = {};
-
-            neighborsSet = countryNeighbors.map((neighbor) => CountriesList.getCountryByTitle(neighbor).continent + '/' + neighbor).toSet();
+            Set<String> neighborsSet = countryNeighbors.map((neighbor) => CountriesList.getCountryByTitle(neighbor).continent + '/' + neighbor).toSet();
 
             if (countryNeighbors.length <= 2) {
                 minNeighbors = countryNeighbors.length;
@@ -452,13 +465,13 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                 minNeighbors = 2 + Random().nextInt(countryNeighbors.length - 1);
             }
 
-            int totalOptions = neighborsSet.length + 1 + Random().nextInt(2);
+            int totalOptions = neighborsSet.length + 2 + Random().nextInt(2);
+            List<Country> sameContinentCountries = CountriesList.countries.where((currCountry) => currCountry.continent == country!.continent && currCountry.neighbors.isNotEmpty).toList();
+            
             do {
-                int countryIdx = Random().nextInt(CountriesList.countries.length);
-
-                if (country!.title == CountriesList.countries[countryIdx].title) continue;
-
-                neighborsSet.add(CountriesList.countries[countryIdx].continent + '/' + CountriesList.countries[countryIdx].title);
+                int countryIdx = Random().nextInt(sameContinentCountries.length);
+                if (country!.title == sameContinentCountries[countryIdx].title || country!.neighbors.contains(sameContinentCountries[countryIdx].title)) continue;
+                neighborsSet.add(sameContinentCountries[countryIdx].continent + '/' + sameContinentCountries[countryIdx].title);
             } while (neighborsSet.length < totalOptions);
 
             neighbors = neighborsSet.toList();
@@ -497,7 +510,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.RELIGION: return getModeReligionAnswers();
             case GameQuiz.LANGUAGE: return getModeLanguageAnswers();
             case GameQuiz.NEIGHBORS: return getModeNeighborsAnswers();
-
         }
     }
 
@@ -508,32 +520,36 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             answers.add(
                 Padding(
                     padding: EdgeInsets.only(bottom: i + 1 < capitals.length ? 20 : 0),
-                    child: Container(
-                        height: 50,
-                        alignment: Alignment.center,
-                        child: TextButton(
-                            onPressed: selectedCapitalIdx != -1 ? null : () { 
-                                verifyCapital(i);
-                            },
-                            style: TextButton.styleFrom(
-                                padding: EdgeInsets.all(0)
-                            ),
-                            child: Center(
-                                child: Text(
-                                    capitals.elementAt(i),
-                                    style: TextStyle(
-                                        fontFamily: 'Segoe UI',
-                                        fontSize: 20,
-                                        color: selectedCapitalIdx == - 1 || selectedCapitalIdx != i ? AppTheme.MAIN_COLOR : Colors.white,
-                                        fontWeight: FontWeight.w700
+                    child: AnimatedOpacity(
+                        duration: Duration(milliseconds: 500),
+                        opacity: hiddenCapitalsIdxs.contains(i) ? 0 : 1,
+                        child: Container(
+                            height: 50,
+                            alignment: Alignment.center,
+                            child: TextButton(
+                                onPressed: hiddenCapitalsIdxs.contains(i) || selectedCapitalIdx != -1 ? null : () { 
+                                    verifyCapital(i);
+                                },
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.all(0)
+                                ),
+                                child: Center(
+                                    child: Text(
+                                        capitals.elementAt(i),
+                                        style: TextStyle(
+                                            fontFamily: 'Segoe UI',
+                                            fontSize: 20,
+                                            color: selectedCapitalIdx == - 1 || selectedCapitalIdx != i ? AppTheme.MAIN_COLOR : Colors.white,
+                                            fontWeight: FontWeight.w700
+                                        )
                                     )
                                 )
+                            ),
+                            decoration: BoxDecoration(
+                                color: selectedCapitalIdx == - 1 || selectedCapitalIdx != i ? Colors.white : capitals[selectedCapitalIdx] == country!.capital ? Colors.green : Colors.red,
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.all(Radius.circular(30))
                             )
-                        ),
-                        decoration: BoxDecoration(
-                            color: selectedCapitalIdx == - 1 || selectedCapitalIdx != i ? Colors.white : capitals[selectedCapitalIdx] == country!.capital ? Colors.green : Colors.red,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(30))
                         )
                     )
                 )
@@ -557,19 +573,23 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             shrinkWrap: true,
             itemCount: continents.length,
             itemBuilder: (BuildContext context, int index) {
-                return TextButton(
-                    onPressed: selectedContinentIdx != -1 ? null : () { 
-                        verifyContinent(index);
-                    },
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0),
-                        backgroundColor: selectedContinentIdx != - 1 && selectedContinentIdx == index ? continents[selectedContinentIdx].contains(country!.continent) ? Colors.green : Colors.red : Colors.transparent
-                    ),
-                    child: SizedBox(
-                        child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Image(
-                                image: AssetImage('assets/continents/' + continents[index] + '.png')
+                return AnimatedOpacity(
+                    duration: Duration(milliseconds: 500),
+                    opacity: hiddenContinentIdxs.contains(index) ? 0 : 1,
+                    child: TextButton(
+                        onPressed: hiddenContinentIdxs.contains(index) || selectedContinentIdx != -1 ? null : () { 
+                            verifyContinent(index);
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                            backgroundColor: selectedContinentIdx != - 1 && selectedContinentIdx == index ? continents[selectedContinentIdx].contains(country!.continent) ? Colors.green : Colors.red : Colors.transparent
+                        ),
+                        child: SizedBox(
+                            child: Padding(
+                                padding: EdgeInsets.all(15),
+                                child: Image(
+                                    image: AssetImage('assets/continents/' + continents[index] + '.png')
+                                )
                             )
                         )
                     )
@@ -588,19 +608,23 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             shrinkWrap: true,
             itemCount: shapes.length,
             itemBuilder: (BuildContext context, int index) {
-                return TextButton(
-                    onPressed: selectedShapeIdx != -1 ? null : () { 
-                        verifyShape(index);
-                    },
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0),
-                        backgroundColor: selectedShapeIdx != - 1 && selectedShapeIdx == index ? shapes[selectedShapeIdx].contains(country!.title) ? Colors.green : Colors.red : Colors.transparent
-                    ),
-                    child: SizedBox(
-                        child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Image(
-                                image: AssetImage('assets/shapes/' + shapes[index] + '.png')
+                return AnimatedOpacity(
+                    duration: Duration(milliseconds: 500),
+                    opacity: hiddenShapeIdxs.contains(index) ? 0 : 1,
+                    child: TextButton(
+                        onPressed: hiddenShapeIdxs.contains(index) || selectedShapeIdx != -1 ? null : () { 
+                            verifyShape(index);
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                            backgroundColor: selectedShapeIdx != - 1 && selectedShapeIdx == index ? shapes[selectedShapeIdx].contains(country!.title) ? Colors.green : Colors.red : Colors.transparent
+                        ),
+                        child: SizedBox(
+                            child: Padding(
+                                padding: EdgeInsets.all(15),
+                                child: Image(
+                                    image: AssetImage('assets/shapes/' + shapes[index] + '.png')
+                                )
                             )
                         )
                     )
@@ -614,18 +638,21 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
         for (int i = 0; i < populationRange; i++) {
             population.add(
-                TextButton(
-                    onPressed: isPopulationSubmitted ? null : () {
-                        setState(() {
-                            selectedPersonIdx = i;
-                        });
-                    },
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0)
-                    ),
-                    child: SvgPicture.asset(
-                        i <= selectedPersonIdx ? 'assets/person_full.svg' : 'assets/person_empty.svg',
-                        height: 100
+                Visibility(
+                    visible: minPopulationIdx == -1 || minPopulationIdx <= i && i <= minPopulationIdx + 2 ? true : false,
+                    child: TextButton(
+                        onPressed: isPopulationSubmitted ? null : () {
+                            setState(() {
+                                selectedPersonIdx = i;
+                            });
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0)
+                        ),
+                        child: SvgPicture.asset(
+                            i <= selectedPersonIdx ? 'assets/person_full.svg' : 'assets/person_empty.svg',
+                            height: 100
+                        )
                     )
                 )
             );
@@ -640,7 +667,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             height: 50,
                             width: 50,
                             child: TextButton(
-                                onPressed: isPopulationSubmitted || selectedPersonIdx + 1 <= 0 ? null : () {
+                                onPressed: isPopulationSubmitted || selectedPersonIdx <= 0 || selectedPersonIdx <= minPopulationIdx ? null : () {
                                     setState(() {
                                         selectedPersonIdx -= 1;
                                     });
@@ -655,26 +682,29 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 )
                             ),
                             decoration: BoxDecoration(
-                                color:  Colors.white,
+                                color: Colors.white,
                                 shape: BoxShape.circle
                             )
                         ),
                         Container(
                             height: 50,
-                            width: 200,
+                            width: MediaQuery.of(context).size.width - 200,
                             child: TextButton(
                                 onPressed: isPopulationSubmitted ? null : verifyPopulation,
                                 style: TextButton.styleFrom(
                                     padding: EdgeInsets.all(0)
                                 ),
                                 child: Center(
-                                    child: Text(
-                                        '${trim0Trailing((selectedPersonIdx + 1) * multiplier)}',
-                                        style: TextStyle(
-                                            fontFamily: 'Segoe UI',
-                                            fontSize: 20,
-                                            color: isPopulationSubmitted ? Colors.white : AppTheme.MAIN_COLOR,
-                                            fontWeight: FontWeight.w700
+                                    child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                            '${trim0Trailing((selectedPersonIdx + 1) * multiplier)}',
+                                            style: TextStyle(
+                                                fontFamily: 'Segoe UI',
+                                                fontSize: 20,
+                                                color: isPopulationSubmitted ? Colors.white : AppTheme.MAIN_COLOR,
+                                                fontWeight: FontWeight.w700
+                                            )
                                         )
                                     )
                                 )
@@ -689,7 +719,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             height: 50,
                             width: 50,
                             child: TextButton(
-                                onPressed: isPopulationSubmitted || selectedPersonIdx + 1 >= populationRange ? null : () {
+                                onPressed: isPopulationSubmitted || selectedPersonIdx + 1 >= populationRange || (minPopulationIdx > -1 && selectedPersonIdx  >= minPopulationIdx + 2)  ? null : () {
                                     setState(() {
                                         selectedPersonIdx += 1;
                                     });
@@ -704,7 +734,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 )
                             ),
                             decoration: BoxDecoration(
-                                color:  Colors.white,
+                                color: Colors.white,
                                 shape: BoxShape.circle
                             )
                         )
@@ -733,21 +763,25 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             shrinkWrap: true,
             itemCount: flags.length,
             itemBuilder: (BuildContext context, int index) {
-                return TextButton(
-                    onPressed: selectedFlagIdx != -1 ? null : () { 
-                        verifyFlag(index);
-                    },
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0),
-                        backgroundColor: selectedFlagIdx != - 1 && selectedFlagIdx == index ? flags[selectedFlagIdx].contains(country!.title) ? Colors.green : Colors.red : Colors.transparent
-                    ),
-                    child: SizedBox(
-                        child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Image(
-                                    image: AssetImage('assets/flags/' + flags[index] + '.png')
+                return AnimatedOpacity(
+                    duration: Duration(milliseconds: 500),
+                    opacity: hiddenflagIdxs.contains(index) ? 0 : 1,
+                    child: TextButton(
+                        onPressed: hiddenflagIdxs.contains(index) || selectedFlagIdx != -1 ? null : () { 
+                            verifyFlag(index);
+                        },
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                            backgroundColor: selectedFlagIdx != - 1 && selectedFlagIdx == index ? flags[selectedFlagIdx].contains(country!.title) ? Colors.green : Colors.red : Colors.transparent
+                        ),
+                        child: SizedBox(
+                            child: Padding(
+                                padding: EdgeInsets.all(15),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image(
+                                        image: AssetImage('assets/flags/' + flags[index] + '.png')
+                                    )
                                 )
                             )
                         )
@@ -762,30 +796,33 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
         for (int i = 0; i < COLORS.length; i++) {
             colorMarkers.add(
-                AnimatedOpacity(
-                    duration: Duration(milliseconds: 500),
-                    opacity: selectedMarkers.contains(COLORS[i]) ? 1 : 0.5,
-                    child: TextButton(
-                        onPressed: areColorsSubmitted ? null : () {
-                            setState(() {
-                                if (selectedMarkers.contains(COLORS[i])) {
-                                    selectedMarkers.remove(COLORS[i]);
-                                } else {
-                                    selectedMarkers.add(COLORS[i]);
+                Visibility(
+                    visible: hiddenColors.contains(COLORS[i]) ? false : true,
+                    child: AnimatedOpacity(
+                        duration: Duration(milliseconds: 500),
+                        opacity: selectedMarkers.contains(COLORS[i]) ? 1 : 0.5,
+                        child: TextButton(
+                            onPressed: areColorsSubmitted ? null : () {
+                                setState(() {
+                                    if (selectedMarkers.contains(COLORS[i])) {
+                                        selectedMarkers.remove(COLORS[i]);
+                                    } else {
+                                        selectedMarkers.add(COLORS[i]);
 
-                                    if (selectedMarkers.length == minColors) {
-                                        verifyColors();
+                                        if (selectedMarkers.length == minColors) {
+                                            verifyColors();
+                                        }
                                     }
-                                }
-                            });
-                        },
-                        style: TextButton.styleFrom(
-                            padding: EdgeInsets.all(0),
-                            backgroundColor: areColorsSubmitted && selectedMarkers.contains(COLORS[i]) ? flagColors.contains(COLORS[i]) ? Colors.green : Colors.red : Colors.transparent 
-                        ),
-                        child: SvgPicture.asset(
-                            'assets/markers/${COLORS[i]}.svg',
-                            height: 100
+                                });
+                            },
+                            style: TextButton.styleFrom(
+                                padding: EdgeInsets.all(0),
+                                backgroundColor: areColorsSubmitted && selectedMarkers.contains(COLORS[i]) ? flagColors.contains(COLORS[i]) ? Colors.green : Colors.red : Colors.transparent 
+                            ),
+                            child: SvgPicture.asset(
+                                'assets/markers/${COLORS[i]}.svg',
+                                height: 100
+                            )
                         )
                     )
                 )
@@ -808,7 +845,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 borderRadius: BorderRadius.circular(15),
                                 child: Image(
                                     image: AssetImage('assets/flags/' + country!.continent + '/' + country!.title + '.png'),
-                                    color: Colors.black,
+                                    color: Colors.black
                                 )
                             )
                         )
@@ -853,20 +890,28 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)
                             ),
-                            color: isIsoSubmitted ? isoLetters[isoChar1] == country!.iso[0] ? Colors.green : Colors.red : Colors.white,
+                            color: isIsoSubmitted ? isoLetters[isoCharIdx[0]] == country!.iso[0] ? Colors.green : Colors.red : Colors.white,
                             child: Container(
                                 height: 100,
                                 width: 50,
-                                child: ListWheelScrollView.useDelegate(
+                                child: isoCharLockIdx == 0 ? Center(
+                                    child: Text(
+                                        isoLetters[isoCharIdx[0]],
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            color: isIsoSubmitted ? Colors.white : AppTheme.MAIN_COLOR
+                                        )
+                                    )
+                                ) : ListWheelScrollView.useDelegate(
                                     physics: isIsoSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
                                     perspective: 0.01,
                                     itemExtent: 50,
                                     childDelegate: ListWheelChildLoopingListDelegate(
-                                        children: getIsoLetters(isoChar1)
+                                        children: getIsoLetters(isoCharIdx[0])
                                     ),
                                     onSelectedItemChanged: (index) {
                                         setState(() {
-                                            isoChar1 = index;
+                                            isoCharIdx[0] = index;
                                         });
                                     }
                                 )
@@ -876,20 +921,28 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)
                             ),
-                            color: isIsoSubmitted ? isoLetters[isoChar2] == country!.iso[1] ? Colors.green : Colors.red : Colors.white,
+                            color: isIsoSubmitted ? isoLetters[isoCharIdx[1]] == country!.iso[1] ? Colors.green : Colors.red : Colors.white,
                             child: Container(
                                 height: 100,
                                 width: 50,
-                                child: ListWheelScrollView.useDelegate(
+                                child: isoCharLockIdx == 1 ? Center(
+                                    child: Text(
+                                        isoLetters[isoCharIdx[1]],
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            color: isIsoSubmitted ? Colors.white : AppTheme.MAIN_COLOR
+                                        )
+                                    )
+                                ) : ListWheelScrollView.useDelegate(
                                     physics: isIsoSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
                                     perspective: 0.01,
                                     itemExtent: 50,
                                     childDelegate: ListWheelChildLoopingListDelegate(
-                                        children: getIsoLetters(isoChar2)
+                                        children: getIsoLetters(isoCharIdx[1])
                                     ),
                                     onSelectedItemChanged: (index) {
                                         setState(() {
-                                            isoChar2 = index;
+                                            isoCharIdx[1] = index;
                                         });
                                     }
                                 )
@@ -901,7 +954,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         );
     }
 
-    List<Widget> getIsoLetters(int currIsoChar) {
+    List<Widget> getIsoLetters(int currIsoIdx) {
         List<Widget> answers = [];
 
         for (int i = 0; i < isoLetters.length; i++) {
@@ -910,7 +963,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                     isoLetters[i],
                     style: TextStyle(
                         fontSize: 30,
-                        color: isIsoSubmitted ? Colors.white : currIsoChar == i ? AppTheme.MAIN_COLOR : Colors.black
+                        color: isIsoSubmitted ? Colors.white : currIsoIdx == i ? AppTheme.MAIN_COLOR : Colors.black
                     )
                 )
             );
@@ -986,6 +1039,9 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
     Column getModeReligionAnswers() {
+        List<String> remainingReligions = List.from(RELIGIONS);
+        hiddenReligions.forEach((element) { remainingReligions.remove(element); });
+
         return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -1015,7 +1071,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)
                             ),
-                            color: isReligionSubmitted ? RELIGIONS[selectedReligionIdx] == country!.religion ? Colors.green : Colors.red : Colors.white,
+                            color: isReligionSubmitted ? remainingReligions[selectedReligionIdx] == country!.religion ? Colors.green : Colors.red : Colors.white,
                             child: RotatedBox(
                                 quarterTurns: 3,
                                 child: Container(
@@ -1046,7 +1102,10 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     List<Widget> getReligions() {
         List<Widget> answers = [];
 
-        for (int i = 0; i < RELIGIONS.length; i++) {
+        List<String> remainingReligions = List.from(RELIGIONS);
+        hiddenReligions.forEach((element) { remainingReligions.remove(element); });
+
+        for (int i = 0; i < remainingReligions.length; i++) {
             answers.add(
                 RotatedBox(
                     quarterTurns: 1,
@@ -1054,13 +1113,13 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                             SvgPicture.asset(
-                                'assets/religions/${RELIGIONS[i]}.svg',
+                                'assets/religions/${remainingReligions[i]}.svg',
                                 height: 50
                             ),
                             Padding(
                                 padding: EdgeInsets.only(top: 5),
                                 child: Text(
-                                    RELIGIONS[i],
+                                    remainingReligions[i],
                                     style: TextStyle(
                                         color: isReligionSubmitted ? Colors.white : Colors.black
                                     )
@@ -1082,32 +1141,36 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             answers.add(
                 Padding(
                     padding: EdgeInsets.only(bottom: i + 1 < languages.length ? 20 : 0),
-                    child: Container(
-                        height: 50,
-                        alignment: Alignment.center,
-                        child: TextButton(
-                            onPressed: selectedLanguageIdx != -1 ? null : () { 
-                                verifyLanguage(i);
-                            },
-                            style: TextButton.styleFrom(
-                                padding: EdgeInsets.all(0)
-                            ),
-                            child: Center(
-                                child: Text(
-                                    languages.elementAt(i),
-                                    style: TextStyle(
-                                        fontFamily: 'Segoe UI',
-                                        fontSize: 20,
-                                        color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? AppTheme.MAIN_COLOR : Colors.white,
-                                        fontWeight: FontWeight.w700
+                    child: AnimatedOpacity(
+                        duration: Duration(milliseconds: 500),
+                        opacity: hiddenLanguageIdxs.contains(i) ? 0 : 1,
+                        child: Container(
+                            height: 50,
+                            alignment: Alignment.center,
+                            child: TextButton(
+                                onPressed: hiddenLanguageIdxs.contains(i) || selectedLanguageIdx != -1 ? null : () { 
+                                    verifyLanguage(i);
+                                },
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.all(0)
+                                ),
+                                child: Center(
+                                    child: Text(
+                                        languages.elementAt(i),
+                                        style: TextStyle(
+                                            fontFamily: 'Segoe UI',
+                                            fontSize: 20,
+                                            color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? AppTheme.MAIN_COLOR : Colors.white,
+                                            fontWeight: FontWeight.w700
+                                        )
                                     )
                                 )
+                            ),
+                            decoration: BoxDecoration(
+                                color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? Colors.white : country!.languages.contains(languages[selectedLanguageIdx]) ? Colors.green : Colors.red,
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.all(Radius.circular(30))
                             )
-                        ),
-                        decoration: BoxDecoration(
-                            color: selectedLanguageIdx == - 1 || selectedLanguageIdx != i ? Colors.white : country!.languages.contains(languages[selectedLanguageIdx]) ? Colors.green : Colors.red,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(30))
                         )
                     )
                 )
@@ -1126,30 +1189,33 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
         for (int i = 0; i < neighbors.length; i++) {
             neighborsList.add(
-                AnimatedOpacity(
-                    duration: Duration(milliseconds: 500),
-                    opacity: selectedNeighbors.contains(neighbors[i]) ? 1 : 0.5,
-                    child: TextButton(
-                        onPressed: areNeighborsSubmitted ? null : () {
-                            setState(() {
-                                if (selectedNeighbors.contains(neighbors[i])) {
-                                    selectedNeighbors.remove(neighbors[i]);
-                                } else {
-                                    selectedNeighbors.add(neighbors[i]);
+                Visibility(
+                    visible: hiddenNeighborsIdxs.contains(i) ? false : true,
+                    child: AnimatedOpacity(
+                        duration: Duration(milliseconds: 500),
+                        opacity: selectedNeighbors.contains(neighbors[i]) ? 1 : 0.5,
+                        child: TextButton(
+                            onPressed: hiddenNeighborsIdxs.contains(i) || areNeighborsSubmitted ? null : () {
+                                setState(() {
+                                    if (selectedNeighbors.contains(neighbors[i])) {
+                                        selectedNeighbors.remove(neighbors[i]);
+                                    } else {
+                                        selectedNeighbors.add(neighbors[i]);
 
-                                    if (selectedNeighbors.length == minNeighbors) {
-                                        verifyNeighbors();
+                                        if (selectedNeighbors.length == minNeighbors) {
+                                            verifyNeighbors();
+                                        }
                                     }
-                                }
-                            });
-                        },
-                        style: TextButton.styleFrom(
-                            padding: EdgeInsets.all(0),
-                            backgroundColor: areNeighborsSubmitted && selectedNeighbors.contains(neighbors[i]) ? countryNeighbors.contains(neighbors[i].split('/')[1]) ? Colors.green : Colors.red : Colors.transparent 
-                        ),
-                        child: Image(
-                            image: AssetImage(
-                                'assets/shapes/${neighbors[i]}.png'
+                                });
+                            },
+                            style: TextButton.styleFrom(
+                                padding: EdgeInsets.all(0),
+                                backgroundColor: areNeighborsSubmitted && selectedNeighbors.contains(neighbors[i]) ? countryNeighbors.contains(neighbors[i].split('/')[1]) ? Colors.green : Colors.red : Colors.transparent 
+                            ),
+                            child: Image(
+                                image: AssetImage(
+                                    'assets/shapes/${neighbors[i]}.png'
+                                )
                             )
                         )
                     )
@@ -1205,7 +1271,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isGameFinished();
 
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1230,7 +1295,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isGameFinished();
 
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1255,7 +1319,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isGameFinished();
 
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1278,7 +1341,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             AudioPlayer.play(AudioList.WIN);
 
             country!.isEasySolved = true;
-
             if (gameMode == GameMode.HARD) {
                 country!.isHardSolved = true;
                 country!.isNormalSolved = true;
@@ -1304,7 +1366,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             isPopulationCorrect = true;
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1330,7 +1391,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isGameFinished();
 
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1356,7 +1416,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             areColorsCorrect = true;
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 1000), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1378,12 +1437,11 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     void verifyIso() {
         isIsoSubmitted = true;
 
-        if (isoLetters[isoChar1] + isoLetters[isoChar2] == country!.iso) {
+        if (isoLetters[isoCharIdx[0]] + isoLetters[isoCharIdx[1]] == country!.iso) {
             isGameFinished();
 
             isIsoCorrect = true;
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 1000), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1412,7 +1470,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             isIsoCorrect = true;
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 1000), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1434,12 +1491,14 @@ class GameState extends State<Game> with TickerProviderStateMixin {
      void verifyReligion() {
         isReligionSubmitted = true;
 
-        if (RELIGIONS[selectedReligionIdx] == country!.religion) {
+        List<String> remainingReligions = List.from(RELIGIONS);
+        hiddenReligions.forEach((element) { remainingReligions.remove(element); });
+
+        if (remainingReligions[selectedReligionIdx] == country!.religion) {
             isGameFinished();
 
             isIsoCorrect = true;
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 1000), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1465,7 +1524,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isGameFinished();
 
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 500), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1491,7 +1549,6 @@ class GameState extends State<Game> with TickerProviderStateMixin {
 
             areNeighborsCorrect = true;
             currQuizIdx++;
-
             if (currQuizIdx < totalModes) {
                 Future.delayed(Duration(milliseconds: 1000), () {
                     currQuiz = quizList[currQuizIdx];
@@ -1508,6 +1565,288 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         }
 
         setState(() { });
+    }
+
+    Future<void> showHintsDialog() {
+        return showGeneralDialog(
+            context: context,
+            barrierDismissible: true,
+            barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+            barrierColor: Colors.black54,
+            transitionDuration: const Duration(milliseconds: 200),
+            pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+                return WillPopScope(
+                    onWillPop: () {
+                        return Future.value(true);
+                    },
+                    child: StatefulBuilder(
+                        builder: (context, setState) {
+                            Widget hintButton(int minHints, String txt, Function action) {
+                                return Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 5),
+                                    child: Opacity(
+                                        opacity: hints >= minHints ? 1 : 0.6,
+                                        child: TextButton(
+                                            onPressed: hints >= minHints ? () {
+                                                hints -= minHints; 
+                                                action();
+                                                isHintUsed = true;
+                                                CountriesList.storeData();
+                                                
+                                                hintsAnimation = new Tween<double>(
+                                                    begin: hintsAnimation!.value,
+                                                    end: hints.toDouble()
+                                                ).animate(new CurvedAnimation(
+                                                    curve: Curves.fastOutSlowIn,
+                                                    parent: hintsController!
+                                                ));
+                                                hintsController!.forward(from: 0.0);
+
+                                                Navigator.pop(context);
+                                            } : null,
+                                            child: hintContainer(txt, null, minHints.toString())
+                                        )
+                                    )
+                                );
+                            }
+
+
+                            void getModeCapitalHint() {
+                                do {
+                                    int capitalIdx = Random().nextInt(capitals.length);
+                                    if (capitals[capitalIdx] != country!.capital) hiddenCapitalsIdxs.add(capitalIdx);
+                                } while (hiddenCapitalsIdxs.length != 2);
+                            }
+
+                            void getModeContinentHint() {
+                                do {
+                                    int continentIdx = Random().nextInt(continents.length);
+                                    if (continents[continentIdx] != country!.continent) hiddenContinentIdxs.add(continentIdx);
+                                } while (hiddenContinentIdxs.length != 2);
+                            }
+
+                            void getModeShapeHint() {
+                                do {
+                                    int shapeIdx = Random().nextInt(shapes.length);
+                                    if (!shapes[shapeIdx].contains(country!.title)) hiddenShapeIdxs.add(shapeIdx);
+                                } while (hiddenShapeIdxs.length != 2);
+                            }
+
+                            void getModeFlagHint() {
+                                do {
+                                    int flagIdx = Random().nextInt(flags.length);
+                                    if (!flags[flagIdx].contains(country!.title)) hiddenflagIdxs.add(flagIdx);
+                                } while (hiddenflagIdxs.length != 2);
+                            }
+
+                            void getModeIsoHint() {
+                                isoCharLockIdx = Random().nextInt(2);
+                                isoCharIdx[isoCharLockIdx] = isoLetters.indexOf(country!.iso[isoCharLockIdx]);
+                            }
+
+                            void getModeReligionHint() {
+                                do {
+                                    int religionIdx = Random().nextInt(RELIGIONS.length);
+                                    if (RELIGIONS[religionIdx] != country!.religion) hiddenReligions.add(RELIGIONS[religionIdx]);
+                                } while (hiddenReligions.length != 2);
+                            }
+
+                            void getModeLanguageHint() {
+                                do {
+                                    int languageIdx = Random().nextInt(languages.length);
+                                    if (!country!.languages.contains(languages[languageIdx])) hiddenLanguageIdxs.add(languageIdx);
+                                } while (hiddenLanguageIdxs.length != 2);
+                            }
+
+                            void getModeNeighborsHint() {
+                                do {
+                                    int neighborIdx = Random().nextInt(neighbors.length);
+                                    if (!country!.neighbors.contains(neighbors[neighborIdx].split('/')[1])) hiddenNeighborsIdxs.add(neighborIdx);
+                                } while (country!.neighbors.length + hiddenNeighborsIdxs.length + 1 < neighbors.length);
+                            }
+
+                            void getModeColorsHint() {
+                                do {
+                                    int colorIdx = Random().nextInt(COLORS.length);
+                                    if (!country!.colors.contains(COLORS[colorIdx])) hiddenColors.add(COLORS[colorIdx]);
+                                } while (country!.colors.length + hiddenColors.length + 1 < COLORS.length);
+                                selectedMarkers.removeAll(hiddenColors);
+                            }
+
+                            void getModePopulationHint() {
+                                minPopulationIdx = population.round() - 1 - Random().nextInt(3);
+                                if (selectedPersonIdx < minPopulationIdx) selectedPersonIdx = minPopulationIdx;
+                                if (selectedPersonIdx > minPopulationIdx + 2) selectedPersonIdx = minPopulationIdx + 2;
+                            }
+
+                            Widget getModeHintsButton(GameQuiz quiz) {
+                                if (isHintUsed) return SizedBox.shrink();
+
+                                switch (currQuiz!) {
+                                    case GameQuiz.CAPITAL: return hintButton(2, '50-50', getModeCapitalHint);
+                                    case GameQuiz.CONTINENT: return hintButton(2, '50-50', getModeContinentHint);
+                                    case GameQuiz.SHAPE: return hintButton(2, '50-50', getModeShapeHint);
+                                    case GameQuiz.POPULATION: return hintButton(2, 'Three of a Kind', getModePopulationHint);
+                                    case GameQuiz.FLAG: return hintButton(2, '50-50', getModeFlagHint);
+                                    case GameQuiz.COLORS: return hintButton(2, '1 irrelative color', getModeColorsHint);
+                                    case GameQuiz.ISO: return hintButton(2, 'Reveal 1 of the letters', getModeIsoHint);
+                                    case GameQuiz.LANDLOCKED: return SizedBox.shrink();
+                                    case GameQuiz.RELIGION: return hintButton(2, 'Three of a Kind', getModeReligionHint);
+                                    case GameQuiz.LANGUAGE: return hintButton(2, '50-50', getModeLanguageHint);
+                                    case GameQuiz.NEIGHBORS: return hintButton(2, '1 non-neighbor', getModeNeighborsHint);
+                                }
+                            }
+
+                            return Align(
+                                alignment: Alignment.topCenter,
+                                child: Padding(
+                                    padding: EdgeInsets.fromLTRB(20, 27, 20, 0),
+                                    child: Material(
+                                        type: MaterialType.transparency,
+                                        child: Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            height: isHintUsed ? 200 : 250,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: AppTheme.MAIN_COLOR
+                                            ),
+                                            child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                    Row(
+                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: [
+                                                            Container(
+                                                                padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                                                height: 35,
+                                                                child: Row(
+                                                                    children: [
+                                                                        SizedBox(
+                                                                            width: 20,
+                                                                            child: Image(image: AssetImage('assets/hint.png'), fit: BoxFit.contain)
+                                                                        ),
+                                                                        SizedBox(
+                                                                            width: 10
+                                                                        ),
+                                                                        AnimatedBuilder(
+                                                                            animation: hintsAnimation!,
+                                                                            builder: (BuildContext context, Widget? child) {
+                                                                                return Text(
+                                                                                    hintsAnimation!.value.toInt().toString(),
+                                                                                    style: TextStyle(
+                                                                                        fontFamily: 'Segoe UI',
+                                                                                        fontSize: 20,
+                                                                                        color: Color(0xFFFFD517),
+                                                                                        fontWeight: FontWeight.w700,
+                                                                                    )
+                                                                                );
+                                                                            }
+                                                                        )
+                                                                    ]
+                                                                ),
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors.white,
+                                                                    shape: BoxShape.rectangle,
+                                                                    borderRadius: BorderRadius.all(Radius.circular(30))
+                                                                )
+                                                            )
+                                                        ]
+                                                    ),
+                                                    Padding(
+                                                        padding: EdgeInsets.all(15),
+                                                        child: getModeHintsButton(currQuiz!)
+                                                    ),
+                                                    Padding(
+                                                        padding: EdgeInsets.all(15),
+                                                        child: TextButton(
+                                                            onPressed: () {
+                                                                setState(() {
+                                                                    getReward(RewardedAd rewardedAd, RewardItem rewardItem) {
+                                                                        hints += 10;
+                                                                        CountriesList.storeData();
+                                                                        hintsAnimation = new Tween<double>(
+                                                                            begin: hintsAnimation!.value,
+                                                                            end: hints.toDouble()
+                                                                        ).animate(new CurvedAnimation(
+                                                                            curve: Curves.fastOutSlowIn,
+                                                                            parent: hintsController!
+                                                                        ));
+                                                                    }
+                                                                    
+                                                                    AdManager.showRewardedAd(getReward);
+                                                                });
+                                                                hintsController!.forward(from: 0.0);
+                                                            },
+                                                            child: hintContainer(null, Icons.video_call, '+5')
+                                                        )
+                                                    )
+                                                ]
+                                            )
+                                        )
+                                    )
+                                )
+                            );
+                        }
+                    )
+                );
+            }
+        ).then((value) => setState(() { }));
+    }
+
+    Widget hintContainer(String? txt, IconData? icon, String hints) {
+            return Container(
+                height: 50,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                            txt != null ?
+                            Text(
+                                txt,
+                                style: TextStyle(
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 20,
+                                    color: AppTheme.MAIN_COLOR,
+                                    fontWeight: FontWeight.w700
+                                )
+                            )
+                            :
+                            Icon(
+                                icon,
+                                color: AppTheme.MAIN_COLOR,
+                                size: 40,
+                            ),
+                            Row(
+                                children: [
+                                    Text(
+                                        hints,
+                                        style: TextStyle(
+                                            fontFamily: 'Segoe UI',
+                                            fontSize: 20,
+                                            color: Color(0xFFFFD517),
+                                            fontWeight: FontWeight.w700,
+                                        ),
+                                        textAlign: TextAlign.center
+                                    ),
+                                    SizedBox( width: 5 ),
+                                    SizedBox(
+                                        width: 20,
+                                        child: Image(image: AssetImage('assets/hint.png'), fit: BoxFit.contain)
+                                    ),
+                                ]
+                            )
+                        ]
+                    )
+                ),
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(30))
+                )
+            );
     }
 }
 

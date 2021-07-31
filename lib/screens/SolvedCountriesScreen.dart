@@ -121,10 +121,10 @@ class SolvedCountriesState extends State<SolvedCountries> {
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
                                                     ModeDifficulty(event: () => navigate2GameScreen(GameMode.EASY), txt: 'Easy'),
-                                                    ModeDifficulty(event: () => navigate2GameScreen(GameMode.NORMAL), txt: 'Normal'),
+                                                    ModeDifficulty(event: () => navigate2GameScreen(GameMode.NORMAL), txt: 'Normal')
                                                 ]
                                             ),
-                                            ModeDifficulty(event: () => navigate2GameScreen(GameMode.HARD)),
+                                            ModeDifficulty(event: () => navigate2GameScreen(GameMode.HARD))
                                         ]
                                     )
                                 )
