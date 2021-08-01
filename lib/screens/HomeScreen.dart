@@ -6,6 +6,7 @@ import 'package:worldcountriesquiz/AdManager.dart';
 import 'package:worldcountriesquiz/screens/ContactScreen.dart';
 import 'package:worldcountriesquiz/screens/CountriesScreen.dart';
 import 'package:worldcountriesquiz/screens/StatisticsScreen.dart';
+import 'package:launch_review/launch_review.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -25,7 +26,7 @@ class HomeState extends State<Home> {
 
         CountriesList.init().then((value) => CountriesList.loadDataStorage());
 
-        // AdManager.initGoogleMobileAds();
+        AdManager.initGoogleMobileAds();
     }
 
 	@override
@@ -79,6 +80,27 @@ class HomeState extends State<Home> {
                                         screen: () => ContactScreen()
                                     )
                                 ]
+                            ),
+                            ButtonCard(
+                                height: 60,
+                                width: MediaQuery.of(context).size.width / 2,
+                                cardContent: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                        Text(
+                                            'Rate us',
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                color: AppTheme.MAIN_COLOR
+                                            )
+                                        ),
+                                        SvgPicture.asset(
+                                            'assets/like.svg',
+                                            height: 40
+                                        )
+                                    ]
+                                ),
+                                callback: () => LaunchReview.launch(androidAppId: "com.zirconworks.worldcountriesquiz")
                             )
                         ]
                     )
@@ -117,9 +139,10 @@ class ButtonCard extends StatelessWidget {
     final double height;
     final double width;
     final Widget cardContent;
-    final Function screen;
+    final Function? screen;
+    final Function? callback;
     
-    ButtonCard({required this.height, required this.width, required this.cardContent, required this.screen});
+    ButtonCard({required this.height, required this.width, required this.cardContent, this.screen, this.callback});
 
     @override
     Widget build(BuildContext context) {
@@ -132,12 +155,12 @@ class ButtonCard extends StatelessWidget {
                 height: height,
                 child: TextButton(
                     onPressed: () => {
-                        Navigator.push(
+                        screen != null ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => screen()
+                                builder: (context) => screen!()
                             )
-                        )
+                        ) : callback!()
                     },
                     child: Center(
                         child: cardContent

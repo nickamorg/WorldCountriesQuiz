@@ -12,7 +12,7 @@ import 'package:worldcountriesquiz/library.dart';
 class GameScreen extends StatelessWidget {
     final String countryTitle;
     final GameMode gameMode;
-    
+
     GameScreen({ Key? key, required this.countryTitle, required this.gameMode}) : super(key: key);
 
 	@override
@@ -83,6 +83,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     bool areNeighborsSubmitted = false;
     bool areNeighborsCorrect = false;
     bool isHintUsed = false;
+    int totalHearts = 0;
 
     Country? country;
     GameQuiz? currQuiz;
@@ -104,6 +105,8 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             curve: Curves.fastOutSlowIn,
             parent: hintsController!
         ));
+
+        AdManager.loadRewardedAd();
 
         countryTitle = widget.countryTitle;
         country = CountriesList.getCountryByTitle(countryTitle);
@@ -210,33 +213,41 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 child: Container(
                                     height: 130,
                                     padding: EdgeInsets.symmetric(horizontal: 20),
-                                    child: Column(
+                                    child: Stack(
                                         children: [
-                                            Container(
-                                                height: 70,
-                                                width: MediaQuery.of(context).size.width,
-                                                child: FittedBox(fit: BoxFit.scaleDown,
-                                                    child: Text(
-                                                        countryTitle,
+                                            Column(
+                                                children: [
+                                                    Container(
+                                                        height: 70,
+                                                        width: MediaQuery.of(context).size.width,
+                                                        child: FittedBox(fit: BoxFit.scaleDown,
+                                                            child: Text(
+                                                                countryTitle,
+                                                                style: TextStyle(
+                                                                    fontSize: 30,
+                                                                    color: AppTheme.MAIN_COLOR,
+                                                                    fontWeight: FontWeight.bold
+                                                                )
+                                                            )
+                                                        )
+                                                    ),
+                                                    FittedBox(
+                                                        child: ModesTracking(currQuizIdx: currQuizIdx, totalModes: totalModes),
+                                                    ),
+                                                    SizedBox(height: 10),
+                                                    Text(
+                                                        getCurrentModeDescription(),
                                                         style: TextStyle(
-                                                            fontSize: 30,
+                                                            fontSize: 20,
                                                             color: AppTheme.MAIN_COLOR,
                                                             fontWeight: FontWeight.bold
                                                         )
                                                     )
-                                                )
+                                                ]
                                             ),
-                                            FittedBox(
-                                                child: ModesTracking(currQuizIdx: currQuizIdx, totalModes: totalModes),
-                                            ),
-                                            SizedBox(height: 10),
-                                            Text(
-                                                getCurrentModeDescription(),
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: AppTheme.MAIN_COLOR,
-                                                    fontWeight: FontWeight.bold
-                                                )
+                                            Positioned(
+                                                top: 10,
+                                                child: Hearts(totalHearts: totalHearts)
                                             )
                                         ]
                                     )
@@ -258,8 +269,14 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     List<GameQuiz> initQuizDifficulty() {
         switch (gameMode) {
             case GameMode.EASY: return easyQuiz;
-            case GameMode.NORMAL: return normalQuiz;
-            case GameMode.HARD: return hardQuiz;
+            case GameMode.NORMAL: {
+                totalHearts = 1;
+                return normalQuiz;
+            }
+            case GameMode.HARD: {
+                totalHearts = 2;
+                return hardQuiz;
+            }
         }
     }
 
@@ -317,7 +334,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     initModeCapital() {
         Set<String> capitalsSet = {country!.capital};
         List<Country> sameContinentCountries = CountriesList.countries.where((currCountry) => currCountry.continent == country!.continent).toList();
-        
+
         do {
             int countryIdx = Random().nextInt(sameContinentCountries.length);
             capitalsSet.add(sameContinentCountries[countryIdx].capital);
@@ -491,7 +508,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             case GameQuiz.COLORS: return '$minColors Primary Color${minColors > 1 ? 's' : ''}';
             case GameQuiz.ISO: return 'ISO Code';
             case GameQuiz.LANDLOCKED: return 'Landlocked or Coastal';
-            case GameQuiz.RELIGION: return 'Religion';
+            case GameQuiz.RELIGION: return 'Major Religion';
             case GameQuiz.LANGUAGE: return country!.languages.length == 1 ? 'Language' : '1 of the official languages';
             case GameQuiz.NEIGHBORS: return '$minNeighbors Neighbor${minNeighbors > 1 ? 's' : ''}';
         }
@@ -840,7 +857,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                         ),
                         AnimatedOpacity(
                             duration: Duration(milliseconds: 500),
-                            opacity: areColorsSubmitted ? 0 : 0.92,
+                            opacity: areColorsSubmitted ? !areColorsCorrect && totalHearts > 0 ? 0.80 : 0 : 0.92,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
                                 child: Image(
@@ -1038,64 +1055,38 @@ class GameState extends State<Game> with TickerProviderStateMixin {
         );
     }
 
-    Column getModeReligionAnswers() {
+    Card getModeReligionAnswers() {
         List<String> remainingReligions = List.from(RELIGIONS);
         hiddenReligions.forEach((element) { remainingReligions.remove(element); });
 
-        return Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-                Padding(
-                    padding: EdgeInsets.only(bottom: 20),
+        return Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+            ),
+            color: isReligionSubmitted ? remainingReligions[selectedReligionIdx] == country!.religion ? Colors.green : Colors.red : Colors.white,
+            child: TextButton(
+                onPressed: isReligionSubmitted ? null : verifyReligion,
+                child: RotatedBox(
+                    quarterTurns: 3,
                     child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle
-                        ),
-                        child: TextButton(
-                            onPressed: isReligionSubmitted ? null : verifyReligion,
-                            child: Icon(
-                                Icons.check,
-                                color: AppTheme.MAIN_COLOR,
-                                size: 40
-                            )
+                        height: 240,
+                        width: 120,
+                        child: ListWheelScrollView.useDelegate(
+                            physics: isReligionSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
+                            perspective: 0.01,
+                            itemExtent: 120,
+                            childDelegate: ListWheelChildLoopingListDelegate(
+                                children: getReligions()
+                            ),
+                            onSelectedItemChanged: (index) {
+                                setState(() {
+                                    selectedReligionIdx = index;
+                                });
+                            }
                         )
                     )
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                        Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)
-                            ),
-                            color: isReligionSubmitted ? remainingReligions[selectedReligionIdx] == country!.religion ? Colors.green : Colors.red : Colors.white,
-                            child: RotatedBox(
-                                quarterTurns: 3,
-                                child: Container(
-                                    height: 240,
-                                    width: 120,
-                                    child: ListWheelScrollView.useDelegate(
-                                        physics: isReligionSubmitted ? NeverScrollableScrollPhysics() : FixedExtentScrollPhysics(),
-                                        perspective: 0.01,
-                                        itemExtent: 120,
-                                        childDelegate: ListWheelChildLoopingListDelegate(
-                                            children: getReligions()
-                                        ),
-                                        onSelectedItemChanged: (index) {
-                                            setState(() {
-                                                selectedReligionIdx = index;
-                                            });
-                                        }
-                                    )
-                                )
-                            )
-                        )
-                    ]
                 )
-            ]
+            )
         );
     }
 
@@ -1121,7 +1112,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 child: Text(
                                     remainingReligions[i],
                                     style: TextStyle(
-                                        color: isReligionSubmitted ? Colors.white : Colors.black
+                                        color: isReligionSubmitted ? Colors.white : selectedReligionIdx == i ? AppTheme.MAIN_COLOR : Colors.black
                                     )
                                 )
                             )
@@ -1281,7 +1272,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             AudioPlayer.play(AudioList.WRONG_ANSWER);
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1305,7 +1296,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             AudioPlayer.play(AudioList.WRONG_ANSWER);
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1329,23 +1320,74 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             AudioPlayer.play(AudioList.WRONG_ANSWER);
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
         setState(() { });
     }
 
+    void consumeHeartIfRemains() {
+        if (totalHearts > 0) {
+            totalHearts--;
+            selectedShapeIdx = -1;
+            selectedCapitalIdx = -1;
+            selectedContinentIdx = -1;
+            isPopulationSubmitted = false;
+            selectedFlagIdx = -1;
+            areColorsSubmitted = false;
+            selectedMarkers = {};
+            isIsoSubmitted = false;
+            isLandlockedOrCoastal = '';
+            isReligionSubmitted = false;
+            selectedLanguageIdx = -1;
+            areNeighborsSubmitted = false;
+            selectedNeighbors = {};
+
+            
+            setState(() { });
+        } else {
+            Navigator.of(context).pop(true);
+        }
+    }
+
     void isGameFinished() {
         if(currQuizIdx + 1 == quizList.length) {
             AudioPlayer.play(AudioList.WIN);
 
-            country!.isEasySolved = true;
-            if (gameMode == GameMode.HARD) {
+            int rewardHints = 0;
+
+            if (gameMode == GameMode.EASY) {
+                if (!country!.isEasySolved) {
+                    rewardHints = 1;
+                }
+            } else if (gameMode == GameMode.NORMAL) {
+                if (!country!.isEasySolved && !country!.isNormalSolved) {
+                    rewardHints = 3;
+                } else if (!country!.isNormalSolved) {
+                    rewardHints = 1;
+                }
+                country!.isNormalSolved = true;
+            } else if (gameMode == GameMode.HARD) {
+                if (!country!.isEasySolved && !country!.isNormalSolved && !country!.isHardSolved) {
+                    rewardHints = 6;
+                } else if (!country!.isNormalSolved && !country!.isHardSolved) {
+                    rewardHints = 4;
+                } else if (!country!.isHardSolved) {
+                    rewardHints = 1;
+                }
                 country!.isHardSolved = true;
                 country!.isNormalSolved = true;
-            } else if (gameMode == GameMode.NORMAL) {
-                country!.isNormalSolved = true;
+            }
+            country!.isEasySolved = true;
+            hints += rewardHints;
+
+            if (rewardHints > 0) {
+                final snackBar = SnackBar(
+                    duration: Duration(milliseconds: 500),
+                    content: Text("+$rewardHints hint${rewardHints > 1 ? 's' : ''}")
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
 
             CountriesList.storeData();
@@ -1377,7 +1419,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isPopulationCorrect = false;
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1401,7 +1443,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             AudioPlayer.play(AudioList.WRONG_ANSWER);
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1427,7 +1469,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             areColorsCorrect = false;
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1453,7 +1495,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isIsoCorrect = false;
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1481,7 +1523,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isIsoCorrect = false;
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1489,10 +1531,19 @@ class GameState extends State<Game> with TickerProviderStateMixin {
     }
 
      void verifyReligion() {
-        isReligionSubmitted = true;
-
         List<String> remainingReligions = List.from(RELIGIONS);
         hiddenReligions.forEach((element) { remainingReligions.remove(element); });
+        
+        if (selectedReligionIdx >= remainingReligions.length) {
+            final snackBar = SnackBar(
+                duration: Duration(milliseconds: 500),
+                content: Text('No selected religion')
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            return;
+        }
+
+        isReligionSubmitted = true;
 
         if (remainingReligions[selectedReligionIdx] == country!.religion) {
             isGameFinished();
@@ -1510,7 +1561,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             isIsoCorrect = false;
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1534,7 +1585,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             AudioPlayer.play(AudioList.WRONG_ANSWER);
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1560,7 +1611,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
             areColorsCorrect = false;
 
             Future.delayed(Duration(milliseconds: 1000), () {
-                Navigator.of(context).pop(true);
+                consumeHeartIfRemains();
             });
         }
 
@@ -1648,7 +1699,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                 do {
                                     int religionIdx = Random().nextInt(RELIGIONS.length);
                                     if (RELIGIONS[religionIdx] != country!.religion) hiddenReligions.add(RELIGIONS[religionIdx]);
-                                } while (hiddenReligions.length != 2);
+                                } while (RELIGIONS.length - hiddenReligions.length != 3);
                             }
 
                             void getModeLanguageHint() {
@@ -1762,7 +1813,7 @@ class GameState extends State<Game> with TickerProviderStateMixin {
                                                             onPressed: () {
                                                                 setState(() {
                                                                     getReward(RewardedAd rewardedAd, RewardItem rewardItem) {
-                                                                        hints += 10;
+                                                                        hints += 5;
                                                                         CountriesList.storeData();
                                                                         hintsAnimation = new Tween<double>(
                                                                             begin: hintsAnimation!.value,
@@ -1884,6 +1935,36 @@ class ModesTracking extends StatelessWidget {
         }
 
         return modesList;
+    }
+}
+
+class Hearts extends StatelessWidget {
+    final int totalHearts;
+    Hearts({required this.totalHearts});
+
+    @override
+    Widget build(BuildContext context) {
+        if (totalHearts == 0) return SizedBox.shrink();
+        if (totalHearts == 1) {
+            return SvgPicture.asset(
+                'assets/heart.svg',
+                height: 15
+            );
+        }
+
+        return Row(
+            children: [
+                SvgPicture.asset(
+                    'assets/heart.svg',
+                    height: 15
+                ),
+                SizedBox(width: 5),
+                SvgPicture.asset(
+                    'assets/heart.svg',
+                    height: 15
+                )
+            ]
+        );
     }
 }
 

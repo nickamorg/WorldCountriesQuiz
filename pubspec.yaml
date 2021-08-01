@@ -19,6 +19,7 @@ dependencies:
   audioplayers: ^0.19.1
   google_mobile_ads: ^0.13.2
   flutter_email_sender: ^5.0.2
+  launch_review: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,8 @@ flutter:
     - assets/devil.svg
     - assets/statistics.svg
     - assets/idea.svg
+    - assets/like.svg
+    - assets/heart.svg
 
     # Countries
     - assets/countries/Africa/Algeria.png
@@ -813,3 +816,5 @@ flutter:
     - assets/religions/Judaism.svg
     - assets/religions/Buddhism.svg
     - assets/religions/Hinduism.svg
+    - assets/religions/Atheism.svg
+    - assets/religions/Folk.svg

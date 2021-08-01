@@ -156,4 +156,4 @@ class CountriesList {
 	}
 }
 
-int hints = 9;
+int hints = 23;

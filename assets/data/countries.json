@@ -25,7 +25,7 @@
         "Andorra": {
             "Continent": "Europe",
             "Capital": "Andorra la Vella",
-            "ISO": "AL",
+            "ISO": "AD",
             "Colors": ["Yellow", "Red", "Blue"],
             "Population": 77397,
             "Landlocked": true,
@@ -57,7 +57,7 @@
         },
         "Belgium": {
             "Continent": "Europe",
-            "Capital": "Minsk",
+            "Capital": "Brussels",
             "ISO": "BE",
             "Colors": ["Yellow", "Black", "Red"],
             "Population": 11643883,
@@ -117,7 +117,7 @@
             "Colors": ["White", "Red", "Blue"],
             "Population": 10730261,
             "Landlocked": true,
-            "Religion": "Christianity",
+            "Religion": "Atheism",
             "Languages": ["Czech", "Slovak"],
             "Neighbors": ["Austria", "Germany", "Poland", "Slovakia"]
         },
@@ -139,7 +139,7 @@
             "Colors": ["White", "Black", "Blue"],
             "Population": 1327489,
             "Landlocked": false,
-            "Religion": "Christianity",
+            "Religion": "Atheism",
             "Languages": ["Estonian"],
             "Neighbors": ["Latvia", "Russia"]
         },
@@ -655,7 +655,7 @@
             "Capital": "N'Djamena",
             "ISO": "TD",
             "Colors": ["Red", "Yellow", "Blue"],
-            "Population": 4922502,
+            "Population": 16963265,
             "Landlocked": true,
             "Religion": "Islam",
             "Languages": ["Arabic", "French"],
@@ -773,7 +773,7 @@
         },
         "Ghana": {
             "Continent": "Africa",
-            "Capital": "N'Djamena",
+            "Capital": "Accra",
             "ISO": "GH",
             "Colors": ["Red", "Yellow", "Black", "Green"],
             "Population": 31793933,
@@ -1139,7 +1139,7 @@
             "Capital": "Tunis",
             "ISO": "TN",
             "Colors": ["Red", "White"],
-            "Population": 99006,
+            "Population": 11954891,
             "Landlocked": false,
             "Religion": "Islam",
             "Languages": ["Arabic"],
@@ -1827,7 +1827,7 @@
             "Population": 17581,
             "Landlocked": false,
             "Religion": "Christianity",
-            "Languages": ["English, Cook Islands Māori"],
+            "Languages": ["English", "Cook Islands Māori"],
             "Neighbors": []
         },
         "Fiji": {
@@ -1903,7 +1903,7 @@
             "Colors": ["Blue", "White", "Red"],
             "Population": 4865002,
             "Landlocked": false,
-            "Religion": "Christianity",
+            "Religion": "Atheism",
             "Languages": ["English", "Māori"],
             "Neighbors": []
         },
@@ -2124,7 +2124,7 @@
             "Colors": ["Yellow", "Red"],
             "Population": 1445360275,
             "Landlocked": false,
-            "Religion": "Irreligion",
+            "Religion": "Atheism",
             "Languages": ["Chinese"],
             "Neighbors": ["Afghanistan", "Bhutan", "Myanmar", "Hong Kong", "India", "Kazakhstan", "North Korea", "Kyrgyzstan", "Laos", "Macau", "Mongolia", "Pakistan", "Russia", "Tajikistan", "Vietnam"]
         },
@@ -2147,7 +2147,7 @@
             "Population": 544,
             "Landlocked": false,
             "Religion": "Islam",
-            "Languages": ["Irreligion"],
+            "Languages": ["Atheism"],
             "Neighbors": []
         },
         "Georgia": {
@@ -2168,7 +2168,7 @@
             "Colors": ["Red", "White"],
             "Population": 7563557,
             "Landlocked": false,
-            "Religion": "Irreligion",
+            "Religion": "Atheism",
             "Languages": ["English", "Chinese"],
             "Neighbors": ["China"]
         },
@@ -2234,7 +2234,7 @@
             "Colors": ["Red", "White"],
             "Population": 126061203,
             "Landlocked": false,
-            "Religion": "Irreligion",
+            "Religion": "Atheism",
             "Languages": ["Japanese"],
             "Neighbors": []
         },
@@ -2267,7 +2267,7 @@
             "Colors": ["Red", "Blue", "Black", "White"],
             "Population": 51316847,
             "Landlocked": false,
-            "Religion": "Irreligion",
+            "Religion": "Atheism",
             "Languages": ["Korean"],
             "Neighbors": ["North Korea"]
         },
@@ -2322,7 +2322,7 @@
             "Colors": ["Green", "Yellow", "White"],
             "Population": 659123,
             "Landlocked": false,
-            "Religion": "Buddhism",
+            "Religion": "Folk",
             "Languages": ["Chinese", "Portuguese"],
             "Neighbors": ["China"]
         },
@@ -2388,7 +2388,7 @@
             "Colors": ["Red", "Blue", "White"],
             "Population": 25901644,
             "Landlocked": false,
-            "Religion": "Irreligion",
+            "Religion": "Atheism",
             "Languages": ["Korean"],
             "Neighbors": ["China", "South Korea", "Russia"]
         },
@@ -2509,7 +2509,7 @@
             "Colors": ["Red", "Blue", "White"],
             "Population": 23863424,
             "Landlocked": false,
-            "Religion": "Buddhism",
+            "Religion": "Folk",
             "Languages": ["Chinese"],
             "Neighbors": []
         },
@@ -2597,7 +2597,7 @@
             "Colors": ["Red", "Yellow"],
             "Population": 98168833,
             "Landlocked": false,
-            "Religion": "Irreligion",
+            "Religion": "Folk",
             "Languages": ["Vietnamese"],
             "Neighbors": ["Cambodia", "China", "Laos"]
         },

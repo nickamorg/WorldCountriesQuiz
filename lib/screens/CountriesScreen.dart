@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:worldcountriesquiz/AdManager.dart';
 import 'package:worldcountriesquiz/AppTheme.dart';
 import 'package:worldcountriesquiz/Countries.dart';
 import 'package:worldcountriesquiz/library.dart';
@@ -23,6 +24,13 @@ class CountriesState extends State<Countries> {
     String expandedCountry = '';
     String countriesOrContinents = '';
     double dy = 0;
+
+    @override
+	void initState() {
+		super.initState();
+
+        AdManager.loadInterstitialAd();
+	}
 
 	@override
     Widget build(BuildContext context) {

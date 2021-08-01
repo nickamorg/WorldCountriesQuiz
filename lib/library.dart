@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:worldcountriesquiz/AdManager.dart';
 
 enum GameMode { EASY, NORMAL, HARD }
 
@@ -7,7 +10,7 @@ enum GameQuiz { CAPITAL, CONTINENT, SHAPE, POPULATION, FLAG, COLORS, ISO, LANDLO
 
 const List<String> CONTINENTS = ['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'];
 
-const List<String> RELIGIONS = ['Christianity', 'Islam', 'Judaism', 'Buddhism', 'Hinduism'];
+const List<String> RELIGIONS = ['Christianity', 'Islam', 'Judaism', 'Buddhism', 'Hinduism', 'Atheism', 'Folk'];
 
 const List<String> COLORS = ['Black', 'Blue', 'Green', 'Red', 'White', 'Yellow', 'Orange'];
 
@@ -43,7 +46,30 @@ class ModeDifficulty extends StatelessWidget {
                     style: TextButton.styleFrom(
                         padding: EdgeInsets.all(0)
                     ),
-                    onPressed: () => event(),
+                    onPressed: () {
+                        int posibilityRange = 4;
+
+                        switch(txt) {
+                            case 'Easy': {
+                                posibilityRange = 12;
+                                break;
+                            }
+                            case 'Normal': {
+                                posibilityRange = 8;
+                                break;
+                            }
+                        }
+
+                        if (Random().nextInt(posibilityRange) == 3) {
+                            AdManager.showInterstitialAd();
+
+                            Future.delayed(Duration(milliseconds: 2000), () {
+                                event();
+                            });
+                        } else {
+                            event();
+                        }
+                    },
                     child: Center(
                         child: txt != null ? Text(
                             txt!,
